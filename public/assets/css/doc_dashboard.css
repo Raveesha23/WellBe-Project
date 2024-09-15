@@ -1,0 +1,97 @@
+.items{
+    display: flex;
+}
+
+.graph{
+    display: flex;
+    gap: 50px;
+}
+
+.container2{
+    display: block;
+}
+
+.stat{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.box{
+    text-align: center;
+    height: 100px;
+    border-radius: 10px;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.box-item img{
+    width: 50px;
+}
+
+.box-item p{
+    color: white;
+    font-size: 20px;
+}
+
+.checkUp{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+@media only screen and (max-width:1400px){
+    .checkUp{
+        font-size: 24px;
+        font-weight: 600;
+    }
+}
+
+@media only screen and (max-width:1100px){
+    .items{
+        display: block !important;
+    }
+
+    .graph{
+        margin-top: 50px;
+        margin-left: 20px;
+        gap: 15px;
+    }
+
+    .graph img{
+        min-width: 150px;
+    }
+}
+
+@media only screen and (max-width:800px){
+    .items{
+        display: block !important;
+    }
+
+    .graph{
+        display: block !important;
+        margin-top: 50px;
+        margin-left: 20px;
+    }
+
+    .graph > div{
+        margin-bottom: 20px;
+    }
+
+    .stat{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
+    }
+}
