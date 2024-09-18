@@ -12,136 +12,96 @@
 <body>
    <div class="dashboard-container">
       <!-- Sidebar -->
-      <div class="sidebar">
-         <div class="sidebar-logo">
-            <img src="../../../public/assets/images/logo.png">
-            <h2>WELLBE</h2>
-         </div>
-         <ul class="sidebar-menu">
-            <li>
-               <i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span>
-            </li>
-            <li class="active">
-               <i class="fas fa-list"></i><span class="menu-text">Requests</span>
-            </li>
-            <li>
-               <i class="fa-solid fa-comment-dots"></i><span class="menu-text">Chat</span>
-            </li>
-            <li>
-               <i class="fa-solid fa-gear"></i><span class="menu-text">Settings</span>
-            </li>
-            <li>
-               <i class="fas fa-sign-out-alt"></i><span class="menu-text">Logout</span>
-            </li>
-         </ul>
-      </div>
+      <?php include '../Components/Pharmacy/sidebar.php'; ?>
 
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
-         <header class="main-header">
-            <div class="header-left">
-               <h1>Medication Requests</h1>
-            </div>
-            <div class="header-right">
-               <div class="notification-icon">
-                  <i class="fas fa-bell"></i>
-                  <span class="notification-badge"></span>
-               </div>
-               <div class="user-details">
-                  <div class="user-avatar">
-                     <!-- User Avatar Icon -->
-                  </div>
-                  <div class="user-info">
-                     <p style="font-weight: bold;">K.S.Perera</p>
-                     <p style="padding-top:4px;color:#989898">Pharmacist</p>
-                  </div>
-               </div>
-            </div>
-         </header>
+         <?php include '../Components/Pharmacy/header.php'; ?>
 
          <!-- Dashboard Content -->
          <div class="dashboard-content">
             <h2>MEDICINES NEED TO BE GIVEN:</h2>
-            <table class="medication-table">
-               <thead>
-                  <tr>
-                     <th>Name of the Medication</th>
-                     <th>Dosage of the Medication</th>
-                     <th colspan="4">Number taken at a time</th>
-                     <th>Do not substitute</th>
-                     <th></th>
-                  </tr>
-                  <tr>
-                     <th></th>
-                     <th></th>
-                     <th>Morning</th>
-                     <th>Noon</th>
-                     <th>Night</th>
-                     <th>If Needed</th>
-                     <th></th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td>Medicine 1</td>
-                     <td>2 mg</td>
-                     <td>1</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td><input type="checkbox"></td>
-                     <td><input type="checkbox"></td>
-                  </tr>
-                  <tr>
-                     <td>Medicine 1</td>
-                     <td>2 mg</td>
-                     <td>1</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td><input type="checkbox"></td>
-                     <td><input type="checkbox"></td>
-                  </tr>
-                  <tr>
-                     <td>Medicine 1</td>
-                     <td>2 mg</td>
-                     <td>1</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td><input type="checkbox"></td>
-                     <td><input type="checkbox"></td>
-                  </tr>
-                  <tr>
-                     <td>Medicine 1</td>
-                     <td>2 mg</td>
-                     <td>1</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td>2</td>
-                     <td><input type="checkbox"></td>
-                     <td><input type="checkbox"></td>
-                  </tr>
-                  <!-- Add more rows as needed -->
-               </tbody>
-            </table>
+            <?php
+            if (isset($_GET['patientID'])) {
+               $patientID = $_GET['patientID'];
 
-            <!-- Remarks Section -->
-            <div class="remarks-section">
-               <h3>Remarks</h3>
-               <p>Patient Name: John Doe</p>
-               <p>Doctor Name: Dr. Smith</p>
-               <p>Date: <span id="currentDate"></span></p>
+               // Using dummy data instead of querying the database
+               if ($patientID == '56481321') {
+                  $patientName = 'John Doe';
+                  $doctorName = 'Dr. Smith';
+               } elseif ($patientID == '56481457') {
+                  $patientName = 'Jane Smith';
+                  $doctorName = 'Dr. Johnson';
+               } else {
+                  $patientName = 'Unknown';
+                  $doctorName = 'N/A';
+               }
 
-               <!-- Textarea for additional remarks -->
-               <textarea id="additionalRemarks" placeholder="Enter additional remarks..."></textarea>
-            </div>
+               // Output the medication table and remarks section
+               echo "<table class='medication-table'>
+                        <thead>
+                           <tr>
+                              <th>Name of the Medication</th>
+                              <th>Dosage of the Medication</th>
+                              <th colspan='4'>Number taken at a time</th>
+                              <th>Do not substitute</th>
+                              <th></th>
+                           </tr>
+                           <tr>
+                              <th></th>
+                              <th></th>
+                              <th>Morning</th>
+                              <th>Noon</th>
+                              <th>Night</th>
+                              <th>If Needed</th>
+                              <th></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Medicine 1</td>
+                              <td>2 mg</td>
+                              <td>1</td>
+                              <td>2</td>
+                              <td>2</td>
+                              <td>2</td>
+                              <td><input type='checkbox'></td>
+                              <td><input type='checkbox'></td>
+                           </tr>
+                           <tr>
+                              <td>Medicine 2</td>
+                              <td>5 mg</td>
+                              <td>1</td>
+                              <td>1</td>
+                              <td>1</td>
+                              <td>0</td>
+                              <td><input type='checkbox'></td>
+                              <td><input type='checkbox'></td>
+                           </tr>
+                           <!-- Add more rows as needed -->
+                        </tbody>
+                     </table>";
 
-            <div class="buttons">
-               <button class="btn done">Done</button>
-               <button class="btn remarks" id="remarksButton">Print</button>
-            </div>
+               // Remarks section
+               echo "<div class='remarks-section'>
+                        <h3>Remarks</h3>
+                        <p>Patient ID: {$patientID}</p>
+                        <p>Doctor Name: {$doctorName}</p>
+                        <p>Date: <span id='currentDate'></span></p>
+                        <textarea id='additionalRemarks' placeholder='Enter additional remarks...'></textarea>
+                     </div>";
+
+               // Buttons
+               echo "<div class='buttons'>
+                     <button class='btn done'>Done</button>
+                     <button class='btn remarks' id='remarksButton'>Print</button>
+                  </div>";
+            } else {
+               echo "<p>Invalid patient ID.</p>";
+            }
+            ?>
+
          </div>
       </div>
 

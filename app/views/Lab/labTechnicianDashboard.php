@@ -18,26 +18,7 @@
         <!-- Main Content -->
         <div class="main-content">
             <!-- Top Header -->
-            <header class="main-header">
-                <div class="header-left">
-                    <h1>Dashboard</h1>
-                </div>
-                <div class="header-right">
-                    <div class="notification-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge"></span>
-                    </div>
-                    <div class="user-details">
-                        <div class="user-avatar">
-                            <!-- User Avatar Icon -->
-                        </div>
-                        <div class="user-info">
-                            <p style="font-weight: bold;">K.S.Perera</p>
-                            <p style="padding-top:4px;color:#989898">Lab Technician</p>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <?php include '../Components/Lab/header.php'; ?>
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">

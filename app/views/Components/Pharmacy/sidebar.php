@@ -138,17 +138,17 @@
          <h2>WELLBE</h2>
       </div>
       <ul class="sidebar-menu">
-         <a href="../Lab/labTechnicianDashboard.php">
+         <a href="../Pharmacy/phamacistDashboard.php">
             <li>
                <i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span>
             </li>
          </a>
-         <a href="../Lab/labTestRequest.php">
+         <a href="../Pharmacy/medicationRequestList.php">
             <li>
                <i class="fas fa-list"></i><span class="menu-text">Requests</span>
             </li>
          </a>
-         <a href="../Lab/message.php">
+         <a href="../Pharmacy/message.php">
             <li>
                <i class="fa-solid fa-comment-dots"></i><span class="menu-text">Chat</span>
             </li>

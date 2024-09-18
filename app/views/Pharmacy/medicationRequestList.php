@@ -13,53 +13,12 @@
 <body>
    <div class="dashboard-container">
       <!-- Sidebar -->
-      <div class="sidebar">
-         <div class="sidebar-logo">
-            <img src="../../../public/assets/images/logo.png">
-            <h2>WELLBE</h2>
-         </div>
-         <ul class="sidebar-menu">
-            <li>
-               <i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span>
-            </li>
-            <li class="active">
-               <i class="fas fa-list"></i><span class="menu-text">Requests</span>
-            </li>
-            <li>
-               <i class="fa-solid fa-comment-dots"></i><span class="menu-text">Chat</span>
-            </li>
-            <li>
-               <i class="fa-solid fa-gear"></i><span class="menu-text">Settings</span>
-            </li>
-            <li>
-               <i class="fas fa-sign-out-alt"></i><span class="menu-text">Logout</span>
-            </li>
-         </ul>
-      </div>
+      <?php include '../Components/Pharmacy/sidebar.php'; ?>
 
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
-         <header class="main-header">
-            <div class="header-left">
-               <h1>Medication Requests</h1>
-            </div>
-            <div class="header-right">
-               <div class="notification-icon">
-                  <i class="fas fa-bell"></i>
-                  <span class="notification-badge"></span>
-               </div>
-               <div class="user-details">
-                  <div class="user-avatar">
-                     <!-- User Avatar Icon -->
-                  </div>
-                  <div class="user-info">
-                     <p style="font-weight: bold;">K.S.Perera</p>
-                     <p style="padding-top:4px;color:#989898">Pharmacist</p>
-                  </div>
-               </div>
-            </div>
-         </header>
+         <?php include '../Components/Pharmacy/header.php'; ?>
 
          <!-- Dashboard Content -->
          <div class="dashboard-content">
@@ -85,73 +44,19 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr class="active-row">
+                     <tr data-patient-id="56481321">
                         <td>9:30 AM</td>
                         <td>05/12/2022</td>
                         <td>56481321</td>
                         <td>Dr. John</td>
                      </tr>
-                     <tr>
+                     <tr data-patient-id="56481457">
                         <td>9:30 AM</td>
                         <td>05/12/2022</td>
                         <td>56481457</td>
                         <td>Dr. Joel</td>
                      </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
-                     <tr>
+                     <tr data-patient-id="56481457">
                         <td>9:30 AM</td>
                         <td>05/12/2022</td>
                         <td>56481457</td>
@@ -174,7 +79,7 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr class="active-row">
+                     <tr>
                         <td>2:00 PM</td>
                         <td>03/11/2022</td>
                         <td>56481456</td>
@@ -186,114 +91,7 @@
                         <td>56481234</td>
                         <td>Dr. David</td>
                      </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
+
                      <!-- More Completed Requests Rows Here -->
                   </tbody>
                </table>
@@ -310,6 +108,18 @@
          </div>
       </div>
       <script src="../../../public/assets/js/Pharmacy/medicationRequestList.js"></script>
+      <script>
+         // Add event listener for each table row
+         document.querySelectorAll('.requests-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+               const patientID = this.getAttribute('data-patient-id');
+               if (patientID) {
+                  // Redirect to the details.php page with patientID as a query parameter
+                  window.location.href = `medicationDetails.php?patientID=${patientID}`;
+               }
+            });
+         });
+      </script>
 </body>
 
 </html>

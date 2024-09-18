@@ -89,12 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
    function addRowClickListeners() {
       const completedRequestsTable = document.querySelector('#completed-requests');
+
       if (!completedRequestsTable) return;
 
       const rows = completedRequestsTable.querySelectorAll('tbody tr');
+
       rows.forEach(row => {
          row.addEventListener('click', function () {
             const patientId = this.querySelector('td:nth-child(3)').textContent;
+
             openReportPopup(patientId);
          });
       });
@@ -117,6 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
    };
 
+   // Call the function to add event listeners once the DOM is fully loaded
+   document.addEventListener("DOMContentLoaded", addRowClickListeners);
+
    window.closeReportPopup = function () {
       const modal = document.getElementById('reportPopup');
       if (modal) {
@@ -133,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
          const file = event.target.files[0];  // Get the selected file
          if (file) {
             const patientId = document.getElementById('patientId').innerText;
+
             if (!patientId) {
                alert('Patient ID is missing.');
                return;
@@ -168,27 +175,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
    function loadReports(patientId) {
       const reportTableBody = document.getElementById('reportTableBody');
-      if (!reportTableBody) return;
       reportTableBody.innerHTML = '';
 
       const reports = uploadedReports[patientId] || [];
       reports.forEach(report => {
          const row = document.createElement('tr');
          row.innerHTML = `
-                <td>
-                    <div style="display: flex; align-items: center; width: 100%;">
-                        <div class="file-info">
-                            <i style="margin-right: 5px" class="fa-solid fa-file"></i>
-                            ${report.name}
-                        </div>
-                        <div class="document-actions">
-                            <button onclick="printReport('${report.url}')"><i class="fa fa-print"></i></button>
-                            <button onclick="viewReport('${report.url}', '${report.name}', '${patientId}')"><i class="fa fa-eye"></i></button>
-                            <button onclick="deleteReport('${patientId}', '${report.name}')"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </td>
+               <td>
+                  <div style="display: flex; align-items: center; width: 100%;">
+                     <div class="file-info">
+                        <i style="margin-right: 5px" class="fa-solid fa-file"></i>
+                        ${report.name}
+                     </div>
+                     <div class="document-actions">
+                        <button onclick="printReport('${report.url}')"><i class="fa fa-print"></i></button>
+                        <button onclick="viewReport('${report.url}', '${report.name}', '${patientId}')"><i class="fa fa-eye"></i></button>
+                        <button onclick="deleteReport('${patientId}', '${report.name}')"><i class="fa fa-trash"></i></button>
+                     </div>
+                  </div>
+               </td>
             `;
+
          reportTableBody.appendChild(row);
       });
    }
@@ -198,7 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
       loadReports(patientId);
    };
 
+   // Function to print the report along with comments
    window.printReport = function (reportUrl) {
+      // Get the patientId to retrieve the correct report
       const patientId = document.getElementById('patientId').innerText;
       const reports = uploadedReports[patientId] || [];
       const lastReport = reports.find(report => report.url === reportUrl);
@@ -209,21 +218,27 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const contentToPrint = lastReport.updatedContent || 'No content available for printing.';
+
+      // Open a new window to print the content
       const printWindow = window.open('', '_blank');
       printWindow.document.write(`
-            <html>
-            <head><title>Print Report</title></head>
-            <body>
-                <pre>${contentToPrint}</pre>
-            </body>
-            </html>
-        `);
+      <html>
+      <head><title>Print Report</title></head>
+      <body>
+         <pre>${contentToPrint}</pre>
+      </body>
+      </html>
+   `);
+
       printWindow.document.close();
       printWindow.focus();
+
+      // Ensure the window is fully loaded before invoking the print dialog
       printWindow.onload = function () {
          printWindow.print();
       };
    };
+
 
    window.viewReport = function (reportUrl, reportName, patientId) {
       const modal = document.getElementById('filePreviewModal');
@@ -232,23 +247,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (modal) {
          modal.style.display = 'block';
+
          filePreview.innerHTML = `<embed src="${reportUrl}" type="application/pdf" width="100%" height="100%">`;
 
          const report = uploadedReports[patientId].find(report => report.name === reportName);
-         commentsField.value = report && report.comments ? report.comments : '';
+         if (report && report.comments) {
+            commentsField.value = report.comments;
+         } else {
+            commentsField.value = '';
+         }
       }
    };
 
    window.saveReports = function () {
       const patientId = document.getElementById('patientId').innerText;
+
       if (uploadedReports[patientId] && uploadedReports[patientId].length > 0) {
          uploadedReports[patientId].forEach(report => {
             const commentsField = document.getElementById('comments');
             report.comments = commentsField.value;
          });
+
          alert('Reports saved successfully.');
-      } else {
-         alert('No reports to save.');
+         closeFilePreviewModal();  // Close the modal after saving
       }
    };
 
@@ -258,11 +279,38 @@ document.addEventListener("DOMContentLoaded", function () {
          modal.style.display = 'none';
       }
    };
-
-   window.closeReportPopup = function () {
-      const modal = document.getElementById('reportPopup');
-      if (modal) {
-         modal.style.display = 'none';
-      }
-   };
 });
+
+// Function to save comments
+window.saveFileComments = function () {
+   const comments = document.getElementById('comments').value;
+
+   if (!comments) {
+      alert('Please add some comments.');
+      return;
+   }
+
+   // Get the patientId to associate the comment with the correct file
+   const patientId = document.getElementById('patientId').innerText;
+   const reports = uploadedReports[patientId] || [];
+
+   if (reports.length === 0) {
+      alert('No file found to add comments.');
+      return;
+   }
+
+   // Get the last report (assuming comments are being added to the last uploaded file)
+   const lastReport = reports[reports.length - 1];
+   const reportUrl = lastReport.url;
+
+   // Example: Simulating adding comments at the end of a file content
+   // Assuming the file is a text or PDF, you would need to modify the actual file content (this is a simplified approach)
+   const updatedFileContent = `File Content...\n\n---\nComments: ${comments}`;
+
+   // Simulate saving the updated file
+   lastReport.updatedContent = updatedFileContent;  // You can process or send this to the backend
+   alert('Comments saved and added to the file.');
+   closeFilePreview();
+};
+
+
