@@ -1,0 +1,516 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 80px;
+    /* Show icons only */
+    background-color: #172554;
+    color: white;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    /* Expands on hover */
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.sidebar-logo h2 {
+    margin-left: 10px;
+    font-size: 30px;
+    color: #00C67A;
+}
+
+.sidebar-logo img {
+    margin-left: 5px;
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    padding: 20px 0;
+    margin-left: 10px;
+    margin-top: 20px;
+    ;
+}
+
+.sidebar-menu li {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.sidebar-menu li:hover {
+    background-color: #1C407F;
+    border-radius: 30px 0 0 30px;
+}
+
+.sidebar-menu li.active {
+    background-color: #fff;
+    color: #172554;
+    font-weight: bold;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 30px 0 0 30px;
+}
+
+
+.sidebar-menu li i {
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.menu-text {
+    display: none;
+    /* Hidden by default */
+    font-size: 14px;
+}
+
+.sidebar:hover .menu-text {
+    display: inline;
+    /* Show on hover */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.menu-item i {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.menu-text {
+    display: none;
+    /* Hidden by default */
+    font-size: 16px;
+}
+
+.sidebar .menu-text {
+    display: inline;
+    /* Show on hover */
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    background-color: #f0f8ff;
+    /* Light blue background */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f8ff;
+    /* Light blue background */
+    border-bottom: 2px solid #d1d9f1;
+}
+
+.header-left h1 {
+    font-size: 24px;
+    color: #172554;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d1d9f1;
+    /* Placeholder for avatar */
+    margin-right: 10px;
+}
+
+.user-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #172554;
+}
+
+.notification-icon {
+    position: relative;
+    padding-top: 6px;
+    font-size: 28px;
+    /* Adjust size if needed */
+    color: #a0a0a0;
+
+}
+
+.notification-badge {
+    position: absolute;
+    top: 3px;
+    right: -4px;
+    width: 14px;
+    /* Adjust size if needed */
+    height: 14px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+
+/* Dashboard Content */
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    /* Main content area white background */
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.welcome-message {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.cards-container {
+    margin-top: 15px;
+    display: inline-flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    justify-content: space-between;
+    display: flex;
+    background-color: #f0f8ff;
+    /* Light blue background */
+    padding: 20px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    flex-wrap: wrap;
+
+    height: 109px;
+    gap: 10px;
+    /* Space between the circle and the text */
+    flex-wrap: nowrap;
+    /* Prevents text from wrapping */
+}
+
+.card p {
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.card:last-child {
+    margin-right: 0;
+}
+
+.circle-background {
+    position: relative;
+    display: inline-block;
+    background-color: #f0f8ff;
+    border-radius: 50%;
+    box-shadow: 5px 5px 20px rgba(7, 7, 7, 0.1);
+    margin-bottom: 10px;
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: rgb(16, 16, 16);
+    /* Adjust the color as needed */
+}
+
+.content-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.dashboard {
+    flex: 1;
+}
+
+.messages {
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.messages h3 {
+    font-size: 18px;
+    color: #172554;
+    margin-bottom: 10px;
+}
+
+.messages ul {
+    list-style-type: none;
+}
+
+.messages ul li {
+    margin-bottom: 10px;
+    color: #172554;
+}
+
+.new-request {
+    background-color: #00C38F;
+}
+
+.ongoing {
+    background-color: #8765FA;
+}
+
+.completed {
+    background-color: #5D93FF;
+}
+
+.sidebar-bottom {
+    margin-top: 200px;
+}
+
+.topbar {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.search-bar {
+    margin-top: 14px;
+    margin-right: 14%;
+}
+
+.search-bar input {
+    /* border-color: #dadada; */
+    border-style: none;
+    background-color: #EBF5FF;
+    padding: 10px;
+    border-radius: 25px;
+    width: 260px;
+    height: 45px;
+}
+
+.search-bar button {
+    border: none;
+    cursor: pointer;
+    margin-left: -40px;
+
+}
+
+.fa-solid.fa-magnifying-glass {
+    font-weight: 900;
+    background-color: #EBF5FF;
+    padding: 2px;
+}
+
+
+
+.calendar-container {
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 40%;
+}
+
+.calendar-header {
+    margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+    font-size: 18px;
+    color: #172554;
+    margin-bottom: 10px;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-nav span {
+    font-size: 20px;
+    color: #1b2748;
+}
+
+.calendar-nav button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #1b2748;
+    cursor: pointer;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th,
+.calendar-table td {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #333;
+}
+
+.calendar-table th {
+    font-weight: bold;
+    color: #1b2748;
+}
+
+.calendar-table td {
+
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.calendar-table td.inactive {
+    color: #b0b0b0;
+    /* Dim color for other month's dates */
+}
+
+.date {
+    flex: 1;
+    text-align: right;
+}
+
+/*Request table*/
+.medication-requests {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .see-all {
+    color: #683CFC;
+}
+
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.request-table th,
+.request-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.status {
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+    display: inline-block;
+}
+
+.progress {
+    background-color: #FFE351;
+    /* Yellow box */
+}
+
+.pending {
+    background-color: #CBE2FF;
+    /* Blue box */
+}
+
+/*message part*/
+/* Contact list table styling */
+.contact-list {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #E6EFFF;
+    /* Light blue background */
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Table header styling */
+.contact-list th {
+    background-color: #FFFFFF;
+    /* White background for table header */
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Table data (contact details) styling */
+.contact-list td {
+    background-color: #FFFFFF;
+    /* White background for table data */
+    padding: 10px;
+    text-align: left;
+}
+
+/* Unread messages badge styling */
+.unread-messages {
+    background-color: #CBE2FF;
+    /* Blue background for notification badge */
+    color: #683CFC;
+    /* White text for notification number */
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    justify-content: center;
+    justify-items: center;
+}
