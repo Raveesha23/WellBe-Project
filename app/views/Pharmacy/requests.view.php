@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard</title>
-   <link rel="stylesheet" href="../../../public/assets/css/Pharmacy/medicationRequestList.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/Pharmacy/medicationRequestList.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
@@ -13,12 +13,13 @@
 <body>
    <div class="dashboard-container">
       <!-- Sidebar -->
-      <?php include '../Components/Pharmacy/sidebar.php'; ?>
-
+      <?php
+      $this->renderComponent('navbar', $active);
+      ?>
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
-         <?php include '../Components/Pharmacy/header.php'; ?>
+         <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
 
          <!-- Dashboard Content -->
          <div class="dashboard-content">
@@ -107,7 +108,7 @@
             </div>
          </div>
       </div>
-      <script src="../../../public/assets/js/Pharmacy/medicationRequestList.js"></script>
+      <script src="<?= ROOT ?>/assets/js/Pharmacy/medicationRequestList.js"></script>
       <script>
          // Add event listener for each table row
          document.querySelectorAll('.requests-table tbody tr').forEach(row => {

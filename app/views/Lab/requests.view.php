@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard</title>
-   <link rel="stylesheet" href="../../../public/assets/css/Lab/labTestRequest.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/Lab/labTestRequest.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
    <script src="https://unpkg.com/pdf-lib"></script>
 </head>
@@ -13,12 +13,14 @@
 <body>
    <div class="dashboard-container">
       <!-- Sidebar -->
-      <?php include '../Components/Lab/sidebar.php'; ?>
+      <?php
+      $this->renderComponent('navbar', $active);
+      ?>
 
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
-         <?php include '../Components/Lab/header.php'; ?>
+         <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
 
          <!-- Dashboard Content -->
          <div class="dashboard-content">
@@ -180,7 +182,7 @@
             </div>
          </div>
 
-         <script src="./../../../public/assets/js/Lab/labTestRequest.js"></script>
+         <script src="<?= ROOT ?>/assets/js/Lab/labTestRequest.js"></script>
          <script>
             // Add event listener for each table row
             document.querySelectorAll('.requests-table tbody tr').forEach(row => {

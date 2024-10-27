@@ -347,3 +347,9 @@
 .pagination-btn:hover {
    background-color: #e5e7eb;
 }
+
+a {
+   text-decoration: none;
+   color: inherit;
+   /* Inherits the color from the parent element */
+}

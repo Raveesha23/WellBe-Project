@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="../../../public/assets/css/Lab/labTechnicianDashboard.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/Pharmacy/phamacistDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
@@ -13,12 +13,13 @@
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <?php include '../Components/Lab/sidebar.php'; ?>
-
+        <?php
+        $this->renderComponent('navbar', $active);
+        ?>
         <!-- Main Content -->
         <div class="main-content">
             <!-- Top Header -->
-            <?php include '../Components/Lab/header.php'; ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
@@ -39,13 +40,13 @@
                             <span class="circle-background">
                                 <i class="fa-solid icon fa-hourglass-start"></i>
                             </span>
-                            <p>120 <br>Pending</p>
+                            <p>120 <br>New_Requests</p>
                         </div>
                         <div class="card ongoing">
                             <span class="circle-background">
-                                <i class="fa-solid icon fa-microscope"></i>
+                                <i class="fas icon fa-pills"></i>
                             </span>
-                            <p>25 <br>Testing</p>
+                            <p>25 <br>In_progress</p>
                         </div>
                         <div class="card completed">
                             <span class="circle-background">
@@ -59,7 +60,7 @@
                     <div class="dashboard messages">
 
                         <div class="header">
-                            <h3>Ongoing Tests</h3>
+                            <h3>Medication Requests</h3>
                             <a href="#" class="see-all">See all</a>
                         </div>
                         <table class="request-table">
@@ -165,7 +166,7 @@
             </div>
         </div>
     </div>
-    <script src="../../../public/assets/js/Lab/labTechnicianDashboard.js"></script>
+    <script src="<?= ROOT ?>/assets/js/Pharmacy/phamacistDashboard.js"></script>
 </body>
 
 </html>
