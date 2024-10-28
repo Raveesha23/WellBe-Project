@@ -116,7 +116,7 @@
                const patientID = this.getAttribute('data-patient-id');
                if (patientID) {
                   // Redirect to the details.php page with patientID as a query parameter
-                  window.location.href = `medicationDetails.php?patientID=${patientID}`;
+                  window.location.href = `medicationDetails?patientID=${patientID}`;
                }
             });
          });

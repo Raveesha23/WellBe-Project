@@ -29,6 +29,12 @@ class Pharmacy extends Controller
       $this->view('Pharmacy/chat', 'chat');
    }
 
+   public function medicationDetails()
+   {
+      $this->view('Pharmacy/medicationDetails', 'medicationDetails');
+   }
+
+
    public function renderComponent($component, $active)
    {
       $elements = $this->data['elements'];
