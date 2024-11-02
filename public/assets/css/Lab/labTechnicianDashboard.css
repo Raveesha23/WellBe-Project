@@ -27,9 +27,9 @@
 /* Dashboard Content */
 .dashboard-content {
     flex-grow: 1;
+    position: relative;
     padding: 20px;
     background-color: white;
-    /* Main content area white background */
     border-radius: 15px;
     margin: 20px;
 }
@@ -40,11 +40,10 @@
 }
 
 .cards-container {
-    margin-top: 15px;
     display: inline-flex;
-    gap: 50px;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    gap: 20px;
+    margin-left: auto;
+    /* Aligns the cards-container to the right */
 }
 
 .card {
@@ -114,7 +113,7 @@
     background-color: #f0f8ff;
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 .messages h3 {
@@ -150,13 +149,13 @@
 
 .topbar {
     display: flex;
-    margin-top: 15px;
+    align-items: center;
+    gap: 20px;
     margin-bottom: 15px;
 }
 
 .search-bar {
-    margin-top: 14px;
-    margin-right: 14%;
+    flex-grow: 1;
 }
 
 .search-bar input {
@@ -190,7 +189,7 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    height: 40%;
+    height: 35%;
 }
 
 .calendar-header {

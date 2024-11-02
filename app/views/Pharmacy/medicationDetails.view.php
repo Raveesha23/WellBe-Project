@@ -47,7 +47,7 @@
                               <th>Dosage of the Medication</th>
                               <th colspan='4'>Number taken at a time</th>
                               <th>Do not substitute</th>
-                              <th></th>
+                              <th>State</th>
                            </tr>
                            <tr>
                               <th></th>
@@ -67,8 +67,14 @@
                               <td>2</td>
                               <td>2</td>
                               <td>2</td>
-                              <td><input type='checkbox'></td>
-                              <td><input type='checkbox'></td>
+                              <td>can</td>
+                              <td>
+                                 <select>
+                                    <option value='pending'>Pending</option>
+                                    <option value='given'>Given</option>
+                                    <option value='notavailable'>Not available</option>
+                                 </select>
+                              </td>
                            </tr>
                            <tr>
                               <td>Medicine 2</td>
@@ -77,8 +83,14 @@
                               <td>1</td>
                               <td>1</td>
                               <td>0</td>
-                              <td><input type='checkbox'></td>
-                              <td><input type='checkbox'></td>
+                              <td>can't</td>
+                              <td>
+                                 <select>
+                                    <option value='pending'>Pending</option>
+                                    <option value='given'>Given</option>
+                                    <option value='notavailable'>Not available</option>
+                                 </select>
+                              </td>
                            </tr>
                            <!-- Add more rows as needed -->
                         </tbody>

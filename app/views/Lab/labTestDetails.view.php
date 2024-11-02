@@ -11,24 +11,19 @@
 
 <body>
    <div class="dashboard-container">
-      <!-- Sidebar -->
       <?php
       $this->renderComponent('navbar', $active);
       ?>
-      <!-- Main Content -->
       <div class="main-content">
-         <!-- Top Header -->
          <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
 
-         <!-- Dashboard Content -->
          <div class="dashboard-content">
             <h2>THINGS NEED TO BE TESTED:</h2>
 
-            <?php
-            if (isset($_GET['patientID'])) {
+            <?php if (isset($_GET['patientID'])): ?>
+               <?php
                $patientID = $_GET['patientID'];
 
-               // Using dummy data instead of querying the database
                if ($patientID == '56481321') {
                   $patientName = 'John Doe';
                   $medicationDetails = 'Blood test, Urine test';
@@ -39,28 +34,62 @@
                   $patientName = 'Unknown';
                   $medicationDetails = 'No details available';
                }
+               ?>
 
-               // Output the patient medication details along with patient ID
-               echo "<div class='test-list' style='max-height: 450px;'>";
-               echo "<table>";
-               echo "<tr><td><b>Patient ID: {$patientID}</b></td><td></td></tr>";
-               echo "<tr><td>Blood (Acute)</td><td><input type='checkbox'></td></tr>";
-               echo "<tr><td>Blood (EDTA)</td><td><input type='checkbox'></td></tr>";
-               echo "<tr><td>Oropharyngeal/Throat Swab</td><td><input type='checkbox'></td></tr>";
-               echo "<tr><td>Oropharyngeal/Throat Swab</td><td><input type='checkbox'></td></tr>";
-               echo "<tr><td>Eye</td><td><input type='checkbox'></td></tr>";
-               echo "</table>";
-               echo "</div>";
-               echo "<button class='completed-btn'>Completed</button>";
-            } else {
-               echo "<p>Invalid patient ID.</p>";
-            }
-            ?>
+               <div class="test-list" style="max-height: 450px; max-width: 800px;">
+                  <table style="width: 100%;">
+                     <thead>
+                        <tr>
+                           <th style="text-align: left; width: 80%; padding: 10px;">Patient ID: <?= $patientID ?></th>
+                           <th style="text-align: left; width: 30%; padding: 10px;">State</th>
+                           <th style="text-align: left; padding: 10px;">File</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">
+                              <select>
+                                 <option value="pending">Pending</option>
+                                 <option value="progress">Progress</option>
+                                 <option value="tested">Tested</option>
+                              </select>
+                           </td>
+                           <td style="text-align: left;">
+                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+
+               <button class="completed-btn">Completed</button>
+            <?php else: ?>
+               <p>Invalid patient ID.</p>
+            <?php endif; ?>
+
+
+            <!-- Modal for Reports -->
+            <div id="reportPopup" class="modal">
+               <div class="modal-content">
+                  <span class="close" onclick="closeReportPopup()">&times;</span>
+                  <h2>Files</h2>
+                  <p id="patientId">12345</p>
+                  <table class="file-table">
+                     <tbody id="reportTableBody"></tbody>
+                  </table>
+                  <div class="popup-actions">
+                     <button id="uploadButton" onclick="uploadFile()">Upload <i class="fa fa-paperclip"></i></button>
+                     <button id="saveButton" onclick="saveReports()">Save</button>
+                  </div>
+               </div>
+            </div>
 
          </div>
       </div>
-
    </div>
+
+   <script src="<?= ROOT ?>/assets/js/Lab/details.js"></script>
 </body>
 
 </html>

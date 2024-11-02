@@ -147,41 +147,6 @@
             </div>
          </div>
 
-         <!-- Report Upload Popup Modal -->
-         <div id="reportPopup" class="modal">
-            <div class="modal-content">
-               <span class="close" onclick="closeReportPopup()">&times;</span>
-               <h2>Files</h2>
-               <p id="patientId">12345</p> <!-- Example Patient ID -->
-               <table id="reportTable">
-                  <tbody id="reportTableBody">
-                     <!-- Rows for each uploaded file will be inserted dynamically -->
-                  </tbody>
-               </table>
-               <div class="popup-actions">
-                  <button id="uploadButton" onclick="uploadFile()">Upload <i class="fa fa-paperclip"></i></button>
-                  <button id="saveButton" onclick="saveReports()">Save</button>
-               </div>
-            </div>
-         </div>
-
-         <div id="filePreviewModal" class="file-preview-modal">
-            <div class="file-preview-content">
-               <span class="close" onclick="closeFilePreview()">&times;</span>
-               <div class="file-preview-left">
-                  <!-- This section will display the file preview -->
-                  <div id="filePreview" class="file-container">
-                     <p>Click on the file to view its preview</p>
-                  </div>
-               </div>
-               <div class="file-preview-right">
-                  <h2>REMARKS and Comments</h2>
-                  <textarea id="comments" placeholder="Add remarks and comments"></textarea>
-                  <button id="saveComments" onclick="saveFileComments()">Save</button>
-               </div>
-            </div>
-         </div>
-
          <script src="<?= ROOT ?>/assets/js/Lab/labTestRequest.js"></script>
          <script>
             // Add event listener for each table row
