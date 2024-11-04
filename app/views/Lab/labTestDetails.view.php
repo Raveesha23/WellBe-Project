@@ -15,8 +15,10 @@
       $this->renderComponent('navbar', $active);
       ?>
       <div class="main-content">
-         <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
-
+         <?php
+         $pageTitle = "Test Requests"; // Set the text you want to display
+         include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php';
+         ?>
          <div class="dashboard-content">
             <h2>THINGS NEED TO BE TESTED:</h2>
 
@@ -40,12 +42,38 @@
                   <table style="width: 100%;">
                      <thead>
                         <tr>
-                           <th style="text-align: left; width: 80%; padding: 10px;">Patient ID: <?= $patientID ?></th>
-                           <th style="text-align: left; width: 30%; padding: 10px;">State</th>
-                           <th style="text-align: left; padding: 10px;">File</th>
+                           <th style="text-align: left; width: 80%;">Patient ID: <?= $patientID ?></th>
+                           <th style="text-align: left; width: 30%;">State</th>
+                           <th style="text-align: left;">File</th>
                         </tr>
                      </thead>
                      <tbody>
+                        <tr>
+                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">
+                              <select>
+                                 <option value="pending">Pending</option>
+                                 <option value="progress">Progress</option>
+                                 <option value="tested">Tested</option>
+                              </select>
+                           </td>
+                           <td style="text-align: left;">
+                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">
+                              <select>
+                                 <option value="pending">Pending</option>
+                                 <option value="progress">Progress</option>
+                                 <option value="tested">Tested</option>
+                              </select>
+                           </td>
+                           <td style="text-align: left;">
+                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
+                           </td>
+                        </tr>
                         <tr>
                            <td style="text-align: left;">Blood (Acute)</td>
                            <td style="text-align: left;">

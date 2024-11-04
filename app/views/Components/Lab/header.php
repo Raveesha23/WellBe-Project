@@ -12,7 +12,6 @@
          align-items: center;
          padding: 20px;
          background-color: #f0f8ff;
-         /* Light blue background */
          border-bottom: 2px solid #d1d9f1;
       }
 
@@ -38,7 +37,6 @@
          height: 40px;
          border-radius: 50%;
          background-color: #d1d9f1;
-         /* Placeholder for avatar */
          margin-right: 10px;
       }
 
@@ -52,9 +50,7 @@
          position: relative;
          padding-top: 6px;
          font-size: 28px;
-         /* Adjust size if needed */
          color: #a0a0a0;
-
       }
 
       .notification-badge {
@@ -62,7 +58,6 @@
          top: 3px;
          right: -4px;
          width: 14px;
-         /* Adjust size if needed */
          height: 14px;
          background-color: red;
          border-radius: 50%;
@@ -74,7 +69,7 @@
 <body>
    <header class="main-header">
       <div class="header-left">
-         <!-- <h1>Medication Requests</h1> -->
+         <h1><?php echo isset($pageTitle) ? $pageTitle : ''; ?></h1>
       </div>
       <div class="header-right">
          <div class="notification-icon">
@@ -82,9 +77,7 @@
             <span class="notification-badge"></span>
          </div>
          <div class="user-details">
-            <div class="user-avatar">
-               <!-- User Avatar Icon -->
-            </div>
+            <div class="user-avatar"></div>
             <div class="user-info">
                <p style="font-weight: bold;">K.S.Perera</p>
                <p style="padding-top:4px;color:#989898">Lab Technician</p>

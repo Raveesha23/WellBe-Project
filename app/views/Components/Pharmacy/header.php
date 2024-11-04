@@ -74,7 +74,7 @@
 <body>
    <header class="main-header">
       <div class="header-left">
-         <!-- <h1>Medication Requests</h1> -->
+         <h1><?php echo isset($pageTitle) ? $pageTitle : ''; ?></h1>
       </div>
       <div class="header-right">
          <div class="notification-icon">

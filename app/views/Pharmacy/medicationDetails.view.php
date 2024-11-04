@@ -18,8 +18,10 @@
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
-         <?php include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php'; ?>
-
+         <?php
+         $pageTitle = "Medication Requests"; // Set the text you want to display
+         include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php';
+         ?>
          <!-- Dashboard Content -->
          <div class="dashboard-content">
             <h2>MEDICINES NEED TO BE GIVEN:</h2>
