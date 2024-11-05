@@ -4,8 +4,11 @@
 class Controller
 {
 
-	public function view($name,$active="")
+	public function view($name,$data = [],$active="")
 	{
+		if(!empty($data)){
+			extract($data); //anything we extract here will be available for file down here
+		}
 		$filename = "../app/views/".$name.".view.php";
 		if(file_exists($filename))
 		{

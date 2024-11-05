@@ -3,12 +3,12 @@
 <head>
     <meta name="viewport" content="with=device-width, initial-scale=1.0">
     <title>University Website Design - Easy</title>
-    <link rel="stylesheet" href="./assets/css/landing.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/landing.css?v=1.1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
 </head>
 <body>
     <section class="header">
-        <img class="header-img"  src="../assests/doc.png">
+        <img class="header-img"  src="<?=ROOT?>/assets/images/doc.jpg">
         <nav>
             <a ref="landing.html">
                 <img src="../assests/logo (1).png">
@@ -21,7 +21,16 @@
                     <li><a href="">HOME</a></li>
                     <li><a href="">SEARCH FOR <br/>DOCTOR</a></li>
                     <li><a href="">CONTACT</a></li>
-                    <li ><a href="/MVC/public/signup" class="appointment-btn">Login</a></li>
+                    <li class="login-dropdown">
+                        <a class="appointment-btn" id="loginButton">Login</a>
+                        <div class="dropdown-content" id="dropdownMenu">
+                            <p>Login as</p>
+                            <form method="post">
+                                <a href="<?=ROOT?>/login" data-type="doctor" class="loginFilter">Doctor</a>
+                                <a href="<?=ROOT?>/login" data-type="patient" class="loginFilter">Patient</a>
+                            </form>
+                        </div>
+                    </li>
                     
                 </ul>
             
@@ -151,10 +160,54 @@
         function showMenu(){
             navLinks.style.right = "0";
         }
+
         function hideMenu(){
                 navLinks.style.right = "-300px";  
+        }
+
+        const loginButton = document.getElementById("loginButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        loginButton.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior if necessary
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        // Close the dropdown if clicked outside of it
+        document.addEventListener("click", function (event) {
+            if (!loginButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
             }
-        
+        });
+
+
+        const loginOptions = document.querySelectorAll(".loginFilter");
+
+        loginOptions.forEach(option => {
+            option.addEventListener("click", function () {
+
+                event.preventDefault();
+
+                // Get the user type from data attribute
+                const userType = option.getAttribute("data-type");
+
+                // Send the user type to PHP via AJAX
+                fetch('Ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'user_type=' + encodeURIComponent(userType),
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("User type saved in session:", data);
+                    // Redirect or take other action if needed
+                    window.location.href = option.href;
+                });
+            });
+        });
+            
 
     </script>
     

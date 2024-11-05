@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?= ROOT?>/assets/css/signup.css?v=1.1">
-  <title>Sign Up</title>
+  <title>Login</title>
 </head>
 <body>
   <div class="loginsignup" >
@@ -13,29 +13,27 @@
         <img class="logo" src="../assests/logo (1).png"/>
         <div class="logo_text">WELL BE</div>
       </div>
-      <h1>Sign Up</h1>
-      <div class="loginsignup-fields">
-        <form method="post">
-          <input name="username"  type="text" placeholder="Type your Name"/>
+      <h1>Log In</h1>
+      <form method="post">
+        <div class="loginsignup-fields">
+          <input name="username"  type="text" placeholder="Type your NIC number"/>
+          <input name="password"  type="password" placeholder="Type your Password"/>
+        </div>
 
-          <?php if(!empty($errors['username'])):?>
+        <?php if(!empty($errors['username'])):?>
           <div>
               <?php echo $errors['username'] ?>
           </div>
-          <?php endif;?>
-
-          <input name="password"  type="password" placeholder="Type your Password"/>
-
-          <?php if(!empty($errors['password'])):?>
-          <div>
-              <?php echo $errors['password'] ?>
-          </div>
-          <?php endif;?>
-
-          <button>Sign Up</button>
-        </form>
-      </div>
-      <p class="loginsignup-login">Already have an account?<span><a href="<?=ROOT?>/login">Click here</a></span></p>
+        <?php endif;?>
+        
+        <button>LOGIN</button>
+      </form>
+      <?php
+        if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === "patient")
+        {
+          echo '<p class="loginsignup-login">Create an account <span><a href="' . ROOT . '/signup">Click here</a></span></p>';
+        }
+      ?>
       <div class='loginsignup-agree'>
         <input type='checkbox' name='' id='' />
         <p>By continuing, I agree to the terms of use & privacy policy.</p>
