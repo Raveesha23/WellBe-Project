@@ -6,104 +6,116 @@ class Model extends Database
     protected $offset = 0;
     protected $order_type = "asc";
     protected $order_column = "id";
-    protected $allowedColumns = []; // Specify allowed columns if needed
-    protected $table = ""; // Make sure to set this in each model that extends this class
 
-    // Retrieve all records with pagination and sorting
     public function findAll()
     {
-        $query = "SELECT * FROM {$this->table} ORDER BY {$this->order_column} {$this->order_type} LIMIT {$this->limit} OFFSET {$this->offset}";
+        $query = "select * from $this->table order by $this->order_column $this->order_type limit $this->limit offset $this->offset";
+
+        //show($query);
         return $this->query($query);
     }
 
-    // Retrieve records based on conditions
     public function where($data, $data_not = [])
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = "SELECT * FROM {$this->table} WHERE ";
+        $query = "select * from $this->table where ";
 
         foreach ($keys as $key) {
-            $query .= "$key = :$key AND ";
+            $query .= $key . " = :" . $key . " && ";
         }
 
         foreach ($keys_not as $key) {
-            $query .= "$key != :$key AND ";
+            $query .= $key . " != :" . $key . " && ";
         }
 
-        $query = rtrim($query, " AND ");
-        $query .= " ORDER BY {$this->order_column} {$this->order_type} LIMIT {$this->limit} OFFSET {$this->offset}";
+        $query = trim($query, " && ");
+
+        $query .= " order by $this->order_column $this->order_type limit $this->limit offset $this->offset";
 
         $data = array_merge($data, $data_not);
+        //show($query);
         return $this->query($query, $data);
     }
 
-    // Retrieve the first matching record based on conditions
     public function first($data, $data_not = [])
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = "SELECT * FROM {$this->table} WHERE ";
+        $query = "select * from $this->table where ";
 
         foreach ($keys as $key) {
-            $query .= "$key = :$key AND ";
+            $query .= $key . " = :" . $key . " && ";
         }
 
         foreach ($keys_not as $key) {
-            $query .= "$key != :$key AND ";
+            $query .= $key . " != :" . $key . " && ";
         }
 
-        $query = rtrim($query, " AND ");
-        $query .= " LIMIT 1";
+        $query = trim($query, " && ");
 
+        $query .= " limit $this->limit offset $this->offset";
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);
 
-        return $result ? $result[0] : false;
+        if ($result)
+            return $result[0];
+
+        return false;
     }
 
-    // Insert a new record into the table
     public function insert($data)
     {
+        /** remove unwanted data */
         if (!empty($this->allowedColumns)) {
-            $data = array_filter($data, function ($key) {
-                return in_array($key, $this->allowedColumns);
-            }, ARRAY_FILTER_USE_KEY);
+            foreach ($data as $key => $value) {
+
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
         }
 
         $keys = array_keys($data);
-        $query = "INSERT INTO {$this->table} (" . implode(",", $keys) . ") VALUES (:" . implode(",:", $keys) . ")";
 
-        return $this->query($query, $data);
+        $query = "insert into $this->table (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
+        $this->query($query, $data);
+        return false;
     }
 
-    // Update an existing record in the table by ID
     public function update($id, $data, $id_column = 'id')
     {
+        /** remove unwanted data */
         if (!empty($this->allowedColumns)) {
-            $data = array_filter($data, function ($key) {
-                return in_array($key, $this->allowedColumns);
-            }, ARRAY_FILTER_USE_KEY);
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
         }
 
         $keys = array_keys($data);
-        $query = "UPDATE {$this->table} SET ";
+        $query = "update $this->table set ";
 
         foreach ($keys as $key) {
-            $query .= "$key = :$key, ";
+            $query .= $key . " = :" . $key . ", ";
         }
 
-        $query = rtrim($query, ", ");
-        $query .= " WHERE $id_column = :$id_column";
+        $query = trim($query, ", ");
 
         $data[$id_column] = $id;
-        return $this->query($query, $data);
+        $query .= " where $id_column = :$id_column";
+        //echo $query;
+        $this->query($query, $data);
+        return false;
     }
 
-    // Delete a record from the table by ID
     public function delete($id, $id_column = 'id')
     {
-        $query = "DELETE FROM {$this->table} WHERE $id_column = :$id_column";
-        return $this->query($query, [$id_column => $id]);
+        $data[$id_column] = $id;
+        $query = "delete from $this->table where $id_column = :$id_column";
+        echo $query;
+        $this->query($query, $data);
+        return false;
     }
 }
