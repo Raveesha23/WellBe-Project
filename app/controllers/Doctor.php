@@ -17,6 +17,10 @@
             $this->view('Doctor/dashboard','dashboard');
         }
 
+        public function patientQueue(){
+            $this->view('Doctor/patientQueue','dashboard');
+        }
+
         public function appointments(){
             $this->view('Doctor/appointments','appointments');
         }

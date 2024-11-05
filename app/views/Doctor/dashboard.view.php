@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="<?= ROOT?>/assets/css/doc_dashboard.css">
+    <link rel="stylesheet" href="<?= ROOT?>/assets/css/doc_dashboard.css?v=1.1">
     <style>
         html, body {
             height: 100%;
@@ -33,7 +33,7 @@
                     <div style="margin-left: 25px;">
                         <div class="flex" style="gap: 20px; align-items: center;margin-bottom: 20px;">
                             <div>
-                                <img src="./assets/vectors/user.png" alt="" style="width: 100px ;min-width: 80px;">
+                                <img src="./assets/images/user.png" alt="" style="width: 100px ;min-width: 80px;">
                             </div>
                             <div>
                                 <p class="font-['Poppins'] " style="font-weight: bold; font-size: 35px;margin-bottom: 5px;">Welcome</p>
@@ -48,7 +48,7 @@
 
                         <div class="font-['Poppins']" style="display: flex;margin-top: 50px;gap: 20px;">
                             <p class="checkUp">Start Patient Check-up</p>
-                            <button style="width: 100px;background-color: rgb(44, 34, 119);font-size: 28px;color: white;border-radius: 10px;">Start</button>
+                            <button style="width: 100px;background-color: rgb(44, 34, 119);font-size: 28px;color: white;border-radius: 10px;"><a href="/MVC-Copy/public/doctor/patientQueue">Start</a></button>
                         </div>
                     </div>
                 </div>
@@ -56,34 +56,34 @@
                 <div class="container2">
                     <div class="graph">
                         <div>
-                            <img src="./assets/cal.png" alt="" style="width: 350px;">
+                            <img src="./assets/images/cal.png" alt="" style="width: 350px;">
                         </div>
                         <div>
-                            <img src="./assets/vectors/line-graph.webp" alt="" style="width: 300px;">
+                            <img src="./assets/images/line-graph.webp" alt="" style="width: 300px;">
                         </div>
                     </div>
                     <div class="stat">
                         <div class="box" style="background-color: #00C38F;">
                             <div class="box-item" >
-                                <img src="./assets/vectors/schedule.png">
+                                <img src="./assets/images/schedule.png">
                                 <p> 20 Apointments</p>
                             </div>
                         </div>
                         <div class="box" style="background-color: #8765FA;">
                             <div class="box-item" >
-                                <img src="./assets/vectors/patient.png">
+                                <img src="./assets/images/patient.png">
                                 <p> 12 New Patients</p>
                             </div>
                         </div>
                         <div class="box" style="background-color: #B16FA2;">
                             <div class="box-item" >
-                                <img src="./assets/vectors/patient.png">
+                                <img src="./assets/images/patient.png">
                                 <p>Hiii</p>
                             </div>
                         </div>
                         <div class="box" style="background-color: #5D93FF;">
                             <div class="box-item">
-                                <img src="./assets/vectors/patient.png">
+                                <img src="./assets/images/patient.png">
                                 <p>Hiii</p>
                             </div>
                         </div>
