@@ -7,6 +7,10 @@ class Model extends Database
     protected $offset = 0;
     protected $order_type = "asc";
     protected $order_column = "id";
+<<<<<<< Updated upstream
+=======
+    public $errors = [];
+>>>>>>> Stashed changes
     
     public function findAll()
     {

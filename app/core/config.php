@@ -9,7 +9,11 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
+<<<<<<< Updated upstream
 	define('ROOT', 'http://localhost/WELLBE-PROJECCT/public');
+=======
+	define('ROOT', 'http://localhost/WellBe-Project/public');
+>>>>>>> Stashed changes
 
 }else
 {
