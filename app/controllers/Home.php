@@ -10,8 +10,8 @@ class Home extends Controller
 	{
 
 		$user = new User;
-		$arr['username'] = "www@gmail.com";
-		$arr['password'] = "12345";
+		$arr['id'] = 1;
+		$arr['name'] = "Himesh";
 		$arr2['name'] = "D";
 		//$result = $user->where($arr);
 
@@ -29,9 +29,7 @@ class Home extends Controller
 
 		$result = $user -> findAll();
 
-		//echo $result;
-		$user = $_SESSION['USER'];
-		echo $user->password;
+		show($result);
 
 		$this->view('home');
 	}

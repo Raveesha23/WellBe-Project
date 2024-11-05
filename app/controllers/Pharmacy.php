@@ -1,6 +1,6 @@
 <?php
 
-class Lab extends Controller
+class Pharmacy extends Controller
 {
 
    private $data = [
@@ -11,27 +11,29 @@ class Lab extends Controller
          'setting' => ["fa-solid fa-gear", "Setting"],
          'logout' => ["fas fa-sign-out-alt", "Logout"]
       ],
-      'userType' => 'lab'
+      'userType' => 'pharmacy'
    ];
 
    public function index()
    {
-      $this->view('Lab/dashboard', 'dashboard');
+      $this->view('Pharmacy/dashboard', 'dashboard');
    }
 
    public function requests()
    {
-      $this->view('Lab/requests', 'requests');
+      $this->view('Pharmacy/requests', 'requests');
    }
 
    public function chat()
    {
-      $this->view('Lab/chat', 'chat');
+      $this->view('Pharmacy/chat', 'chat');
    }
-   public function labTestDetails()
+
+   public function medicationDetails()
    {
-      $this->view('Lab/labTestDetails', 'labTestDetails');
+      $this->view('Pharmacy/medicationDetails', 'medicationDetails');
    }
+
 
    public function renderComponent($component, $active)
    {
