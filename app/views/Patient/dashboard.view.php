@@ -52,7 +52,7 @@
                                 <p>Upcoming</p>
                             </div>
                         </div>
-                        <button class="btn-primary" onclick="window.location.href='../Message/message.html'">Send Message</button>
+                        <button class="btn-primary" onclick="window.location.href='chat_with_the_doctor'">Send Message</button>
                     </div>
                     <div class="patient-details">
                         <div><p><strong>Gender</strong></p><p>-</p></div>
