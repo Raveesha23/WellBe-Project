@@ -114,13 +114,13 @@
                 </div>
             </div>
             <div class="right-column">
-              <button class="btn btn-success"  onclick="window.location.href='../Medical_report/Medical.html'">
+              <button class="btn btn-success"  onclick="window.location.href='view_medical_reports'">
                 <span class="icon-circle">
                   <i class="fas fa-file-medical-alt"></i>
                 </span>
                 View Medical Records
               </button>
-              <button class="btn btn-info"  onclick="window.location.href='../Lab_report/Lab.html'">
+              <button class="btn btn-info"  onclick="window.location.href='view_lab_reports'">
                 <span class="icon-circle">
                   <i class="fas fa-flask"></i>
                 </span>
