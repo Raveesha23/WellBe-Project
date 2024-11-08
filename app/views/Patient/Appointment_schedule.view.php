@@ -12,7 +12,7 @@
     <?php
         $this->renderComponent('navbar', $active);
         ?>
-        </div>
+        
 
         <!-- Main Content -->
         <div class="main-content">
