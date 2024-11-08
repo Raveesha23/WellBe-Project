@@ -76,7 +76,7 @@
                             <label for="save-records">Save the Medical records in your profile</label>
                         </div>
                 
-                        <button type="submit" class="submit-btn" onclick="window.location.href='../Checkout_page/Checkout.html'">NEXT</button>
+                        <button type="submit" class="submit-btn" onclick="window.location.href='Checkout'">NEXT</button>
                         <br/>
                         <br/>
 

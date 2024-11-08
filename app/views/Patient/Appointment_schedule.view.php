@@ -70,7 +70,7 @@
                         
                         <div class="btn-container">
                             <h2>Suggested Doctors</h2>
-                            <button onclick="window.location.href='../After_app/After_app.html'">Dr. Himesh<br/>Cardiologist</button>
+                            <button onclick="window.location.href='After_app'">Dr. Himesh<br/>Cardiologist</button>
                             <button>Dr. Amrah<br/>Eye Surgeon</button>
                             <button>Dr. Mazi<br/>General</button>
                             <button>Dr. Dilan<br/>Dermetologist</button>

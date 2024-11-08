@@ -65,7 +65,7 @@
                         <div><p><strong>Member Status</strong></p><p>-</p></div>
                     </div>
                 </div>
-                <div class="card appointment-list" onclick="window.location.href='../Appointment/Appointment.html'">
+                <div class="card appointment-list" onclick="window.location.href='appointments'">
                     <h3>Appointments</h3>
                     <div class="appointment-item" >
                         <div>
