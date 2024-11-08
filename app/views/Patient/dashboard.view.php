@@ -22,7 +22,7 @@
         <!-- Top Header -->
         <?php
             $pageTitle = "Dashboard"; // Set the text you want to display
-            include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Patient/header.php';
+            include $_SERVER['DOCUMENT_ROOT'] . '/mvc/app/views/Components/Patient/header.php';
             ?>
 
         <!-- Dashboard Content -->
