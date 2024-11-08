@@ -108,12 +108,14 @@
                      <tr>
                         <td>FBC</td>
                         <td>High</td>
-                        <td><button class="view">View</button></td>
+                        <td onclick="window.location.href='Lab_download'"><button class="view">View</button></td>
+
+
                      </tr>
                      <tr>
                         <td>FBC</td>
                         <td>Medium</td>
-                        <td><button class="view">View</button></td>
+                        <td onclick="window.location.href='Lab_download'"><button class="view">View</button></td>
                      </tr>
                      <tr>
                         <td>FBC</td>

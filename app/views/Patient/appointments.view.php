@@ -28,7 +28,7 @@
             <div class="dashboard-content">
                 <div class="header">
                     <p>Appointments
-                        <button class="btn" onclick="window.location.href='../Search_Doc/Search_doc.html'">Schedule an Appointment</button>
+                        <button class="btn" onclick="window.location.href='search_for_doctor'">Schedule an Appointment</button>
                         <span>
                             <button class="btn1">Reschedule/ Cancellation Policy</button>
                         </span>

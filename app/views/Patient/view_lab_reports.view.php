@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td onclick="window.location.href='../Lab_download/Lab_download.html'">Lab_Rep_001</td>
+                                    <td onclick="window.location.href='Lab_download'">Lab_Rep_001</td>
                                     <td>12/08/2024</td>
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>

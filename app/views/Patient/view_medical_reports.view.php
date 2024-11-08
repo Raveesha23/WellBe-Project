@@ -46,7 +46,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td onclick="window.location.href='../Medication_Details/Medication_Details.html'">Medi_Rec_001 </td>
+                                    <td onclick="window.location.href='Medication_Details'">Medi_Rec_001 </td>
                                     <td>12/08/2024</td>
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>

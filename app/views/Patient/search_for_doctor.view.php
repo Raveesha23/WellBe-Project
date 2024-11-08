@@ -62,7 +62,7 @@
                             <i class="dropdown-icon">▼</i>
                         </div>
                         <a href="#" class="services-link">What are the medical services we offer?</a>
-                        <button class="find-doctor-btn" onclick="window.location.href='../Appointment_schedule/Appointment.html'">
+                        <button class="find-doctor-btn" onclick="window.location.href='Appointment_schedule'">
                             <i class="icon">🔍</i> Find a Doctor
                         </button>
                     </div>

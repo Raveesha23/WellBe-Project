@@ -52,6 +52,30 @@ class Patient extends Controller
       $this->view('Patient/logout', 'logout');
    }
 
+   public function Medication_Details()
+   {
+      $this->view('Patient/Medication_Details', 'Medication_details');
+   }
+
+   public function Lab_download()
+   {
+      $this->view('Patient/Lab_download', 'Lab_download');
+   }
+
+   public function Appointment_schedule()
+   {
+      $this->view('Patient/Appointment_schedule', 'Appointment_schedule');
+   }
+
+   public function After_app()
+   {
+      $this->view('Patient/After_app', 'After_app');
+   }
+
+   public function Checkout()
+   {
+      $this->view('Patient/Checkout', 'Checkout');
+   }
 
 
    public function renderComponent($component, $active)
