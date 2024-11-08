@@ -7,7 +7,6 @@
    <title>Dashboard</title>
    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/Pharmacy/medicationRequestList.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 
 <body>
@@ -28,6 +27,7 @@
 
             <div class="tabs">
                <button class="tab active" onclick="showTab('pending-requests')">Pending Requests</button>
+               <button class="tab" onclick="showTab('progress-requests')">Progress Requests</button>
                <button class="tab" onclick="showTab('completed-requests')">Completed Requests</button>
             </div>
 
@@ -59,13 +59,30 @@
                         <td>56481457</td>
                         <td>Dr. Joel</td>
                      </tr>
-                     <tr data-patient-id="56481457">
-                        <td>9:30 AM</td>
-                        <td>05/12/2022</td>
-                        <td>56481457</td>
-                        <td>Dr. Joel</td>
-                     </tr>
                      <!-- More Pending Requests Rows Here -->
+                  </tbody>
+               </table>
+            </div>
+
+            <!-- Progress Requests Section -->
+            <div id="progress-requests" class="requests-section">
+               <table class="requests-table">
+                  <thead>
+                     <tr>
+                        <th>Time</th>
+                        <th>Date</th>
+                        <th>Patient ID</th>
+                        <th>Doctor</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr data-patient-id="56481523">
+                        <td>10:00 AM</td>
+                        <td>06/12/2022</td>
+                        <td>56481523</td>
+                        <td>Dr. Alice</td>
+                     </tr>
+                     <!-- More Progress Requests Rows Here -->
                   </tbody>
                </table>
             </div>
@@ -88,13 +105,6 @@
                         <td>56481456</td>
                         <td>Dr. Emily</td>
                      </tr>
-                     <tr>
-                        <td>3:30 PM</td>
-                        <td>01/11/2022</td>
-                        <td>56481234</td>
-                        <td>Dr. David</td>
-                     </tr>
-
                      <!-- More Completed Requests Rows Here -->
                   </tbody>
                </table>
