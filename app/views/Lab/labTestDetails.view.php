@@ -1,3 +1,4 @@
+<!-- HTML Part -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,59 +40,52 @@
                ?>
 
                <div class="test-list" style="max-height: 450px; max-width: 800px;">
-                  <table style="width: 100%;">
+                  <table style="width: 100%; border-spacing: 0 10px;">
                      <thead>
                         <tr>
                            <th style="text-align: left; width: 80%;">Patient ID: <?= $patientID ?></th>
                            <th style="text-align: left; width: 30%;">State</th>
-                           <th style="text-align: left;">File</th>
                         </tr>
                      </thead>
                      <tbody>
                         <tr>
-                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">Urine Test</td>
                            <td style="text-align: left;">
                               <select>
                                  <option value="pending">Pending</option>
                                  <option value="progress">Progress</option>
                                  <option value="tested">Tested</option>
                               </select>
-                           </td>
-                           <td style="text-align: left;">
-                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
                            </td>
                         </tr>
                         <tr>
-                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">Blood Test</td>
                            <td style="text-align: left;">
                               <select>
                                  <option value="pending">Pending</option>
                                  <option value="progress">Progress</option>
                                  <option value="tested">Tested</option>
                               </select>
-                           </td>
-                           <td style="text-align: left;">
-                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
                            </td>
                         </tr>
                         <tr>
-                           <td style="text-align: left;">Blood (Acute)</td>
+                           <td style="text-align: left;">Eye Check</td>
                            <td style="text-align: left;">
                               <select>
                                  <option value="pending">Pending</option>
                                  <option value="progress">Progress</option>
                                  <option value="tested">Tested</option>
                               </select>
-                           </td>
-                           <td style="text-align: left;">
-                              <button onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
                            </td>
                         </tr>
                      </tbody>
                   </table>
                </div>
 
-               <button class="completed-btn">Completed</button>
+               <div class="button-container">
+                  <button class="upload-btn" onclick="openReportPopup('<?= $patientID ?>')">Upload</button>
+                  <button class="completed-btn">Completed</button>
+               </div>
             <?php else: ?>
                <p>Invalid patient ID.</p>
             <?php endif; ?>

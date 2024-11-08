@@ -1,3 +1,4 @@
+/* CSS Part */
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 
 /* General Reset */
@@ -47,7 +48,14 @@
    background-color: #f9f9f9;
 }
 
-.completed-btn {
+/* Space between table rows */
+.test-list table {
+   width: 100%;
+   border-spacing: 0 10px;
+}
+
+.completed-btn,
+.upload-btn {
    background-color: #007bff;
    color: white;
    border: none;
@@ -55,9 +63,11 @@
    border-radius: 5px;
    font-size: 16px;
    cursor: pointer;
-   position: absolute;
-   bottom: 20px;
-   right: 20px;
+   transition: background-color 0.3s ease;
+}
+
+.upload-btn {
+   margin-right: 10px;
 }
 
 .completed-btn:hover {
@@ -95,6 +105,15 @@
    font-size: 24px;
    font-weight: bold;
    cursor: pointer;
+}
+
+/* Button container */
+.button-container {
+   position: absolute;
+   bottom: 20px;
+   right: 20px;
+   display: flex;
+   gap: 10px;
 }
 
 .popup-actions {
