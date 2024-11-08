@@ -42,7 +42,7 @@
 /* Cards-container aligned to the right */
 .cards-container {
     display: inline-flex;
-    gap: 20px;
+    gap: 10px;
     margin-left: auto;
     /* Aligns the cards-container to the right */
 }
