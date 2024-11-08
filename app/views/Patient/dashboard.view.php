@@ -157,6 +157,6 @@
 
         </div>
     </div>
-    <script src="../dashboard/script.js"></script>
+    <script src="<?= ROOT ?>/assets/js/Patient/script.js"></script>
   </body>
 </html>
