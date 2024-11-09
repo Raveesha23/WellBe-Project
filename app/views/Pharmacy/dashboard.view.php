@@ -102,37 +102,34 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Time</th>
-                                <th>Unread</th>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
                             </tr>
                             <tr>
                                 <td>Mr. K.G. Gunawardana</td>
                                 <td>3:30 pm</td>
-                                <td><span class="unread-messages">1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Mr. K.G. Gunawardana</td>
+                                <td>3:30 pm</td>
                             </tr>
 
                         </table>
