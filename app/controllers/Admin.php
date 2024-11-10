@@ -52,7 +52,6 @@ class Admin extends Controller
       $this->view('Admin/patientForm2', 'patientForm2');
    }
 
-
    public function doctors()
    {
       $this->view('Admin/doctors', 'doctors');
@@ -87,10 +86,22 @@ class Admin extends Controller
    {
       $this->view('Admin/labTechs', 'labTechs');
    }
+
+   public function labTechForm1()
+   {
+      $this->view('Admin/labTechForm1', 'labTechForm1');
+   }
+
+   public function labTechForm2()
+   {
+      $this->view('Admin/labTechForm2', 'labTechForm2');
+   }
+
    public function chat()
    {
       $this->view('Admin/chat', 'chat');
    }
+   
    public function logout()
    {
       $this->view('Admin/logout', 'logout');
