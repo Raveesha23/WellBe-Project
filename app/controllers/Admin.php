@@ -6,7 +6,7 @@ class Admin extends Controller
    private $data = [
       'elements' => [
          'dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
-         'appointments' => ["fas fa-calendar-alt", "Appointments"],
+         'appointmentsOngoing' => ["fas fa-calendar-alt", "Appointments"],
          'patients' => ["fas fa-user", "Patients"],
          'doctors' => ["fas fa-user-md", "Doctors"],
          'pharmacists' => ["fas fa-pills", "Pharmacists"],
@@ -22,15 +22,37 @@ class Admin extends Controller
       $this->view('Admin/dashboard', 'dashboard');
    }
 
-   public function appointments()
+   public function appointmentsOngoing()
    {
-      $this->view('Admin/appointments', 'appointments');
+      $this->view('Admin/appointmentsOngoing', 'appointmentsOngoing');
+   }
+
+   public function appointmentsUpcoming()
+   {
+      $this->view('Admin/appointmentsUpcoming', 'appointmentsUpcoming');
+   }
+
+   public function appointmentsPast()
+   {
+      $this->view('Admin/appointmentsPast', 'appointmentsPast');
    }
 
    public function patients()
    {
       $this->view('Admin/patients', 'patients');
    }
+
+   public function patientForm1()
+   {
+      $this->view('Admin/patientForm1', 'patientForm1');
+   }
+
+   public function patientForm2()
+   {
+      $this->view('Admin/patientForm2', 'patientForm2');
+   }
+
+
    public function doctors()
    {
       $this->view('Admin/doctors', 'doctors');
