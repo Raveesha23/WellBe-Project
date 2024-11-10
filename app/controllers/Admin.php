@@ -57,6 +57,17 @@ class Admin extends Controller
    {
       $this->view('Admin/doctors', 'doctors');
    }
+
+   public function doctorForm1()
+   {
+      $this->view('Admin/doctorForm1', 'doctorForm1');
+   }
+
+   public function doctorForm2()
+   {
+      $this->view('Admin/doctorForm2', 'doctorForm2');
+   }
+
    public function pharmacists()
    {
       $this->view('Admin/pharmacists', 'pharmacists');
