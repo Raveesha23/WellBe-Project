@@ -26,7 +26,7 @@
             ?>
 
         <!-- Dashboard Content -->
-        <div class="container">
+<div class="container">
   <div class="dashboard">
         <div class="profile-card">
           <div class="image">
