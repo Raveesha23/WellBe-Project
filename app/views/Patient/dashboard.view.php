@@ -32,7 +32,7 @@
               <img src="profile.jpg" alt="" class="profile-img" />
             </div>
             <div class="text-data">
-              <span class="name">Amrah Slamath</span>
+              <span class="name">Amrah Slamathghhhb</span>
               <span class="job">Patient_id: 11243</span>
             </div>
             <div class="profile-details">
