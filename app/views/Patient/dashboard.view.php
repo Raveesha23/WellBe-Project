@@ -27,133 +27,136 @@
 
         <!-- Dashboard Content -->
 <div class="container">
-  <div class="dashboard">
-        <div class="profile-card">
-          <div class="image">
-            <img src="profile.jpg" alt="" class="profile-img" />
-          </div>
-          <div class="text-data">
-            <span class="name">Amrah Slamath</span>
-            <span class="job">Patient_id: 11243</span>
-          </div>
-          <div class="profile-details">
-            <p><strong>Age:</strong> 45</p>
-            <p><strong>Gender:</strong> Male</p>
-            <p><strong>Contact:</strong> (123) 456-7890</p>
-            <p><strong>Emergency Contact:</strong> (123) 456-7890</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Address:</strong> 123 Main Street, City, State, ZIP</p>
-          </div>
-          <div class="buttons">
-            <button class="button">Message</button>
-            <button class="button">Edit Profile</button>
-          </div>
-          
-      </div>
-
-      <div class="right">
-        
-      <div class="cards-container">
-        <div class="card med-rep">
-          <div class="circle-background">
-            <i class="fas fa-user icon"></i>
-          </div>
-          
-          <div class="label">View Medical Reports</div>
+        <div class="header">
+            <h1>Welcome Mr. K.S.Perera</h1>
+            <p>10 August, 2024</p>
         </div>
+        <div class="dashboard">
+            <div class="left-column">
+                <div class="card patient-info">
+                    <div>
+                        <div class="profile">
+                            <div class="avatar"></div>
+                            <div>
+                                <h2>Amrah Slamath</h2>
+                                <p>PatientID: P001</p>
+                            </div>
+                        </div>
+                        <div class="appointments">
+                            <div>
+                                <h3>5</h3>
+                                <p>Past</p>
+                            </div>
+                            <div>
+                                <h3>2</h3>
+                                <p>Upcoming</p>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="window.location.href='chat_with_the_doctor'">Send Message</button>
+                    </div>
+                    <div class="patient-details">
+                        <div><p><strong>Gender</strong></p><p>-</p></div>
+                        <div><p><strong>Email</strong></p><p>-</p></div>
+                        <div><p><strong>City</strong></p><p>-</p></div>
+                        <div><p><strong>Address</strong></p><p>-</p></div>
+                        <div><p><strong>Phone Number</strong></p><p>-</p></div>
+                        <div><p><strong>Birthday</strong></p><p>-</p></div>
+                        <div><p><strong>Registration Date</strong></p><p>-</p></div>
+                        <div><p><strong>Member Status</strong></p><p>-</p></div>
+                    </div>
+                </div>
+                <div class="card appointment-list" onclick="window.location.href='appointments'">
+                    <h3>Appointments</h3>
+                    <div class="appointment-item" >
+                        <div>
+                            <strong>01 Aug '24</strong>
+                            <p>08:00 am</p>
+                        </div>
+                        <div>
+                            <p><strong>Type</strong></p>
+                            <p>Consultation</p>
+                        </div>
+                        <div>
+                            <p><strong>Doctor</strong></p>
+                            <p>Consultation</p>
+                        </div>
+                        <div>
+                            <p><strong>Room No.</strong></p>
+                            <p>25</p>
+                        </div>
+                        <div>
+                            <p><strong>App No.</strong></p>
+                            <p>04</p>
+                        </div>
+                    </div>
+                    <div class="appointment-item">
+                        <div>z
+                            <strong>01 Aug '24</strong>
+                            <p>09:00 am</p>
+                        </div>
+                        <div>
+                            <p><strong>Type</strong></p>
+                            <p>Consultation</p>
+                        </div>
+                        <div>
+                            <p><strong>Doctor</strong></p>
+                            <p>Consultation</p>
+                        </div>
+                        <div>
+                            <p><strong>Room No.</strong></p>
+                            <p>26</p>
+                        </div>
+                        <div>
+                            <p><strong>App No.</strong></p>
+                            <p>05</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column">
+              <button class="btn btn-success"  onclick="window.location.href='view_medical_reports'">
+                <span class="icon-circle">
+                  <i class="fas fa-file-medical-alt"></i>
+                </span>
+                View Medical Records
+              </button>
+              <button class="btn btn-info"  onclick="window.location.href='view_lab_reports'">
+                <span class="icon-circle">
+                  <i class="fas fa-flask"></i>
+                </span>
+                View Lab 
+                <br>Reports</br>
+              </button>
+              
+                <div class="dashboard calendar-container">
+                  <div class="calendar-header">
+                      <h3>Calendar</h3>
+                      <div class="calendar-nav">
+                          <button id="prevMonth">&lt;</button>
+                          <span id="monthYear"></span>
+                          <button id="nextMonth">&gt;</button>
+                      </div>
+                  </div>
+                  <table class="calendar-table">
+                      <thead>
+                          <tr>
+                              <th>S</th>
+                              <th>M</th>
+                              <th>T</th>
+                              <th>W</th>
+                              <th>T</th>
+                              <th>F</th>
+                              <th>S</th>
+                          </tr>
+                      </thead>
+                      <tbody id="calendar-body">
+                          <!-- Calendar Dates will be generated dynamically -->
+                      </tbody>
+                  </table>
+              </div>
 
-        <div class="card lab-rep">
-          <div class="circle-background">
-            <i class="fas fa-user icon"></i>
-          </div>
-          
-          <div class="label">View Medical Reports</div>
         </div>
-        
-        <div class="card app">
-          <div class="circle-background">
-            <i class="fas fa-flask icon"></i>
-          </div>
-          <div class="label">Book an Appointment</div>
-        </div> 
-      </div>
-      
-
-      <div class="calendar-wrapper">
-        <div class="calendar-container">
-          <div class="calendar-header">
-            <h3>Calendar</h3>
-            <div class="calendar-nav">
-              <button id="prevMonth">&lt;</button>
-              <span id="monthYear"></span>
-              <button id="nextMonth">&gt;</button>
-            </div>
-          </div>
-          <table class="calendar-table">
-            <thead>
-              <tr>
-                <th>S</th>
-                <th>M</th>
-                <th>T</th>
-                <th>W</th>
-                <th>T</th>
-                <th>F</th>
-                <th>S</th>
-              </tr>
-            </thead>
-            <tbody id="calendar-body">
-              <!-- Calendar Dates will be generated dynamically -->
-            </tbody>
-          </table>
-        </div>
-      
-        <div class="additional-container">
-          <h3>Upcoming Appointments</h3>
-          <div class="mini-wrapper">
-            <div class="mini">
-              <div class="mini-part part1">
-                <h4>Dr. Upul Priyarathne</h4>
-              </div>
-              <div class="mini-part part2">
-                <span>Date: <span>24/11/2024</span></span>
-              </div>
-              <div class="mini-part part3">
-                <span>Appointment No: <span>25</span></span> 
-              </div>
-            </div>
-            
-            <div class="mini">
-              <div class="mini-part part1">
-                <h4>Dr. Saman Rathnayake</h4>
-              </div>
-              <div class="mini-part part2">
-                <span>Date: <span>24/11/2024</span></span>
-              </div>
-              <div class="mini-part part3">
-                <span>Appointment No: <span>25</span></span>
-              </div>
-            </div>
-            <div class="mini">
-              <div class="mini-part part1">
-                <h4>Dr. Jaya Swaminadan</h4>
-              </div>
-              <div class="mini-part part2">
-                <span>Date: <span>24/11/2024</span></span>
-              </div>
-              <div class="mini-part part3">
-                <span>Appointment No: <span>25</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-   
-  </div>
-
-
+    </div>
     <script src="<?= ROOT ?>/assets/js/Patient/script.js"></script>
-  </div>
-</div>
   </body>
 </html>
