@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 14, 2024 at 10:11 AM
--- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- Generation Time: Nov 15, 2024 at 12:56 PM
+-- Server version: 8.3.0
+-- PHP Version: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,25 +88,28 @@ CREATE TABLE IF NOT EXISTS `checkout` (
 
 DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE IF NOT EXISTS `doctor` (
-  `doctor_id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `first_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `specialization` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `doctor_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `image` text COLLATE utf8mb4_general_ci,
+  `specialization` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Appointment_fees` double NOT NULL,
-  `mobile` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `mobile` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `available_date` date NOT NULL,
-  PRIMARY KEY (`doctor_id`)
+  `state` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`doctor_id`),
+  KEY `state` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`doctor_id`, `password`, `first_name`, `last_name`, `specialization`, `Appointment_fees`, `mobile`, `available_date`) VALUES
-('200123145674', 'messi@10', 'Sandaru', 'Perera', 'neurology', 2000, '0701122334', '2024-11-09'),
-('200143701245', 'kumar@123', 'Pradeep', 'Kumar', 'cardiology', 5000, '0775566112', '2024-11-30'),
-('200260502667', 'kumkum', 'Weera', 'Soora', 'Eye Surgeon', 3500, '077733343', '2024-11-02');
+INSERT INTO `doctor` (`doctor_id`, `password`, `first_name`, `last_name`, `image`, `specialization`, `Appointment_fees`, `mobile`, `available_date`, `state`) VALUES
+('200123145674', 'messi@10', 'Sandaru', 'Perera', NULL, 'neurology', 2000, '0701122334', '2024-11-09', 0),
+('200143701245', 'kumar@123', 'Pradeep', 'Kumar', NULL, 'cardiology', 5000, '0775566112', '2024-11-30', 0),
+('200260502667', 'kumkum', 'Weera', 'Soora', NULL, 'Eye Surgeon', 3500, '077733343', '2024-11-02', 0);
 
 -- --------------------------------------------------------
 
@@ -120,16 +123,19 @@ CREATE TABLE IF NOT EXISTS `lab_technician` (
   `password` varchar(50) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
+  `image` text,
   `mobile` bigint NOT NULL,
-  PRIMARY KEY (`id`)
+  `state` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `state` (`state`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `lab_technician`
 --
 
-INSERT INTO `lab_technician` (`id`, `password`, `first_name`, `last_name`, `mobile`) VALUES
-('lt_412355', 'hishan982', 'Hishan', 'Mentise', 789455589);
+INSERT INTO `lab_technician` (`id`, `password`, `first_name`, `last_name`, `image`, `mobile`, `state`) VALUES
+('lt_412355', 'hishan982', 'Hishan', 'Mentise', NULL, 789455589, 0);
 
 -- --------------------------------------------------------
 
@@ -142,17 +148,20 @@ CREATE TABLE IF NOT EXISTS `medication_requests` (
   `id` varchar(100) NOT NULL,
   `doctor_id` varchar(100) NOT NULL,
   `patient_id` varchar(100) NOT NULL,
+  `date` datetime NOT NULL,
+  `remark` text,
   `state` varchar(100) NOT NULL DEFAULT 'pending',
   KEY `state` (`state`),
-  KEY `id` (`id`)
+  KEY `id` (`id`),
+  KEY `date` (`date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `medication_requests`
 --
 
-INSERT INTO `medication_requests` (`id`, `doctor_id`, `patient_id`, `state`) VALUES
-('112344123', 'D_123443', 'P_123443', 'pending');
+INSERT INTO `medication_requests` (`id`, `doctor_id`, `patient_id`, `date`, `remark`, `state`) VALUES
+('112344123', 'D_123443', 'P_123443', '0000-00-00 00:00:00', NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -188,7 +197,6 @@ INSERT INTO `medication_request_details` (`id`, `medication_name`, `dosage`, `ta
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_role` varchar(100) NOT NULL,
   `sender` varchar(100) NOT NULL,
   `receiver` varchar(100) NOT NULL,
   `message` text NOT NULL,
@@ -204,16 +212,15 @@ CREATE TABLE IF NOT EXISTS `message` (
   KEY `date` (`date`),
   KEY `seen` (`seen`),
   KEY `deleted_receiver` (`deleted_receiver`),
-  KEY `deleted_sender` (`deleted_sender`),
-  KEY `user_role` (`user_role`)
+  KEY `deleted_sender` (`deleted_sender`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`id`, `user_role`, `sender`, `receiver`, `message`, `files`, `date`, `seen`, `received`, `deleted_sender`, `deleted_receiver`) VALUES
-(1, 'Pharmacist', '1', '3', 'hello', NULL, '2024-11-09 01:44:21', 0, 0, 0, 0);
+INSERT INTO `message` (`id`, `sender`, `receiver`, `message`, `files`, `date`, `seen`, `received`, `deleted_sender`, `deleted_receiver`) VALUES
+(1, '1', '3', 'hello', NULL, '2024-11-09 01:44:21', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -223,20 +230,23 @@ INSERT INTO `message` (`id`, `user_role`, `sender`, `receiver`, `message`, `file
 
 DROP TABLE IF EXISTS `patient`;
 CREATE TABLE IF NOT EXISTS `patient` (
-  `patient_id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `first_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `mobile` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
+  `patient_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `image` text COLLATE utf8mb4_general_ci,
+  `mobile` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT '0',
+  KEY `state` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`patient_id`, `password`, `first_name`, `last_name`, `mobile`) VALUES
-('123456789V', 'Nimali@555', 'Nimali', 'Silva', '0705556669'),
-('132723444V', '19921011', 'Kasun', 'Udawela', '0725826497');
+INSERT INTO `patient` (`patient_id`, `password`, `first_name`, `last_name`, `image`, `mobile`, `state`) VALUES
+('123456789V', 'Nimali@555', 'Nimali', 'Silva', NULL, '0705556669', 0),
+('132723444V', '19921011', 'Kasun', 'Udawela', NULL, '0725826497', 0);
 
 -- --------------------------------------------------------
 
@@ -281,16 +291,19 @@ CREATE TABLE IF NOT EXISTS `pharmacist` (
   `password` varchar(50) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
+  `image` text,
   `mobile` bigint NOT NULL,
-  PRIMARY KEY (`id`)
+  `state` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `state` (`state`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `pharmacist`
 --
 
-INSERT INTO `pharmacist` (`id`, `password`, `first_name`, `last_name`, `mobile`) VALUES
-('', 'jan4325', 'Vimal', 'Vikiran', 785465465);
+INSERT INTO `pharmacist` (`id`, `password`, `first_name`, `last_name`, `image`, `mobile`, `state`) VALUES
+('1235123', 'jan4325', 'Vimal', 'Vikiran', NULL, 785465465, 0);
 
 -- --------------------------------------------------------
 
@@ -305,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `test_requests` (
   `patient_id` varchar(100) NOT NULL,
   `date` datetime NOT NULL,
   `test_request_id` varchar(100) NOT NULL,
+  `file` text,
   `state` varchar(50) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`),
   KEY `state` (`state`),
@@ -315,8 +329,8 @@ CREATE TABLE IF NOT EXISTS `test_requests` (
 -- Dumping data for table `test_requests`
 --
 
-INSERT INTO `test_requests` (`id`, `doctor_id`, `patient_id`, `date`, `test_request_id`, `state`) VALUES
-(1, 'D_234543', 'P_123533', '2024-11-09 01:33:59', 'lt_1234333', 'pending');
+INSERT INTO `test_requests` (`id`, `doctor_id`, `patient_id`, `date`, `test_request_id`, `file`, `state`) VALUES
+(1, 'D_234543', 'P_123533', '2024-11-09 01:33:59', 'lt_1234333', NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -352,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `timeslot` (
   `date` date NOT NULL,
   `doctor_timeslot` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`slot_id`)
-) ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `timeslot`
