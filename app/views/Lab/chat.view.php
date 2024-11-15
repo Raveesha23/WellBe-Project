@@ -225,30 +225,41 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
             });
       }
 
+      let lastMessageId = null; // Track the last message ID
+
       function pollMessages() {
          if (selectedUserId) {
             fetch(`<?= ROOT ?>/../app/views/lab/get_messages.php?receiver=${selectedUserId}`)
                .then(response => response.json())
                .then(data => {
-                  const chatMessages = document.getElementById("chat-messages");
-                  chatMessages.innerHTML = '';
-                  data.messages.forEach(message => {
-                     const div = document.createElement('div');
-                     div.classList.add('message', message.sender === selectedUserId ? 'received' : 'sent');
-                     div.setAttribute('data-message-id', message.id);
+                  if (data.messages.length > 0) {
+                     const latestMessage = data.messages[data.messages.length - 1];
+                     // Check if there's a new message by comparing message IDs
+                     if (lastMessageId !== latestMessage.id) {
+                        const chatMessages = document.getElementById("chat-messages");
+                        chatMessages.innerHTML = '';
+                        data.messages.forEach(message => {
+                           const div = document.createElement('div');
+                           div.classList.add('message', message.sender === selectedUserId ? 'received' : 'sent');
+                           div.setAttribute('data-message-id', message.id);
 
-                     div.innerHTML = `
+                           div.innerHTML = `
                         <p>${message.message}</p>
                         <span class="time">${message.date}</span>
                      `;
-                     chatMessages.appendChild(div);
-                  });
-                  chatMessages.scrollTop = chatMessages.scrollHeight;
+                           chatMessages.appendChild(div);
+                        });
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        // Update lastMessageId with the ID of the latest message
+                        lastMessageId = latestMessage.id;
+                     }
+                  }
                });
          }
       }
 
       setInterval(pollMessages, 3000);
+
       setInterval(refreshUserStatuses, 3000);
 
       function refreshUserStatuses() {
