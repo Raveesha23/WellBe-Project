@@ -31,14 +31,11 @@
 
                // Using dummy data instead of querying the database
                if ($patientID == '56481321') {
-                  $patientName = 'John Doe';
-                  $doctorName = 'Dr. Smith';
+                  $doctorID = '46546546';
                } elseif ($patientID == '56481457') {
-                  $patientName = 'Jane Smith';
-                  $doctorName = 'Dr. Johnson';
+                  $doctorID = '46587446';
                } else {
-                  $patientName = 'Unknown';
-                  $doctorName = 'N/A';
+                  $doctorID = 'N/A';
                }
 
                // Output the medication table and remarks section
@@ -102,7 +99,7 @@
                echo "<div class='remarks-section'>
                         <h3>Remarks</h3>
                         <p>Patient ID: {$patientID}</p>
-                        <p>Doctor Name: {$doctorName}</p>
+                        <p>Doctor ID: {$doctorID}</p>
                         <p>Date: <span id='currentDate'></span></p>
                         <textarea id='additionalRemarks' placeholder='Enter additional remarks...'></textarea>
                      </div>";

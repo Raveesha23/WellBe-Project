@@ -12,7 +12,6 @@
    height: 100vh;
 }
 
-
 /* Main Content */
 .main-content {
    flex-grow: 1;
@@ -29,7 +28,6 @@
    border-radius: 15px;
    margin: 20px;
 }
-
 
 .container {
    display: flex;
@@ -100,10 +98,37 @@ ul {
    font-size: 12px;
 }
 
-.time {
+
+.chat-side {
+   position: relative;
+   margin-left: auto;
+
+}
+
+.chat-side .time {
+   position: relative;
+   top: -10px;
    margin-left: auto;
    color: #999;
    font-size: 12px;
+}
+
+.circle {
+   display: none;
+   /* Hidden by default */
+   width: 15px;
+   height: 15px;
+   background-color: #28a745;
+   /* Green color */
+   border-radius: 50%;
+   position: absolute;
+
+   right: 0px;
+   bottom: -6px;
+}
+
+.chat-item.unseen .circle {
+   display: inline-block;
 }
 
 .chat-window {
@@ -148,6 +173,7 @@ ul {
 .message.received {
    background-color: #f1f1f1;
    align-self: flex-start;
+   margin-top: 25px;
 }
 
 .message.sent {
@@ -155,10 +181,8 @@ ul {
    color: #fff;
    align-self: flex-end;
    margin-left: auto;
-   /* This ensures the message is aligned to the right */
    margin-right: 0;
    margin-top: 25px;
-   /* Optional, for ensuring proper spacing */
 }
 
 .message p {
@@ -205,5 +229,4 @@ ul {
 a {
    text-decoration: none;
    color: inherit;
-   /* Inherits the color from the parent element */
 }
