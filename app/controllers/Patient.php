@@ -5,7 +5,7 @@ class Patient extends Controller
 
    private $data = [
       'elements' => [
-         'dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
+         'patient_dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
          'view_medical_reports' => ["fas fa-calendar-alt", "View Medical Reports"],
          'view_lab_reports' => ["fas fa-user", "View Lab Reports"],
          'search_for_doctor' => ["fas fa-user-md", "Search for a Doctor"],
@@ -19,7 +19,7 @@ class Patient extends Controller
 
    public function index()
    {
-      $this->view('Patient/dashboard', 'dashboard');
+      $this->view('Patient/patient_dashboard', 'patient_dashboard');
    }
 
    public function view_medical_reports()
