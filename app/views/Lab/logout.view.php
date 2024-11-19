@@ -1,11 +1,10 @@
 <?php
 // logout.php
 session_start();
-require_once("Databa.php");
+require_once(__DIR__ . "/../../core/Database.php");
 
 if (isset($_SESSION['userid'])) {
-   $DB = new Databa();
-
+   $DB = new Database();
    // Update user state to 0 (logged out)
    $updateStateQuery = "UPDATE users SET state = 0 WHERE id = :userid";
    $DB->write($updateStateQuery, ['userid' => $_SESSION['userid']]);

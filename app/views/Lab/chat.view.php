@@ -6,8 +6,8 @@
 //    exit();
 // }
 
-require_once("Databa.php");
-$DB = new Databa();
+require_once(__DIR__ . "/../../core/Database.php");
+$DB = new Database();
 $currentUserId = $_SESSION['userid'];
 
 // Query to get users and unseen status of the last message, excluding the logged-in user
@@ -20,9 +20,13 @@ $query = "SELECT users.*,
            WHERE (sender = users.id AND receiver = :currentUserId) 
            OR (sender = :currentUserId AND receiver = users.id) 
            ORDER BY date DESC LIMIT 1) AS last_message_date,
-          (SELECT COUNT(*) FROM message WHERE sender = users.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+          (SELECT COUNT(*) FROM message 
+           WHERE sender = users.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
           FROM users
-          WHERE users.id != :currentUserId";
+          WHERE users.id != :currentUserId
+          ORDER BY 
+             unseen_count DESC,  -- Users with unseen messages come first
+             last_message_date DESC";
 $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 ?>
 
@@ -140,34 +144,39 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
       }
 
       function deleteMessage() {
-         if (selectedMessage) {
-            const confirmDelete = window.confirm("Are you sure you want to delete this message?");
-            if (confirmDelete) {
-               const messageId = selectedMessage.getAttribute('data-message-id');
-               const isSender = selectedMessage.classList.contains('sent');
+         if (!selectedMessage) {
+            alert("No message selected for deletion.");
+            return;
+         }
 
-               fetch('<?= ROOT ?>/../app/views/lab/delete_message.php', {
-                     method: 'POST',
-                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                     },
-                     body: new URLSearchParams({
-                        message_id: messageId,
-                        is_sender: isSender ? 1 : 0
-                     })
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                     if (data.status === "success") {
-                        pollMessages();
-                        hidePopupMenu();
-                     } else {
-                        alert('Error deleting message');
-                     }
-                  });
-            }
+         const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+         if (confirmDelete) {
+            const messageId = selectedMessage.getAttribute('data-message-id');
+            const isSender = selectedMessage.classList.contains('sent');
+
+            fetch(`<?= ROOT ?>/ChatController/deleteMessage/${messageId}/${isSender ? 1 : 0}`)
+               .then(response => {
+                  if (!response.ok) {
+                     throw new Error('Failed to delete message');
+                  }
+                  return response.json();
+               })
+               .then(data => {
+                  if (data.status === "success") {
+                     pollMessages(); // Refresh the messages list after deletion
+                     hidePopupMenu(); // Close any context menus or popups
+                  } else {
+                     alert('Error deleting message');
+                  }
+               })
+               .catch(error => {
+                  console.error('An error occurred while deleting the message:', error);
+                  alert('An error occurred while deleting the message.');
+               });
          }
       }
+
+
 
       function selectChat(chatItem, userId) {
          selectedUserId = userId;
@@ -178,12 +187,14 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
          document.getElementById('chat-status').textContent = userStatus;
 
          startChat(userId);
+
       }
 
-      function startChat(receiverId) {
-         fetch(`<?= ROOT ?>/../app/views/lab/get_messages.php?receiver=${receiverId}`)
-            .then(response => response.json())
-            .then(data => {
+      async function startChat(receiverId) {
+         try {
+            const response = await fetch(`<?= ROOT ?>/ChatController/getMessages/${receiverId}`);
+            if (response.ok) {
+               const data = await response.json();
                const chatMessages = document.getElementById("chat-messages");
                chatMessages.innerHTML = '';
                data.messages.forEach(message => {
@@ -192,44 +203,25 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                   div.setAttribute('data-message-id', message.id);
 
                   div.innerHTML = `
-                     <p>${message.message}</p>
-                     <span class="time">${message.date}</span>
-                  `;
+               <p>${message.message}</p>
+               <span class="time">${message.date}</span>
+            `;
                   chatMessages.appendChild(div);
                });
                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-      }
-
-      function sendMessage() {
-         const message = document.getElementById('message-input').value;
-         if (!selectedUserId) {
-            alert("Please select a chat.");
-            return;
+            } else {
+               console.error('Failed to fetch messages. Status:', response.status);
+            }
+         } catch (error) {
+            console.error('An error occurred while fetching messages:', error);
          }
-         fetch('<?= ROOT ?>/../app/views/lab/send_message.php', {
-               method: 'POST',
-               body: new URLSearchParams({
-                  receiver: selectedUserId,
-                  message: message,
-               }),
-            })
-            .then(response => response.json())
-            .then(data => {
-               if (data.status === "success") {
-                  pollMessages();
-                  document.getElementById('message-input').value = '';
-               } else {
-                  alert('Error sending message');
-               }
-            });
       }
 
-      let lastMessageId = null; // Track the last message ID
+      let lastMessageId = null;
 
       function pollMessages() {
          if (selectedUserId) {
-            fetch(`get_messages.php?receiver=${selectedUserId}`)
+            fetch(`<?= ROOT ?>/ChatController/getMessages/${selectedUserId}`)
                .then(response => response.json())
                .then(data => {
                   if (data.messages.length > 0) {
@@ -258,12 +250,33 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
       setInterval(pollMessages, 3000);
 
+      function sendMessage() {
+         const message = document.getElementById('message-input').value;
+         if (!selectedUserId) {
+            alert("Please select a chat.");
+            return;
+         }
+         fetch(`<?= ROOT ?>/ChatController/sendMessage/${selectedUserId}/${message}`)
+            .then(response => response.json())
+            .then(data => {
+               if (data.status === "success") {
+                  document.getElementById('message-input').value = '';
+                  pollMessages();
+               } else {
+                  alert('Error sending message');
+               }
+            });
+      }
+
+
       setInterval(refreshUserStatuses, 3000);
 
       function refreshUserStatuses() {
-         fetch('<?= ROOT ?>/../app/views/lab/get_user_status.php')
-            .then(response => response.json())
-            .then(users => {
+         const xhr = new XMLHttpRequest();
+         xhr.open("GET", "<?= ROOT ?>/ChatController/getUserStatuses", true);
+         xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+               const users = JSON.parse(xhr.responseText);
                users.forEach(user => {
                   const chatItem = document.querySelector(`.chat-item[data-receiver-id="${user.id}"]`);
                   if (chatItem) {
@@ -271,31 +284,13 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                      statusElement.textContent = user.state ? 'Online' : 'Offline';
                   }
                });
-            });
+            }
+         };
+         xhr.send();
       }
-      // Mark messages as seen when chat is opened
-      function markMessagesAsSeen(receiverId) {
-         fetch('<?= ROOT ?>/../app/views/lab/mark_messages_seen.php', {
-            method: 'POST',
-            body: new URLSearchParams({
-               receiver: receiverId
-            })
-         }).then(() => {
-            const chatItem = document.querySelector(`.chat-item[data-receiver-id="${receiverId}"]`);
-            if (chatItem) chatItem.classList.remove('unseen'); // Remove unseen indicator
-         });
-      }
-
-      function updateReceivedState() {
-         fetch('update_received_state.php')
-            .catch(error => console.error("Error updating timestamps:", error));
-      }
-
-      // Call the update function every 3 seconds
-      setInterval(updateReceivedState, 3000);
 
       function updateChatTimestamps() {
-         fetch('<?= ROOT ?>/../app/views/lab/get_last_message_dates.php')
+         fetch('<?= ROOT ?>/ChatController/getLastMessageDates')
             .then(response => response.json())
             .then(dates => {
                dates.forEach(item => {
@@ -312,7 +307,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
       setInterval(updateChatTimestamps, 3000);
 
       function refreshUnseenCounts() {
-         fetch('<?= ROOT ?>/../app/views/lab/get_unseen_counts.php')
+         fetch('<?= ROOT ?>/ChatController/getUnseenCounts')
             .then(response => response.json())
             .then(users => {
 
@@ -353,6 +348,26 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
       // Set interval to poll unseen message counts every 3 seconds
       setInterval(refreshUnseenCounts, 3000);
+
+
+      // Mark messages as seen when chat is opened
+      function markMessagesAsSeen(receiverId) {
+         fetch(`<?= ROOT ?>/ChatController/markMessagesSeen/${receiverId}`)
+            .then(() => {
+               const chatItem = document.querySelector(`.chat-item[data-receiver-id="${receiverId}"]`);
+               if (chatItem) chatItem.classList.remove('unseen'); // Remove unseen indicator
+            });
+      }
+
+      setInterval(refreshUnseenCounts, 3000);
+
+      function updateReceivedState() {
+         fetch('<?= ROOT ?>/ChatController/updateReceivedState')
+            .catch(error => console.error("Error updating timestamps:", error));
+      }
+
+      // Call the update function every 3 seconds
+      setInterval(updateReceivedState, 3000);
    </script>
 </body>
 

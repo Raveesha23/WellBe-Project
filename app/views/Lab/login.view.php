@@ -1,13 +1,13 @@
 <?php
 // login.php
 // session_start();
-require_once("Databa.php");
+require_once(__DIR__ . "/../../core/Database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    $username = $_POST['username'];
    $password = $_POST['password'];
 
-   $DB = new Databa();
+   $DB = new Database();
    $query = "SELECT * FROM users WHERE username = :username LIMIT 1";
    $user = $DB->read($query, ['username' => $username]);
 
