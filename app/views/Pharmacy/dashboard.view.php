@@ -38,19 +38,19 @@
                     </div>
                     <div class="cards-container">
                         <!-- Statistics Cards -->
-                        <div class="card new-request">
+                        <div class="card new-request" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fa-solid icon fa-hourglass-start"></i>
                             </span>
                             <p>120 <br>New_Requests</p>
                         </div>
-                        <div class="card ongoing">
+                        <div class="card ongoing" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fas icon fa-pills"></i>
                             </span>
                             <p>25 <br>In_progress</p>
                         </div>
-                        <div class="card completed">
+                        <div class="card completed" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fas icon fa-tasks"></i>
                             </span>

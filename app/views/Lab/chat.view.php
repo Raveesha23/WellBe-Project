@@ -72,14 +72,14 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                                  <p class="chat-status"><?php echo $user['state'] ? 'Online' : 'Offline'; ?></p>
                               </div>
                               <div class="chat-side">
-                                 <span class="time" id="time-<?php echo $user['id']; ?>">
+                                 <div class="time" id="time-<?php echo $user['id']; ?>">
                                     <?php
                                     echo !empty($user['last_message_date'])
                                        ? date('d/m/Y', strtotime($user['last_message_date']))
                                        : '';
                                     ?>
-                                 </span>
-                                 <span class="circle"></span>
+                                 </div>
+                                 <div class="circle"></div>
                               </div>
                            </div>
                         </li>
@@ -98,6 +98,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                   <div class="chat-messages" id="chat-messages">
                   </div>
                   <div class="chat-input">
+                     <div class="upload"><i class="fa-solid fa-paperclip"></i></div>
                      <input type="text" id="message-input" placeholder="Type a message">
                      <button onclick="sendMessage()">Send</button>
                   </div>
@@ -204,7 +205,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
                   div.innerHTML = `
                <p>${message.message}</p>
-               <span class="time">${message.date}</span>
+               <div class="time">${message.date}</div>
             `;
                   chatMessages.appendChild(div);
                });
@@ -235,7 +236,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
                         div.innerHTML = `
                            <p>${message.message}</p>
-                           <span class="time">${message.date}</span>
+                           <div class="time">${message.date}</div>
                         `;
                         chatMessages.appendChild(div);
                      });
@@ -332,8 +333,8 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                            <p class="chat-status">${user.state ? 'Online' : 'Offline'}</p>
                         </div>
                         <div class="chat-side">
-                           <span class="time" id="time-${user.id}">${lastMessageDate}</span>
-                           <span class="circle"></span>
+                           <div class="time" id="time-${user.id}">${lastMessageDate}</div>
+                           <div class="circle"></div>
                         </div>
                      </div>
                   </li>

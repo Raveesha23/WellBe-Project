@@ -202,6 +202,11 @@ ul {
    background-color: #0056b3;
 }
 
+.upload {
+   display: inline-block;
+   margin: 10px;
+}
+
 a {
    text-decoration: none;
    color: inherit;
