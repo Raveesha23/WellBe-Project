@@ -58,7 +58,7 @@
                         
                         <div class="buttons-bar">
                             <button type="submit" class="prev-button">
-                                <a href="doctorForm1.html">Previous</a>
+                                <a href="<?= ROOT ?>/Admin/doctorForm1">Previous</a>
                             </button>
                             <button type="submit" class="submit-button">
                                 <a onclick="window.location.href='dashboard'">Submit</a>

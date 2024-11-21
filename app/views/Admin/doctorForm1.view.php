@@ -73,7 +73,7 @@
                             <input type="text" id="emergency-relationship" name="emergency-relationship">
                         </div>
                         
-                        <button type="submit" class="next-button"><a onclick="window.location.href='doctorForm2'">Next</a></button>
+                        <button type="submit" class="next-button"><a href="<?= ROOT ?>/Admin/doctorForm2">Next</a></button>
                         
                     </form>
                 </div>
