@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Nov 19, 2024 at 10:44 AM
--- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- Host: 127.0.0.1
+-- Generation Time: Nov 22, 2024 at 08:22 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,20 +27,17 @@ SET time_zone = "+00:00";
 -- Table structure for table `administrative_staff`
 --
 
-DROP TABLE IF EXISTS `administrative_staff`;
-CREATE TABLE IF NOT EXISTS `administrative_staff` (
-  `id` int NOT NULL,
+CREATE TABLE `administrative_staff` (
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `nic` varchar(12) NOT NULL,
-  `contact` int NOT NULL,
+  `contact` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `address` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `admin_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,17 +45,15 @@ CREATE TABLE IF NOT EXISTS `administrative_staff` (
 -- Table structure for table `appointment_channel_details`
 --
 
-DROP TABLE IF EXISTS `appointment_channel_details`;
-CREATE TABLE IF NOT EXISTS `appointment_channel_details` (
-  `id` int NOT NULL,
+CREATE TABLE `appointment_channel_details` (
+  `id` int(11) NOT NULL,
   `doctor_name` varchar(255) NOT NULL,
   `specialization` varchar(255) NOT NULL,
-  `appointment_id` int NOT NULL,
-  `appointment_number` int NOT NULL,
+  `appointment_id` int(11) NOT NULL,
+  `appointment_number` int(11) NOT NULL,
   `appointment_fees` varchar(100) NOT NULL,
-  `doctor_notes` varchar(1000) NOT NULL,
-  PRIMARY KEY (`appointment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `doctor_notes` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,16 +61,15 @@ CREATE TABLE IF NOT EXISTS `appointment_channel_details` (
 -- Table structure for table `appointment_patient_details`
 --
 
-DROP TABLE IF EXISTS `appointment_patient_details`;
-CREATE TABLE IF NOT EXISTS `appointment_patient_details` (
+CREATE TABLE `appointment_patient_details` (
   `patient_fname` varchar(1000) NOT NULL,
-  `nationality` enum('Sri Lankan','Foreign') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nationality` enum('Sri Lankan','Foreign') NOT NULL,
   `NIC` varchar(1000) NOT NULL,
   `email` varchar(1000) NOT NULL,
-  `contact_no` int NOT NULL,
-  `emergency_contact_no` int NOT NULL,
-  `save_permission` enum('YES','NO') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `contact_no` int(11) NOT NULL,
+  `emergency_contact_no` int(11) NOT NULL,
+  `save_permission` enum('YES','NO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointment_patient_details`
@@ -93,37 +87,35 @@ INSERT INTO `appointment_patient_details` (`patient_fname`, `nationality`, `NIC`
 -- Table structure for table `doctor`
 --
 
-DROP TABLE IF EXISTS `doctor`;
-CREATE TABLE IF NOT EXISTS `doctor` (
-  `id` int NOT NULL,
+CREATE TABLE `doctor` (
+  `id` int(11) NOT NULL,
   `nic` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `age` int NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` char(1) NOT NULL,
   `address` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contact` int NOT NULL,
-  `emergency_contact` int NOT NULL,
+  `contact` int(11) NOT NULL,
+  `emergency_contact` int(11) NOT NULL,
   `emergency_contact_relationship` varchar(50) NOT NULL,
   `medical_license_no` varchar(30) NOT NULL,
   `specialization` varchar(255) NOT NULL,
-  `experience` int NOT NULL,
+  `experience` int(11) NOT NULL,
   `qualifications_cerifications` varchar(255) NOT NULL,
   `medical_school` varchar(255) NOT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `doctor_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `nic`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications_cerifications`, `medical_school`, `user_id`) VALUES
-(1, '200260502668', 'Dr. Ajith', 'Nipun', '1990-11-19', 34, 'M', '123,Kinf,Kandy', 'Ajith@gmail.com', 778965412, 773698521, 'Wife', 'MD2210', 'Cardiology', 5, 'vbesy14dnehdb2bd3eb2', 'UOC', 1),
-(2, '200260502669', 'Dr. Vijitha', 'Kamal', '1954-08-20', 70, 'M', '234, Kandy Road, Jaffna', 'Vijitha@gmail.com', 778965214, 778932146, 'Son', 'MD44903', 'Neurology', 20, 'vrdh2neq xhjqwbfd3ewqs', 'UOM', 2);
+INSERT INTO `doctor` (`id`, `nic`, `password`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications_cerifications`, `medical_school`, `user_id`) VALUES
+(1, '200260502668', '', 'Dr. Ajith', 'Nipun', '1990-11-19', 34, 'M', '123,Kinf,Kandy', 'Ajith@gmail.com', 778965412, 773698521, 'Wife', 'MD2210', 'Cardiology', 5, 'vbesy14dnehdb2bd3eb2', 'UOC', 1),
+(2, '200260502669', '', 'Dr. Vijitha', 'Kamal', '1954-08-20', 70, 'M', '234, Kandy Road, Jaffna', 'Vijitha@gmail.com', 778965214, 778932146, 'Son', 'MD44903', 'Neurology', 20, 'vrdh2neq xhjqwbfd3ewqs', 'UOM', 2);
 
 -- --------------------------------------------------------
 
@@ -131,27 +123,24 @@ INSERT INTO `doctor` (`id`, `nic`, `first_name`, `last_name`, `dob`, `age`, `gen
 -- Table structure for table `lab_technician`
 --
 
-DROP TABLE IF EXISTS `lab_technician`;
-CREATE TABLE IF NOT EXISTS `lab_technician` (
-  `id` int NOT NULL,
+CREATE TABLE `lab_technician` (
+  `id` int(11) NOT NULL,
   `nic` varchar(12) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `age` int NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` char(1) NOT NULL,
   `address` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contact` int NOT NULL,
+  `contact` int(11) NOT NULL,
   `medical_license_no` varchar(50) NOT NULL,
   `specialization` varchar(50) NOT NULL,
-  `experience` int NOT NULL,
+  `experience` int(11) NOT NULL,
   `qualifications_certifications` varchar(255) DEFAULT NULL,
   `prev_employment_history` varchar(255) DEFAULT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `lab_tech_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -159,19 +148,15 @@ CREATE TABLE IF NOT EXISTS `lab_technician` (
 -- Table structure for table `medication_requests`
 --
 
-DROP TABLE IF EXISTS `medication_requests`;
-CREATE TABLE IF NOT EXISTS `medication_requests` (
+CREATE TABLE `medication_requests` (
   `id` varchar(100) NOT NULL,
   `doctor_id` varchar(100) NOT NULL,
   `patient_id` varchar(100) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
-  `remark` text,
-  `state` varchar(100) NOT NULL DEFAULT 'pending',
-  KEY `state` (`state`),
-  KEY `id` (`id`),
-  KEY `date` (`date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `remark` text DEFAULT NULL,
+  `state` varchar(100) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medication_requests`
@@ -186,15 +171,13 @@ INSERT INTO `medication_requests` (`id`, `doctor_id`, `patient_id`, `date`, `tim
 -- Table structure for table `medication_request_details`
 --
 
-DROP TABLE IF EXISTS `medication_request_details`;
-CREATE TABLE IF NOT EXISTS `medication_request_details` (
+CREATE TABLE `medication_request_details` (
   `id` varchar(100) NOT NULL,
   `medication_name` varchar(200) NOT NULL,
   `dosage` varchar(100) NOT NULL,
   `taken_time` text NOT NULL,
-  `substitution` tinyint(1) NOT NULL,
-  KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `substitution` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medication_request_details`
@@ -211,26 +194,18 @@ INSERT INTO `medication_request_details` (`id`, `medication_name`, `dosage`, `ta
 -- Table structure for table `message`
 --
 
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `message` (
+  `id` bigint(20) NOT NULL,
   `sender` varchar(100) NOT NULL,
   `receiver` varchar(100) NOT NULL,
   `message` text NOT NULL,
-  `files` text,
+  `files` text DEFAULT NULL,
   `date` datetime NOT NULL,
-  `seen` int NOT NULL DEFAULT '0',
-  `received` int NOT NULL DEFAULT '0',
-  `deleted_sender` tinyint(1) NOT NULL DEFAULT '0',
-  `deleted_receiver` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `sender` (`sender`),
-  KEY `receiver` (`receiver`),
-  KEY `date` (`date`),
-  KEY `seen` (`seen`),
-  KEY `deleted_receiver` (`deleted_receiver`),
-  KEY `deleted_sender` (`deleted_sender`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `seen` int(11) NOT NULL DEFAULT 0,
+  `received` int(11) NOT NULL DEFAULT 0,
+  `deleted_sender` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted_receiver` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `message`
@@ -245,27 +220,31 @@ INSERT INTO `message` (`id`, `sender`, `receiver`, `message`, `files`, `date`, `
 -- Table structure for table `patient`
 --
 
-DROP TABLE IF EXISTS `patient`;
-CREATE TABLE IF NOT EXISTS `patient` (
-  `id` int NOT NULL,
+CREATE TABLE `patient` (
+  `id` int(11) NOT NULL,
   `nic` varchar(12) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `age` int NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` char(1) NOT NULL,
   `address` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contact` int NOT NULL,
+  `contact` int(11) NOT NULL,
   `medical_history` varchar(255) DEFAULT NULL,
   `allergies` varchar(255) DEFAULT NULL,
   `emergency_contact_name` varchar(255) NOT NULL,
-  `emergency_contact_no` int NOT NULL,
-  `emergency_contact_relationship` varchar(50) NOT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `patient_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `emergency_contact_no` int(11) NOT NULL,
+  `emergency_contact_relationship` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`id`, `nic`, `password`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `medical_history`, `allergies`, `emergency_contact_name`, `emergency_contact_no`, `emergency_contact_relationship`) VALUES
+(0, '200232401698', '12345', 'Himesh', 'Dharmawansha', '2002-11-19', 21, 'M', 'SamagiMawatha,Dippitigala,Lellopitiya', 'ss@gmail.com', 721111111, 'dsdsds', 'asasadsd', 'ghgjh', 721234567, 'bro');
 
 -- --------------------------------------------------------
 
@@ -273,16 +252,13 @@ CREATE TABLE IF NOT EXISTS `patient` (
 -- Table structure for table `patient_search_for_doc`
 --
 
-DROP TABLE IF EXISTS `patient_search_for_doc`;
-CREATE TABLE IF NOT EXISTS `patient_search_for_doc` (
-  `doctor_id` int NOT NULL,
+CREATE TABLE `patient_search_for_doc` (
+  `doctor_id` int(11) NOT NULL,
   `doctor_fname` varchar(300) NOT NULL,
-  `specialization` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Appointment_no` int NOT NULL AUTO_INCREMENT,
-  `date_time` date NOT NULL,
-  UNIQUE KEY `Appointment_no` (`Appointment_no`),
-  KEY `fk_doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `specialization` varchar(100) NOT NULL,
+  `Appointment_no` int(11) NOT NULL,
+  `date_time` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `patient_search_for_doc`
@@ -304,27 +280,24 @@ INSERT INTO `patient_search_for_doc` (`doctor_id`, `doctor_fname`, `specializati
 -- Table structure for table `pharmacist`
 --
 
-DROP TABLE IF EXISTS `pharmacist`;
-CREATE TABLE IF NOT EXISTS `pharmacist` (
-  `id` int NOT NULL,
+CREATE TABLE `pharmacist` (
+  `id` int(11) NOT NULL,
   `nic` varchar(12) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `age` int NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` char(1) NOT NULL,
   `address` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contact` int NOT NULL,
-  `emergency_contact_no` int NOT NULL,
+  `contact` int(11) NOT NULL,
+  `emergency_contact_no` int(11) NOT NULL,
   `medical_license_no` varchar(30) NOT NULL,
-  `experiience` int NOT NULL,
+  `experiience` int(11) NOT NULL,
   `qualifications_certifications` varchar(255) NOT NULL,
   `prev_employment_histroy` varchar(255) NOT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pharmacist_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -332,20 +305,17 @@ CREATE TABLE IF NOT EXISTS `pharmacist` (
 -- Table structure for table `receptionist`
 --
 
-DROP TABLE IF EXISTS `receptionist`;
-CREATE TABLE IF NOT EXISTS `receptionist` (
-  `id` int NOT NULL,
+CREATE TABLE `receptionist` (
+  `id` int(11) NOT NULL,
   `nic` varchar(12) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `contact` int NOT NULL,
+  `contact` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `experience` int NOT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `receptionist_profile_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `experience` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -353,19 +323,16 @@ CREATE TABLE IF NOT EXISTS `receptionist` (
 -- Table structure for table `session`
 --
 
-DROP TABLE IF EXISTS `session`;
-CREATE TABLE IF NOT EXISTS `session` (
-  `id` int NOT NULL,
+CREATE TABLE `session` (
+  `id` int(11) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
-  `doctor_id` int NOT NULL,
-  `booked_slots` int NOT NULL,
-  `available_slots` int NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `booked_slots` int(11) NOT NULL,
+  `available_slots` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `appointment_fee` double NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `session_doc_fk` (`doctor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `appointment_fee` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -373,17 +340,13 @@ CREATE TABLE IF NOT EXISTS `session` (
 -- Table structure for table `session_cancellation`
 --
 
-DROP TABLE IF EXISTS `session_cancellation`;
-CREATE TABLE IF NOT EXISTS `session_cancellation` (
-  `id` int NOT NULL,
-  `session_id` int NOT NULL,
-  `cancellation_reason` int NOT NULL,
+CREATE TABLE `session_cancellation` (
+  `id` int(11) NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `cancellation_reason` int(11) NOT NULL,
   `cacellation_date` date NOT NULL,
-  `rescheduled_time_slot` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `session_fk` (`session_id`),
-  KEY `rescheduled_slot_fk` (`rescheduled_time_slot`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `rescheduled_time_slot` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -391,19 +354,15 @@ CREATE TABLE IF NOT EXISTS `session_cancellation` (
 -- Table structure for table `test_requests`
 --
 
-DROP TABLE IF EXISTS `test_requests`;
-CREATE TABLE IF NOT EXISTS `test_requests` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `test_requests` (
+  `id` bigint(20) NOT NULL,
   `doctor_id` varchar(100) NOT NULL,
   `patient_id` varchar(100) NOT NULL,
   `date` datetime NOT NULL,
   `test_request_id` varchar(100) NOT NULL,
-  `file` text,
-  `state` varchar(50) NOT NULL DEFAULT 'pending',
-  PRIMARY KEY (`id`),
-  KEY `state` (`state`),
-  KEY `test_request_id` (`test_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `file` text DEFAULT NULL,
+  `state` varchar(50) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `test_requests`
@@ -418,12 +377,10 @@ INSERT INTO `test_requests` (`id`, `doctor_id`, `patient_id`, `date`, `test_requ
 -- Table structure for table `test_request_details`
 --
 
-DROP TABLE IF EXISTS `test_request_details`;
-CREATE TABLE IF NOT EXISTS `test_request_details` (
+CREATE TABLE `test_request_details` (
   `test_request_id` varchar(100) NOT NULL,
-  `test_name` varchar(200) NOT NULL,
-  KEY `test_request_id` (`test_request_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `test_name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `test_request_details`
@@ -437,16 +394,39 @@ INSERT INTO `test_request_details` (`test_request_id`, `test_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timeslot`
+--
+
+CREATE TABLE `timeslot` (
+  `slot_id` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timeslot_doctor`
+--
+
+CREATE TABLE `timeslot_doctor` (
+  `id` int(11) NOT NULL,
+  `slot_id` int(11) NOT NULL,
+  `doctor_id` varchar(15) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `time_slot`
 --
 
-DROP TABLE IF EXISTS `time_slot`;
-CREATE TABLE IF NOT EXISTS `time_slot` (
-  `slot_id` int NOT NULL,
+CREATE TABLE `time_slot` (
+  `slot_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `doctor_timeslot` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`slot_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `doctor_timeslot` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `time_slot`
@@ -467,14 +447,12 @@ INSERT INTO `time_slot` (`slot_id`, `date`, `doctor_timeslot`) VALUES
 -- Table structure for table `user_profile`
 --
 
-DROP TABLE IF EXISTS `user_profile`;
-CREATE TABLE IF NOT EXISTS `user_profile` (
-  `id` int NOT NULL,
+CREATE TABLE `user_profile` (
+  `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_profile`
@@ -485,6 +463,178 @@ INSERT INTO `user_profile` (`id`, `username`, `password`, `role`) VALUES
 (2, '200260502669', 'Vijitha123', 'Doctor');
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `administrative_staff`
+--
+ALTER TABLE `administrative_staff`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_profile_fk` (`user_id`);
+
+--
+-- Indexes for table `appointment_channel_details`
+--
+ALTER TABLE `appointment_channel_details`
+  ADD PRIMARY KEY (`appointment_id`);
+
+--
+-- Indexes for table `doctor`
+--
+ALTER TABLE `doctor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doctor_profile_fk` (`user_id`);
+
+--
+-- Indexes for table `lab_technician`
+--
+ALTER TABLE `lab_technician`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lab_tech_profile_fk` (`user_id`);
+
+--
+-- Indexes for table `medication_requests`
+--
+ALTER TABLE `medication_requests`
+  ADD KEY `state` (`state`),
+  ADD KEY `id` (`id`),
+  ADD KEY `date` (`date`);
+
+--
+-- Indexes for table `medication_request_details`
+--
+ALTER TABLE `medication_request_details`
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sender` (`sender`),
+  ADD KEY `receiver` (`receiver`),
+  ADD KEY `date` (`date`),
+  ADD KEY `seen` (`seen`),
+  ADD KEY `deleted_receiver` (`deleted_receiver`),
+  ADD KEY `deleted_sender` (`deleted_sender`);
+
+--
+-- Indexes for table `patient`
+--
+ALTER TABLE `patient`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `patient_search_for_doc`
+--
+ALTER TABLE `patient_search_for_doc`
+  ADD UNIQUE KEY `Appointment_no` (`Appointment_no`),
+  ADD KEY `fk_doctor_id` (`doctor_id`);
+
+--
+-- Indexes for table `pharmacist`
+--
+ALTER TABLE `pharmacist`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pharmacist_profile_fk` (`user_id`);
+
+--
+-- Indexes for table `receptionist`
+--
+ALTER TABLE `receptionist`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `receptionist_profile_fk` (`user_id`);
+
+--
+-- Indexes for table `session`
+--
+ALTER TABLE `session`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `session_doc_fk` (`doctor_id`);
+
+--
+-- Indexes for table `session_cancellation`
+--
+ALTER TABLE `session_cancellation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `session_fk` (`session_id`),
+  ADD KEY `rescheduled_slot_fk` (`rescheduled_time_slot`);
+
+--
+-- Indexes for table `test_requests`
+--
+ALTER TABLE `test_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state` (`state`),
+  ADD KEY `test_request_id` (`test_request_id`);
+
+--
+-- Indexes for table `test_request_details`
+--
+ALTER TABLE `test_request_details`
+  ADD KEY `test_request_id` (`test_request_id`);
+
+--
+-- Indexes for table `timeslot`
+--
+ALTER TABLE `timeslot`
+  ADD PRIMARY KEY (`slot_id`);
+
+--
+-- Indexes for table `timeslot_doctor`
+--
+ALTER TABLE `timeslot_doctor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `slot_id` (`slot_id`);
+
+--
+-- Indexes for table `time_slot`
+--
+ALTER TABLE `time_slot`
+  ADD PRIMARY KEY (`slot_id`);
+
+--
+-- Indexes for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `patient_search_for_doc`
+--
+ALTER TABLE `patient_search_for_doc`
+  MODIFY `Appointment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `test_requests`
+--
+ALTER TABLE `test_requests`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `timeslot`
+--
+ALTER TABLE `timeslot`
+  MODIFY `slot_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `timeslot_doctor`
+--
+ALTER TABLE `timeslot_doctor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -492,53 +642,52 @@ INSERT INTO `user_profile` (`id`, `username`, `password`, `role`) VALUES
 -- Constraints for table `administrative_staff`
 --
 ALTER TABLE `administrative_staff`
-  ADD CONSTRAINT `admin_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `admin_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --
 -- Constraints for table `doctor`
 --
 ALTER TABLE `doctor`
-  ADD CONSTRAINT `doctor_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `doctor_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --
 -- Constraints for table `lab_technician`
 --
 ALTER TABLE `lab_technician`
-  ADD CONSTRAINT `lab_tech_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `patient`
---
-ALTER TABLE `patient`
-  ADD CONSTRAINT `patient_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `lab_tech_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --
 -- Constraints for table `pharmacist`
 --
 ALTER TABLE `pharmacist`
-  ADD CONSTRAINT `pharmacist_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pharmacist_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --
 -- Constraints for table `receptionist`
 --
 ALTER TABLE `receptionist`
-  ADD CONSTRAINT `receptionist_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `receptionist_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --
 -- Constraints for table `session`
 --
 ALTER TABLE `session`
-  ADD CONSTRAINT `session_doc_fk` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `session_doc_fk` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`);
 
 --
 -- Constraints for table `session_cancellation`
 --
 ALTER TABLE `session_cancellation`
-  ADD CONSTRAINT `rescheduled_slot_fk` FOREIGN KEY (`rescheduled_time_slot`) REFERENCES `time_slot` (`slot_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `session_fk` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `rescheduled_slot_fk` FOREIGN KEY (`rescheduled_time_slot`) REFERENCES `time_slot` (`slot_id`),
+  ADD CONSTRAINT `session_fk` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`);
+
+--
+-- Constraints for table `timeslot_doctor`
+--
+ALTER TABLE `timeslot_doctor`
+  ADD CONSTRAINT `timeslot_doctor_ibfk_1` FOREIGN KEY (`slot_id`) REFERENCES `timeslot` (`slot_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
