@@ -10,21 +10,23 @@
   <div class="loginsignup" >
     <div class="loginsignup-container">
       <div class="logo-container">
-        <img class="logo" src="../assests/logo (1).png"/>
+        <img class="logo" src="<?= ROOT?>/assets/images/logo.png"/>
         <div class="logo_text">WELL BE</div>
       </div>
       <h1>Log In</h1>
       <form method="post">
         <div class="loginsignup-fields">
-          <input name="username"  type="text" placeholder="Type your NIC number"/>
+          <input name="nic"  type="text" placeholder="Type your NIC number"/>
           <input name="password"  type="password" placeholder="Type your Password"/>
         </div>
 
-        <?php if(!empty($errors['username'])):?>
-          <div>
-              <?php echo $errors['username'] ?>
+        <?php if (!empty($errors)): ?>
+          <div class="error-messages">
+            <?php foreach ($errors as $error): ?>
+              <p class="error"><?= $error ?></p>
+            <?php endforeach; ?>
           </div>
-        <?php endif;?>
+        <?php endif; ?>
         
         <button>LOGIN</button>
       </form>
