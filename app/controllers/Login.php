@@ -1,32 +1,35 @@
 <?php
 
-class Login extends Controller{
+class Login extends Controller {
 
-    public function index(){
-
+    public function index() {
         $data = [];
 
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
-         
-            $user = new User;
-            
-            $arr['username'] = $_POST['username'];
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_SESSION['user_type'] == "patient") {
+                $user = new Patient;
+            } elseif ($_SESSION['user_type'] == "doctor") {
+                $user = new Doctor;
+            }
+
+            $arr['nic'] = $_POST['nic'];
             $row = $user->first($arr);
 
-            if($row)
-            {
-                if($row->password === $_POST['password'])
-                {
-                    $_SESSION['USER'] = $row; //for save user details until end of the session
-                    redirect("home");
+            if ($row) {
+                if ($row->password === $_POST['password']) {
+                    $_SESSION['USER'] = $row; // Save user details in the session
+                    redirect("doctor");
+                } else {
+                    $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
                 }
+            } else {
+                $user->errors['nic'] = 'NIC not found';
             }
-            $user->errors['username'] = 'Wrong username or password';
+
+            // Pass the errors to the view
             $data['errors'] = $user->errors;
         }
 
-        echo $_SESSION['user_type'];
-
-        $this->view('login',$data);
+        $this->view('login', $data);
     }
 }
