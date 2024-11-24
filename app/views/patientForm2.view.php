@@ -10,22 +10,14 @@
 <body>
     <div class="dashboard-container">
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Header -->
-            <?php
-            $pageTitle = "Patients"; // Set the text you want to display
-            include $_SERVER['DOCUMENT_ROOT'] . '/test/app/views/Components/header.php';
-            ?>
 
-            <!--Content Container-->
-            <div class="content-container">
-                <div class="form-tabs">
-                    <span class="tab active">User Details</span>
-                </div>
                 <div class="form-container">
                     
                 <form class="patient-form" action="<?= ROOT ?>/signup/form2" method="post">
+                <div class="logo-container">
+                    <img class="logo" src="<?= ROOT ?>/assets/images/logo.png" />
+                    <div class="logo_text">WELL BE</div>
+                </div>
                     <span class="form-title">Health Information</span>
                     
                     <div class="form-row">

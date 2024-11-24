@@ -78,6 +78,18 @@ class Patient extends Controller
    }
 
 
+   public function get_data()
+   {
+      $this->view('Patient/get_data', 'get_data');
+   }
+
+   public function filter_data()
+   {
+      $this->view('Patient/filter_data', 'filter_data');
+   }
+
+
+
    public function renderComponent($component, $active)
    {
       $elements = $this->data['elements'];
