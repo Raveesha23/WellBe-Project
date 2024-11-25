@@ -47,6 +47,15 @@ class Database
 
 		return false;
 	}
+
+	public function bind($param, $value, $type = null)
+    {
+        if (is_null($type)) {
+            $type = PDO::PARAM_STR;
+        }
+        $this->stmt->bindValue($param, $value, $type);
+    }
+
 }
 
 

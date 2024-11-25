@@ -2,7 +2,7 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	/** database config **/
-	define('DBNAME', 'mychat_db');
+	define('DBNAME', 'wellbe_db');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');
@@ -11,7 +11,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('ROOT', 'http://localhost/mvc/public');
 } else {
 	/** database config **/
-	define('DBNAME', 'my_db');
+	define('DBNAME', 'wellbe_db');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');

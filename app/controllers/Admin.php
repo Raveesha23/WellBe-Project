@@ -59,12 +59,46 @@ class Admin extends Controller
 
    public function doctorForm1()
    {
-      $this->view('Admin/doctorForm1', 'doctorForm1');
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         // Debug: Print or log POST data
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+
+         $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
+         header('Location: ' . ROOT . '/Admin/doctorForm2');
+         exit;
+     }
+ 
+     $this->view('Admin/doctorForm1', 'doctorForm1');
    }
 
    public function doctorForm2()
    {
-      $this->view('Admin/doctorForm2', 'doctorForm2');
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
+
+         // Debug: Print or log the merged doctor data
+        echo '<pre>';
+        print_r($doctorData);
+        echo '</pre>';
+ 
+         $doctor = new Doctor();
+ 
+         if ($doctor->validate($doctorData)) {
+             if ($doctor->addDoctor($doctorData)) {
+                 unset($_SESSION['doctor_data']); // Clear session data after success
+                 header('Location: ' . ROOT . '/Admin/doctors');
+                 exit;
+             } else {
+                 $data['error'] = 'Database insertion failed.';
+             }
+         } else {
+             $data['error'] = 'Validation failed.';
+         }
+     }
+ 
+     $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
 
    public function pharmacists()
