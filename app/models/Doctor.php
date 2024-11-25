@@ -10,7 +10,7 @@ class Doctor extends Model
 
     protected $allowedColumns = [
 
-        'nic',
+        'id',
         'password',
     ];
 
@@ -18,9 +18,9 @@ class Doctor extends Model
     {
         $this->errors = [];
 
-        if(empty($data['nic']))
+        if(empty($data['id']))
         {
-            $this->errors['nic'] = "Username is required";
+            $this->errors['id'] = "Username is required";
         }
 
         if(empty($data['password']))

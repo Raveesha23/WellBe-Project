@@ -4,112 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="<?= ROOT?>/assets/css/doc_dashboard.css?v=1.1">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            background-color: #E0EBFF;
-        }
-    </style>
+    <title>Appointment Details</title>
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/appointment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>
-    <div class="flex h-full">
-       <?php 
-        $this -> renderComponent('navbar',$active);
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <?php
+        $this->renderComponent('navbar', $active);
         ?>
-    
-        <div class="relative" style="background-color: rgb(255, 255, 255);width: 100%; margin-top: 6%;margin-bottom: 2%;overflow-y: auto;overflow-x: hidden;">
-            <div class="font-['Poppins'] text-2xl" style="margin-left: 15px;margin-top: 15px;font-weight: bold;">
-                <p>Doctor Portal</p>
-                <div class="w-52 border-blue-500" style="border-width: 1px;margin-top: 5px;"></div>
-            </div>
 
-            <div class="items" style="justify-content: space-between;">
-                <div style="margin-top: 25px;">
-                    <div style="margin-left: 25px;">
-                        <div class="flex" style="gap: 20px; align-items: center;margin-bottom: 20px;">
-                            <div>
-                                <img src="./assets/images/user.png" alt="" style="width: 100px ;min-width: 80px;">
-                            </div>
-                            <div>
-                                <p class="font-['Poppins'] " style="font-weight: bold; font-size: 35px;margin-bottom: 5px;">Welcome</p>
-                                <p class="font-['Poppins'] " style="font-weight: bold; font-size: 50px;margin-top: -15px;max-width: 350px;line-height: 1.0;">Dr.SANDARU Danesh</p>
-                            </div>
-                        </div>
-    
-                        <div class="flex">
-                            <div class="w-2 h-40 bg-blue-400" style="margin-right: 10px;"></div>
-                            <div class=" h-38 text-black font-['Poppins']" style="width: 200px;;font-size: 27px; font-weight: 500;"> Dr. Sandaru, you have  8 appointments today</div>
-                        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <?php
+            $pageTitle = "Appointments"; // Set the text you want to display
+            //include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Patient/header.php';
+            require '../app/views/Components/Doctor/header.php';
+            ?>
 
-                        <div class="font-['Poppins']" style="display: flex;margin-top: 50px;gap: 20px;">
-                            <p class="checkUp">Start Patient Check-up</p>
-                            <button style="width: 100px;background-color: rgb(44, 34, 119);font-size: 28px;color: white;border-radius: 10px;"><a href="/MVC-Copy/public/doctor/patientQueue">Start</a></button>
-                        </div>
-                    </div>
+            
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="header">
+                    <p>Appointments
+                        <button class="btn" onclick="window.location.href='search_for_doctor'">Schedule an Appointment</button>
+                        <span>
+                            <button class="btn1">Reschedule/ Cancellation Policy</button>
+                        </span>
+                    </p>
                 </div>
+                <hr>  
+                <div class="container">
+                    <div class="card">
+                        <p>Hi K.S.Perera,</p>
+                        <p>you have an appointment<br>with</p>
+                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
+                        <h1>25</h1>
+                        <h2>Monday<br>September 2024</h2>
+                        <div class="buttons">
+                            <button class="accept">Details</button>
+                            <button class="reschedule">Reschedule</button>
+                            <button class="cancel" onclick="showModal()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <p>Hi K.S.Perera,</p>
+                        <p>you have an appointment<br>with</p>
+                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
+                        <h1>25</h1>
+                        <h2>Monday<br>September 2024</h2>
+                        <div class="buttons">
+                            <button class="accept">Details</button>
+                            <button class="reschedule">Reschedule</button>
+                            <button class="cancel" onclick="showModal()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <p>Hi K.S.Perera,</p>
+                        <p>you have an appointment<br>with</p>
+                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
+                        <h1>25</h1>
+                        <h2>Monday<br>September 2024</h2>
+                        <div class="buttons">
+                            <button class="accept">Details</button>
+                            <button class="reschedule">Reschedule</button>
+                            <button class="cancel" onclick="showModal()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <p>Hi K.S.Perera,</p>
+                        <p>you have an appointment<br>with</p>
+                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
+                        <h1>25</h1>
+                        <h2>Monday<br>September 2024</h2>
+                        <div class="buttons">
+                            <button class="accept">Details</button>
+                            <button class="reschedule">Reschedule</button>
+                            <button class="cancel" onclick="showModal()">Cancel</button>
+                        </div>
+                    </div>
+                    
 
-                <div class="container2">
-                    <div class="graph">
-                        <div>
-                            <img src="./assets/images/cal.png" alt="" style="width: 350px;">
-                        </div>
-                        <div>
-                            <img src="./assets/images/line-graph.webp" alt="" style="width: 300px;">
-                        </div>
-                    </div>
-                    <div class="statQueue">
-                        <div class="boxQueue" style="background-color: #5D93FF;">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/MVC-Copy/public/assets/images/patient.png"></div>
-                                <div class="test"><p>H.H.D.Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiii</p>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiii</p>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiii</p>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiii</p>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiisdsi</p>
-                            </div>
-                        </div>
-                        <div class="box" style="background-color: #5D93FF;">
-                            <div class="box-item">
-                                <img src="http://localhost/MVC-Copy/public/assets/images/patient.png">
-                                <p>Hiii</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Additional appointment cards here -->
+
                 </div>
             </div>
-
         </div>
     </div>
-    
+
+    <!-- Modal HTML -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Are you sure you want to cancel this appointment?</p>
+            <div class="modal-buttons">
+                <button class="yes-btn" onclick="cancelAppointment()">Yes</button>
+                <button class="no-btn" onclick="closeModal()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modal -->
+    <script>
+        // Function to show the modal
+        function showModal() {
+            document.getElementById("cancelModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("cancelModal").style.display = "none";
+        }
+
+        // Function to handle cancellation
+        function cancelAppointment() {
+            alert("Appointment Cancelled."); // Replace this with actual cancellation logic
+            closeModal(); // Close the modal after the action is confirmed
+        }
+
+        // Close the modal if clicked outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById("cancelModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
