@@ -207,22 +207,38 @@
 }
 
 .image {
-  position: relative;
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  background-color: #172554;
-  padding: 3px;
-  margin-bottom: 10px;
-}
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: #172554;
+    padding: 3px;
+    margin-bottom: 10px;
+    overflow: hidden; /* Ensures any overflow (extra part of the image) is clipped */
+  }
+  
+  .image .profile-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* This ensures the image covers the container without distorting */
+    object-position: center; /* Optional: Keeps the image centered within the frame */
+    border-radius: 50%; /* Keeps the image circular */
+    border: 3px solid #fff; /* Adds a white border around the image */
+    padding-right: 15px;
+  }
 
-.image .profile-img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #fff;
-}
+
+   .image .profile-img1 {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* This ensures the image covers the container without distorting */
+    object-position: center; /* Optional: Keeps the image centered within the frame */
+    border-radius: 50%; /* Keeps the image circular */
+    border: 3px solid #fff; /* Adds a white border around the image */
+    padding-left: 15px;
+  }
+  
+
 
 .profile-card .text-data {
   display: flex;
@@ -230,6 +246,11 @@
   align-items: center;
   color: #333;
 }
+
+.medical-info strong {
+    color: red;
+  }
+  
 
 .text-data .name {
   font-size: 22px;
@@ -442,6 +463,19 @@
     color: #ffffff;
 }
 
+.mini1 {
+    flex: 1; /* Equal width for all cards */
+    min-width: 150px; /* Ensure cards don’t get too narrow */
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #3abfc6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 15px;
+    color: #ffffff;
+}
+
 .mini:hover{
     cursor: pointer;
     transform: translateY(-5px);
@@ -516,3 +550,5 @@
     flex: 1;
     text-align: right;
 }
+
+

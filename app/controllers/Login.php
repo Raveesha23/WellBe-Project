@@ -18,7 +18,11 @@ class Login extends Controller {
             if ($row) {
                 if ($row->password === $_POST['password']) {
                     $_SESSION['USER'] = $row; // Save user details in the session
-                    redirect("doctor");
+                    if ($_SESSION['user_type'] == "patient") {
+                        redirect("patient/profile/" . $row->nic); // Redirect to patient profile
+                    } elseif ($_SESSION['user_type'] == "doctor") {
+                        redirect("doctor/profile/" . $row->nic); // Redirect to doctor profile (if applicable)
+                    }
                 } else {
                     $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
                 }
