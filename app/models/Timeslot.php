@@ -7,10 +7,27 @@ class Timeslot extends Model
 
     public function getSchedule(){
 
-        $query = "SELECT date,
+        /*$query = "SELECT date,
         JSON_EXTRACT(doctor_timeslot, '$.{$_SESSION['USER']->id}') AS timeslots
         FROM timeslot
-        WHERE JSON_CONTAINS_PATH(doctor_timeslot, 'one', '$.{$_SESSION['USER']->id}');";
+        WHERE JSON_CONTAINS_PATH(doctor_timeslot, 'one', '$.{$_SESSION['USER']->id}');";*/
+
+        $query = "
+                    SELECT 
+                        t.date,
+                        td.start_time AS start,
+                        td.end_time AS end
+                    FROM 
+                        timeslot t
+                    JOIN 
+                        timeslot_doctor td ON t.slot_id = td.slot_id
+                    JOIN 
+                        doctor d ON td.doctor_id = d.id
+                    WHERE 
+                        d.id = '{$_SESSION['USER']->id}'
+                    ORDER BY 
+                        t.date, td.start_time;";
+
 
 		$schedule =  $this->query($query);
 
@@ -25,32 +42,30 @@ class Timeslot extends Model
 
         $id = $_SESSION['USER']->id;
 
-        if (is_string($timeslot)) {
-            $timeslotArray = explode(",", $timeslot); // Convert string to array
-        }
+        $timeSlots = explode(',', $timeslot);
         
-        $json_Array = [];
-
-        foreach ($timeslotArray as $key => $value) {
-            $parts = explode("-", $value);
-            echo $parts[0];
-            $JSON_ARRAY[] = "JSON_OBJECT('start', '{$parts[0]}', 'end', '{$parts[1]}')";
-        }
-
-        //print_r($json_Array);
-
-        // Step 2: Convert the array into a valid JSON string for SQL
-        $jsonArrayString = implode(",", $JSON_ARRAY);
-        
-
-        $query = "UPDATE timeslot
-        SET doctor_timeslot = JSON_SET(
-            doctor_timeslot,
-            '$.\"{$id}\"', 
-            JSON_ARRAY($jsonArrayString)
-        )
-        WHERE date = '$date';";
+        $query = "INSERT INTO timeslot_doctor (slot_id, doctor_id, start_time, end_time)
+                    VALUES (
+                        (SELECT slot_id FROM timeslot WHERE date = '$date'), 
+                        '{$_SESSION['USER']->id}', 
+                        '$timeSlots[0]', 
+                        '$timeSlots[1]'
+                    );";
 
         $this->query($query);
+
+        redirect("doctor");
+    }
+
+    public function deleteDate($date){
+
+        $query = "DELETE td
+              FROM timeslot_doctor td
+              JOIN timeslot ts ON td.slot_id = ts.slot_id
+              WHERE ts.date = '$date' 
+                AND td.doctor_id = '{$_SESSION['USER']->id}'";
+
+        $this->query($query);
+        redirect("doctor");
     }
 }

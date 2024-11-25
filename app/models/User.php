@@ -21,10 +21,6 @@ class User extends Model
         {
             $this->errors['username'] = "Username is required";
         }
-        elseif(!filter_var($data['username'],FILTER_VALIDATE_EMAIL))
-        {
-            $this->errors['username'] = 'Username is not valid';
-        }
 
         if(empty($data['password']))
         {

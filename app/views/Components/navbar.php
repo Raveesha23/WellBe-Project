@@ -24,7 +24,7 @@
                     $activeClass = ($element[1] === ucfirst($active)) ? 'active' : '';
 
                     // Define the href path for each element
-                    $href = "{$key}";
+                    $href = ROOT . "/{$userType}/{$key}";;
 
                     echo '<a style="color: inherit;" href="' . $href . '">';
                     echo    '<li class="' . $activeClass . '">';
