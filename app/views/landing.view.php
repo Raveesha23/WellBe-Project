@@ -21,16 +21,16 @@
           <li class="link"><a href="#service">Services</a></li>
           <li class="link"><a href="#pages">Pages</a></li>
           <li class="link"><a href="#blog">Blog</a></li>
-          <li class="link dropdown">
-  <a href="login" class="appointment-btn" id="loginButton">Login</a>
-  <div class="dropdown-content" id="dropdownMenu">
-      <p>Login as</p>
-      <form method="post">
-          <a href="<?=ROOT?>/login" data-type="doctor" class="loginFilter">Doctor</a>
-          <a href="<?=ROOT?>/login" data-type="patient" class="loginFilter">Patient</a>
-      </form>
-  </div>
-</li>
+          <li class="login-dropdown link dropdown">
+            <a class="appointment-btn" id="loginButton">Login</a>
+            <div class="dropdown-content" id="dropdownMenu">
+                <p>Login as</p>
+                <form method="post">
+                    <a href="<?=ROOT?>/login" data-type="doctor" class="loginFilter">Doctor</a>
+                    <a href="<?=ROOT?>/login" data-type="patient" class="loginFilter">Patient</a>
+                </form>
+            </div>
+          </li>
 
         </ul>
         
@@ -338,22 +338,61 @@
       </div>
     </footer>
     <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const loginButton = document.getElementById('loginButton');
-    const dropdownMenu = document.getElementById('dropdownMenu');
 
-    loginButton.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevents the default action of the link
-      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    });
+        var navLinks = document.getElementById("navLinks");
 
-    // Optional: Click outside to close the dropdown
-    document.addEventListener('click', (event) => {
-      if (!loginButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.style.display = 'none';
-      }
-    });
-  });
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu(){
+                navLinks.style.right = "-300px";  
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const loginButton = document.getElementById('loginButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+
+          loginButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevents the default action of the link
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+          });
+
+          // Optional: Click outside to close the dropdown
+          document.addEventListener('click', (event) => {
+            if (!loginButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+              dropdownMenu.style.display = 'none';
+            }
+          });
+        });
+
+        const loginOptions = document.querySelectorAll(".loginFilter");
+
+              loginOptions.forEach(option => {
+                  option.addEventListener("click", function () {
+
+                      event.preventDefault();
+
+                      // Get the user type from data attribute
+                      const userType = option.getAttribute("data-type");
+
+                      // Send the user type to PHP via AJAX
+                      fetch('Ajax.php', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/x-www-form-urlencoded',
+                          },
+                          body: 'user_type=' + encodeURIComponent(userType),
+                      })
+                      .then(response => response.text())
+                      .then(data => {
+                          console.log("User type saved in session:", data);
+                          // Redirect or take other action if needed
+                          window.location.href = option.href;
+                      });
+                  });
+              });
+
 </script>
 
   </body>

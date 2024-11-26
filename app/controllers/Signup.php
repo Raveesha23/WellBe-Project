@@ -1,24 +1,52 @@
 <?php
 
-class signup extends Controller{
+class Signup extends Controller
+{
+    public function index()
+    {
+        $data = [];
 
-    public function index(){
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Save the data from the first form to the session
+            $_SESSION['form1_data'] = $_POST;
 
-        $data=[];
+            // Redirect to the second form
+            redirect("signup/form2");
+        }
 
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
-         
-            $user = new User;
-            if($user->validate($_POST))
-            {
-                $user->insert($_POST);
-                echo $_POST['username'];
-                redirect("login");
+        $this->view('patientForm1', $data);
+    }
+
+    public function form2()
+    {
+        $data = [];
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Merge form1 data with form2 data
+            $fullData = array_merge($_SESSION['form1_data'] ?? [], $_POST);
+
+            // Clear session data after merging
+            unset($_SESSION['form1_data']);
+
+            if ($_SESSION['user_type'] == "patient") {
+                $user = new Patient;
             }
 
+            if ($user->validate($fullData)) {
+                $user->insert($fullData);
+                echo "User ID: " . $fullData['nic'];
+                redirect("login");
+            }else{
+                echo "<pre>";
+                print_r($user->errors);
+                echo "</pre>";
+                die();
+            }
+
+            // If validation fails, pass errors to the view
             $data['errors'] = $user->errors;
         }
 
-        $this->view('signup' ,$data);
+        $this->view('patientForm2', $data);
     }
 }

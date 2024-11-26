@@ -1,6 +1,5 @@
 <?php
 
-//user class
 class Doctor extends Model
 {
 
@@ -9,6 +8,7 @@ class Doctor extends Model
     protected $allowedColumns = [
 
         'id',
+        'password',
         'nic',
         'first_name',
         'last_name',
@@ -136,5 +136,28 @@ class Doctor extends Model
     }
 
 }
+        
+    public function validate($data)
+    {
+        $this->errors = [];
 
+        if(empty($data['id']))
+        {
+            $this->errors['id'] = "Username is required";
+        }
 
+        if(empty($data['password']))
+        {
+            $this->errors['password'] = "Password is required";
+        }
+        
+
+        if(empty($this->errors))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+}
