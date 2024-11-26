@@ -48,7 +48,7 @@
                         
                         <div class="form-row">
                             <label for="qualifications">Qualifications and Certifications:</label>
-                            <input type="text" id="qualifications_certifications" name="qualifications_certifications">
+                            <input type="text" id="qualifications" name="qualifications">
                         </div>
 
                         <div class="form-row">

@@ -61,6 +61,7 @@ class Admin extends Controller
    {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          // Debug: Print or log POST data
+         echo 'Form1 Data';
         echo '<pre>';
         print_r($_POST);
         echo '</pre>';
@@ -78,27 +79,36 @@ class Admin extends Controller
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
 
-         // Debug: Print or log the merged doctor data
-        echo '<pre>';
-        print_r($doctorData);
-        echo '</pre>';
+         // // Debug: Print or log the merged doctor data
+         // echo 'Form2 Data';
+         // echo '<pre>';
+         // print_r($doctorData);
+         // echo '</pre>';
  
          $doctor = new Doctor();
  
          if ($doctor->validate($doctorData)) {
-             if ($doctor->addDoctor($doctorData)) {
-                 unset($_SESSION['doctor_data']); // Clear session data after success
-                 header('Location: ' . ROOT . '/Admin/doctors');
-                 exit;
-             } else {
-                 $data['error'] = 'Database insertion failed.';
-             }
-         } else {
-             $data['error'] = 'Validation failed.';
+            if ($doctor->addDoctor($doctorData)) {
+               echo "<script>
+                      alert('Doctor Profile Created Successfully!');
+                      window.location.href = '" . ROOT . "/Admin/doctors';
+               </script>";
+               exit; // Ensure the script stops execution
+              
+               unset($_SESSION['doctor_data']); // Clear session data after success     
+            } else {
+               echo "<script>alert('Database insertion failed.');</script>";
+            }
+         } 
+         else {
+            // Show all validation errors as alerts
+            foreach ($doctor->getErrors() as $error) {
+                echo "<script>alert('$error');</script>";
+            }
          }
      }
  
-     $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
+      $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
 
    public function pharmacists()
