@@ -58,7 +58,7 @@
                         
                         <div class="buttons-bar">
                             <button type="submit" class="prev-button">
-                                <a href="labTechForm1.html">Previous</a>
+                                <a href="<?= ROOT ?>/Admin/labTechForm1">Previous</a>
                             </button>
                             <button type="submit" class="submit-button">
                                 <a href="index.html">Submit</a>
