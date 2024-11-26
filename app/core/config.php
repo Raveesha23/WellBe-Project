@@ -11,7 +11,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('ROOT', 'http://localhost/himesh2/WellBe-Project/public');
 } else {
 	/** database config **/
-	define('DBNAME', 'my_db');
+	define('DBNAME', 'wellbe_db');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');

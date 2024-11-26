@@ -29,18 +29,27 @@
                 </div>
                 <div class="form-container">
                     
-                    <form class="patient-form">
+                    <form class="patient-form" action="<?php echo ROOT; ?>/Admin/doctorForm1" method="POST">
                         <span class="form-title">Personal Information</span>
+
                         <div class="form-row">
-                            <label for="fullName">Full Name:</label>
-                            <input type="text" id="fullName" name="fullName">
+                            <label for="nic">NIC:</label>
+                            <input type="text" id="nic" name="nic">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="first_name" name="first_name">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="last_name" name="last_name">
                         </div>
                         
                         <div class="form-row">
                             <label for="dob">Date of Birth:</label>
                             <input type="date" id="dob" name="dob">
-                            <label for="age" class="age-label">Age:</label>
-                            <input type="text" id="age" name="age" class="age-input">
                         </div>
                         
                         <div class="form-row">
@@ -65,15 +74,15 @@
                             <label for="contact">Contact No:</label>
                             <input type="text" id="contact" name="contact">
                             <label for="emergency-contact" class="emergency-label">Emergency Contact No:</label>
-                            <input type="text" id="emergency-contact" name="emergency-contact" class="emergency-input">
+                            <input type="text" id="emergency_contact" name="emergency_contact" class="emergency-input">
                         </div>
 
                         <div class="form-row">
                             <label for="emergency-relationship">Emergency Contact Relationship:</label>
-                            <input type="text" id="emergency-relationship" name="emergency-relationship">
+                            <input type="text" id="emergency_contact_relationship" name="emergency_contact_relationship">
                         </div>
                         
-                        <button type="submit" class="next-button"><a onclick="window.location.href='doctorForm2'">Next</a></button>
+                        <button type="submit" class="next-button">Next</button>
                         
                     </form>
                 </div>
