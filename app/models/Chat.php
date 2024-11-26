@@ -18,27 +18,27 @@ class Chat extends Model
    {
       $currentUserId = $_SESSION['userid'];
       $query = $isSender
-         ? "UPDATE message SET deleted_sender = 1 WHERE id = :messageId AND sender = :currentUserId"
+         ? "DELETE FROM message WHERE id = :messageId AND sender = :currentUserId"
          : "UPDATE message SET deleted_receiver = 1 WHERE id = :messageId AND receiver = :currentUserId";
 
       return $this->write($query, ['messageId' => $messageId, 'currentUserId' => $currentUserId]);
    }
 
-   // Get the last message date between the current user and other users
+   // Get the last message date between the current user and other user_profile
    public function getLastMessageDates()
    {
       $currentUserId = $_SESSION['userid'];
-      $query = "SELECT users.id, 
+      $query = "SELECT user_profile.id, 
                           DATE_FORMAT((SELECT date FROM message 
-                                       WHERE (sender = users.id AND receiver = :currentUserId) 
-                                       OR (sender = :currentUserId AND receiver = users.id) 
+                                       WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+                                       OR (sender = :currentUserId AND receiver = user_profile.id) 
                                        ORDER BY date DESC LIMIT 1), '%d/%m/%Y') AS date
-                   FROM users
-                   WHERE users.id != :currentUserId";
+                   from user_profile
+                   WHERE user_profile.id != :currentUserId";
       return $this->query($query, ['currentUserId' => $currentUserId]);
    }
 
-   // Get messages between two users
+   // Get messages between two user_profile
    public function getMessages($receiver)
    {
       $sender = $_SESSION['userid'];
@@ -55,39 +55,40 @@ class Chat extends Model
    // Get the username of the receiver
    public function getReceiverUsername($receiver)
    {
-      $query = "SELECT username FROM users WHERE id = :receiver";
+      $query = "SELECT username from user_profile WHERE id = :receiver";
       $receiverData = $this->query($query, ['receiver' => $receiver]);
       return $receiverData ? $receiverData[0]->username : 'Unknown User';
    }
 
-   // Get the count of unseen messages for all users
-   public function getUnseenCounts()
+   // Get the count of unseen messages for all user_profile
+   public function getUnseenCounts($arr)
    {
+
       $currentUserId = $_SESSION['userid'];
-      $query = "SELECT users.*, 
+      $query = "SELECT user_profile.*, 
       (SELECT seen FROM message 
-       WHERE (sender = users.id AND receiver = :currentUserId) 
-       OR (sender = :currentUserId AND receiver = users.id) 
+       WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+       OR (sender = :currentUserId AND receiver = user_profile.id) 
        ORDER BY date DESC LIMIT 1) AS seen,
       (SELECT date FROM message 
-       WHERE (sender = users.id AND receiver = :currentUserId) 
-       OR (sender = :currentUserId AND receiver = users.id) 
+       WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+       OR (sender = :currentUserId AND receiver = user_profile.id) 
        ORDER BY date DESC LIMIT 1) AS last_message_date,
       (SELECT COUNT(*) FROM message 
-       WHERE sender = users.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-      FROM users
-      WHERE users.id != :currentUserId
+       WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+      from user_profile
+      WHERE user_profile.id != :currentUserId AND user_profile.role in $arr
       ORDER BY 
-         unseen_count DESC,  -- Users with unseen messages come first
+         unseen_count DESC,  -- user_profile with unseen messages come first
          last_message_date DESC";
       return $this->query($query, ['currentUserId' => $currentUserId]);
    }
 
-   // Get the status of all users
-   public function getUserStatuses()
+   // Get the status of all user_profile
+   public function getuser_profiletatuses()
    {
       $currentUserId = $_SESSION['userid'];
-      $query = "SELECT users.id, users.state FROM users WHERE users.id != :currentUserId";
+      $query = "SELECT user_profile.id, user_profile.state from user_profile WHERE user_profile.id != :currentUserId";
       return $this->query($query, ['currentUserId' => $currentUserId]);
    }
 
@@ -124,19 +125,30 @@ class Chat extends Model
 
    public function userDetails($currentUserId)
    {
-      $query = "SELECT users.*, 
+      $query = "SELECT user_profile.*, 
           (SELECT seen FROM message 
-           WHERE (sender = users.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = users.id) 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
            ORDER BY date DESC LIMIT 1) AS seen,
           (SELECT date FROM message 
-           WHERE (sender = users.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = users.id) 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
            ORDER BY date DESC LIMIT 1) AS last_message_date,
-          (SELECT COUNT(*) FROM message WHERE sender = users.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-          FROM users
-          WHERE users.id != :currentUserId";
+          (SELECT COUNT(*) FROM message WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+          from user_profile
+          WHERE user_profile.id != :currentUserId";
 
       return $this->query($query, ['currentUserId' => $currentUserId]);
+   }
+
+   public function editMessage($messageId, $newMessage)
+   {
+      $currentUserId = $_SESSION['userid'];
+      $query = "UPDATE message SET message = :newMessage, edited = 1 WHERE id = :messageId AND sender = :currentUserId";
+      return $this->write($query, [
+         'newMessage' => $newMessage,
+         'messageId' => $messageId,
+         'currentUserId' => $currentUserId,
+      ]);
    }
 }

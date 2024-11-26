@@ -1,8 +1,10 @@
 <?php
 
-class Login extends Controller {
+class Login extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
         $data = [];
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -10,6 +12,12 @@ class Login extends Controller {
                 $user = new Patient;
             } elseif ($_SESSION['user_type'] == "doctor") {
                 $user = new Doctor;
+            } elseif ($_SESSION['user_type'] == "pharmacy") {
+                $user = new Pharmacy;
+            } elseif ($_SESSION['user_type'] == "lab") {
+                $user = new Lab;
+            } elseif ($_SESSION['user_type'] == "admin") {
+                $user = new Admin;
             }
 
             $arr['nic'] = $_POST['nic'];
@@ -18,7 +26,9 @@ class Login extends Controller {
             if ($row) {
                 if ($row->password === $_POST['password']) {
                     $_SESSION['USER'] = $row; // Save user details in the session
-                    redirect("doctor");
+                    $_SESSION['userid'] = $row->id;
+                    echo ($_SESSION);
+                    redirect($_SESSION['user_type']);
                 } else {
                     $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
                 }

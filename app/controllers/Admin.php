@@ -101,7 +101,7 @@ class Admin extends Controller
    {
       $this->view('Admin/chat', 'chat');
    }
-   
+
    public function logout()
    {
       $this->view('Admin/logout', 'logout');

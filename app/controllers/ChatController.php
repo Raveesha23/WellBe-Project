@@ -43,15 +43,15 @@ class ChatController
       return $this->chatModel->getReceiverUsername($receiver);
    }
 
-   public function getUnseenCounts()
+   public function getUnseenCounts($arr)
    {
-      $result = $this->chatModel->getUnseenCounts();
+      $result = $this->chatModel->getUnseenCounts($arr);
       echo json_encode($result);
    }
 
-   public function getUserStatuses()
+   public function getuser_profiletatuses()
    {
-      return $this->chatModel->getUserStatuses();
+      return $this->chatModel->getuser_profiletatuses();
    }
 
    public function markMessagesSeen($receiver)
@@ -73,8 +73,19 @@ class ChatController
    {
       return $this->chatModel->userDetails($currentUserId);
    }
+
    public function updateRecievedState($receiver, $sender)
    {
       return $this->chatModel->updateRecievedState($receiver, $sender);
+   }
+
+   public function editMessage($messageId, $newMessage)
+   {
+      $result = $this->chatModel->editMessage($messageId, $newMessage);
+      if ($result) {
+         echo json_encode(["status" => "success", "message" => "Message edited successfully."]);
+      } else {
+         echo json_encode(["status" => "error", "message" => "Could not edit the message."]);
+      }
    }
 }

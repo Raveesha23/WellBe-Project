@@ -5,7 +5,7 @@
 class User extends Model
 {
 
-    protected $table = 'users';
+    protected $table = 'user_profile';
 
     protected $allowedColumns = [
 
@@ -17,26 +17,20 @@ class User extends Model
     {
         $this->errors = [];
 
-        if(empty($data['username']))
-        {
+        if (empty($data['username'])) {
             $this->errors['username'] = "Username is required";
-        }
-        elseif(!filter_var($data['username'],FILTER_VALIDATE_EMAIL))
-        {
+        } elseif (!filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
             $this->errors['username'] = 'Username is not valid';
         }
 
-        if(empty($data['password']))
-        {
+        if (empty($data['password'])) {
             $this->errors['password'] = "Password is required";
         }
-        
 
-        if(empty($this->errors))
-        {
+
+        if (empty($this->errors)) {
             return true;
-        }else
-        {
+        } else {
             return false;
         }
     }

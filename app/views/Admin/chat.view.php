@@ -10,6 +10,7 @@ require_once(__DIR__ . "/../../core/Database.php");
 $DB = new Database();
 $currentUserId = $_SESSION['userid'];
 
+
 // Query to get user_profile and unseen status of the last message, excluding the logged-in user
 $query = "SELECT user_profile.*, 
           (SELECT seen FROM message 
@@ -23,7 +24,7 @@ $query = "SELECT user_profile.*,
           (SELECT COUNT(*) FROM message 
            WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
           from user_profile
-          WHERE user_profile.id != :currentUserId AND user_profile.role = 3
+          WHERE user_profile.id != :currentUserId AND user_profile.role in (1,2,4,5)
           ORDER BY 
              unseen_count DESC,  -- user_profile with unseen messages come first
              last_message_date DESC";
@@ -37,7 +38,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard</title>
-   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/lab/message.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/admin/message.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -120,7 +121,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
       </ul>
    </div>
 
-   <script src="<?= ROOT ?>/assets/js/lab/message.js"></script>
+   <script src="<?= ROOT ?>/assets/js/admin/message.js"></script>
    <script>
       let selectedUserId = null;
       let selectedMessage = null;
@@ -219,7 +220,6 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
                chatMessages.innerHTML = '';
                data.messages.forEach(message => {
                   const div = document.createElement('div');
-                  // window.alert(message.sender);
                   div.classList.add('message', message.sender == receiverId ? 'received' : 'sent');
                   div.setAttribute('data-message-id', message.id);
 
@@ -251,7 +251,6 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
                      const chatMessages = document.getElementById("chat-messages");
                      chatMessages.innerHTML = '';
                      data.messages.forEach(message => {
-                        // window.alert(selectedUserId);
                         const div = document.createElement('div');
                         div.classList.add('message', message.sender == selectedUserId ? 'received' : 'sent');
                         div.setAttribute('data-message-id', message.id);
@@ -368,7 +367,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
       setInterval(updateChatTimestamps, 3000);
 
       function refreshUnseenCounts() {
-         fetch(`<?= ROOT ?>/ChatController/getUnseenCounts/${3}`)
+         fetch(`<?= ROOT ?>/ChatController/getUnseenCounts/${(1,2,4,5)}`)
             .then(response => response.json())
             .then(user_profile => {
 

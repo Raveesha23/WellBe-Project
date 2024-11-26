@@ -10,24 +10,24 @@ require_once(__DIR__ . "/../../core/Database.php");
 $DB = new Database();
 $currentUserId = $_SESSION['userid'];
 
-// Query to get users and unseen status of the last message, excluding the logged-in user
-$query = "SELECT users.*, 
+// Query to get user_profile and unseen status of the last message, excluding the logged-in user
+$query = "SELECT user_profile.*, 
           (SELECT seen FROM message 
-           WHERE (sender = users.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = users.id) 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
            ORDER BY date DESC LIMIT 1) AS seen,
           (SELECT date FROM message 
-           WHERE (sender = users.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = users.id) 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
            ORDER BY date DESC LIMIT 1) AS last_message_date,
           (SELECT COUNT(*) FROM message 
-           WHERE sender = users.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-          FROM users
-          WHERE users.id != :currentUserId
+           WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+          from user_profile
+          WHERE user_profile.id != :currentUserId
           ORDER BY 
-             unseen_count DESC,  -- Users with unseen messages come first
+             unseen_count DESC,  -- user_profile with unseen messages come first
              last_message_date DESC";
-$users = $DB->read($query, ['currentUserId' => $currentUserId]);
+$user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +61,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                      <input type="text" placeholder="Search">
                   </div>
                   <ul id="chat-list">
-                     <?php foreach ($users as $user): ?>
+                     <?php foreach ($user_profile as $user): ?>
                         <li>
                            <div class="chat-item <?php echo ($user['unseen_count'] > 0) ? 'unseen' : ''; ?>"
                               data-receiver-id="<?php echo $user['id']; ?>"
@@ -72,14 +72,14 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                                  <p class="chat-status"><?php echo $user['state'] ? 'Online' : 'Offline'; ?></p>
                               </div>
                               <div class="chat-side">
-                                 <div class="time" id="time-<?php echo $user['id']; ?>">
+                                 <span class="time" id="time-<?php echo $user['id']; ?>">
                                     <?php
                                     echo !empty($user['last_message_date'])
                                        ? date('d/m/Y', strtotime($user['last_message_date']))
                                        : '';
                                     ?>
-                                 </div>
-                                 <div class="circle"></div>
+                                 </span>
+                                 <span class="circle"></span>
                               </div>
                            </div>
                         </li>
@@ -182,10 +182,10 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
       function selectChat(chatItem, userId) {
          selectedUserId = userId;
          const username = chatItem.querySelector('.chat-info h4').textContent;
-         const userStatus = chatItem.querySelector('.chat-status').textContent;
+         const user_profiletatus = chatItem.querySelector('.chat-status').textContent;
 
          document.getElementById('chat-username').textContent = username;
-         document.getElementById('chat-status').textContent = userStatus;
+         document.getElementById('chat-status').textContent = user_profiletatus;
 
          startChat(userId);
 
@@ -205,7 +205,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
                   div.innerHTML = `
                <p>${message.message}</p>
-               <div class="time">${message.date}</div>
+               <span class="time">${message.date}</span>
             `;
                   chatMessages.appendChild(div);
                });
@@ -236,7 +236,7 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
 
                         div.innerHTML = `
                            <p>${message.message}</p>
-                           <div class="time">${message.date}</div>
+                           <span class="time">${message.date}</span>
                         `;
                         chatMessages.appendChild(div);
                      });
@@ -270,15 +270,15 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
       }
 
 
-      setInterval(refreshUserStatuses, 3000);
+      setInterval(refreshuser_profiletatuses, 3000);
 
-      function refreshUserStatuses() {
+      function refreshuser_profiletatuses() {
          const xhr = new XMLHttpRequest();
-         xhr.open("GET", "<?= ROOT ?>/ChatController/getUserStatuses", true);
+         xhr.open("GET", "<?= ROOT ?>/ChatController/getuser_profiletatuses", true);
          xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-               const users = JSON.parse(xhr.responseText);
-               users.forEach(user => {
+               const user_profile = JSON.parse(xhr.responseText);
+               user_profile.forEach(user => {
                   const chatItem = document.querySelector(`.chat-item[data-receiver-id="${user.id}"]`);
                   if (chatItem) {
                      const statusElement = chatItem.querySelector('.chat-status');
@@ -310,12 +310,12 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
       function refreshUnseenCounts() {
          fetch('<?= ROOT ?>/ChatController/getUnseenCounts')
             .then(response => response.json())
-            .then(users => {
+            .then(user_profile => {
 
                const chatList = document.getElementById('chat-list');
                chatList.innerHTML = ''; // Clear current list
 
-               users.forEach(user => {
+               user_profile.forEach(user => {
                   // Create the HTML for each user item
                   const unseenClass = user.unseen_count > 0 ? 'unseen' : '';
                   const lastMessageDate = user.last_message_date ?
@@ -333,8 +333,8 @@ $users = $DB->read($query, ['currentUserId' => $currentUserId]);
                            <p class="chat-status">${user.state ? 'Online' : 'Offline'}</p>
                         </div>
                         <div class="chat-side">
-                           <div class="time" id="time-${user.id}">${lastMessageDate}</div>
-                           <div class="circle"></div>
+                           <span class="time" id="time-${user.id}">${lastMessageDate}</span>
+                           <span class="circle"></span>
                         </div>
                      </div>
                   </li>
