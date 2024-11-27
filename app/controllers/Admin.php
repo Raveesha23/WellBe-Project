@@ -54,62 +54,121 @@ class Admin extends Controller
 
    public function doctors()
    {
-      $this->view('Admin/doctors', 'doctors');
+      $doctor = new Doctor(); // Instantiate the Doctor model
+      $data['doctors'] = $doctor->getAllDoctors(); // Fetch all doctor data, including ID
+      $this->view('Admin/doctors', 'doctors', $data); // Pass the data to the view
    }
+
+   // public function doctorForm1()
+   // {
+   //    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+   //       $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
+   //       header('Location: ' . ROOT . '/Admin/doctorForm2');
+   //       exit;
+   //   }
+ 
+   //   $this->view('Admin/doctorForm1', 'doctorForm1');
+   // }
 
    public function doctorForm1()
    {
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-         // Debug: Print or log POST data
-         echo 'Form1 Data';
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
+      $data = [];
 
-         $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
-         header('Location: ' . ROOT . '/Admin/doctorForm2');
-         exit;
-     }
- 
-     $this->view('Admin/doctorForm1', 'doctorForm1');
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         $doctor = new Doctor();
+         $doctorData = $_POST;
+
+         // Validate step 1 fields
+         if ($doctor->validate($doctorData, 1)) {
+            // Temporarily store validated data in session
+            $_SESSION['doctor_data'] = $doctorData;
+            header('Location: ' . ROOT . '/Admin/doctorForm2');
+            exit;
+         } 
+         else {
+            // Add validation errors to data array
+            $data['errors'] = $doctor->getErrors();
+            $data['formData'] = $doctorData; // Pass submitted data back to the view
+         }
+      }
+
+      $this->view('Admin/doctorForm1', 'doctorForm1', $data ?? []);
    }
 
    public function doctorForm2()
    {
+      $data = [];
+
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         $doctor = new Doctor();
+
+         // Merge previously stored data with current data
          $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
 
-         // // Debug: Print or log the merged doctor data
-         // echo 'Form2 Data';
-         // echo '<pre>';
-         // print_r($doctorData);
-         // echo '</pre>';
- 
-         $doctor = new Doctor();
- 
-         if ($doctor->validate($doctorData)) {
-            if ($doctor->addDoctor($doctorData)) {
-               echo "<script>
-                      alert('Doctor Profile Created Successfully!');
-                      window.location.href = '" . ROOT . "/Admin/doctors';
-               </script>";
-               exit; // Ensure the script stops execution
-              
-               unset($_SESSION['doctor_data']); // Clear session data after success     
-            } else {
-               echo "<script>alert('Database insertion failed.');</script>";
-            }
-         } 
-         else {
-            // Show all validation errors as alerts
-            foreach ($doctor->getErrors() as $error) {
-                echo "<script>alert('$error');</script>";
-            }
-         }
-     }
- 
+         // Validate step 2 fields
+         if ($doctor->validate($doctorData, 2)) {
+               // Add doctor to the database
+               if ($doctor->addDoctor($doctorData)) {
+                  echo "<script>
+                        alert('Doctor Profile Created Successfully!');
+                        window.location.href = '" . ROOT . "/Admin/doctors';
+                  </script>";
+                  unset($_SESSION['doctor_data']); // Clear session data
+                  exit;
+               } else {
+                  echo "<script>alert('Database insertion failed.');</script>";
+               }
+         } else {
+               // // Show all validation errors as alerts
+               // foreach ($doctor->getErrors() as $error) {
+               // echo "<script>alert('$error');</script>";
+
+               // Add validation errors to data array
+               $data['errors'] = $doctor->getErrors();
+               $data['formData'] = $doctorData; // Pass submitted data back to the view
+         }   
+      }
+
       $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
+
+
+   // public function doctorForm2()
+   // {
+   //    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+   //       $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
+
+   //       // // Debug: Print or log the merged doctor data
+   //       // echo 'Form2 Data';
+   //       // echo '<pre>';
+   //       // print_r($doctorData);
+   //       // echo '</pre>';
+ 
+   //       $doctor = new Doctor();
+ 
+   //       if ($doctor->validate($doctorData)) {
+   //          if ($doctor->addDoctor($doctorData)) {
+   //             echo "<script>
+   //                    alert('Doctor Profile Created Successfully!');
+   //                    window.location.href = '" . ROOT . "/Admin/doctors';
+   //             </script>";
+   //             exit; // Ensure the script stops execution
+              
+   //             unset($_SESSION['doctor_data']); // Clear session data after success     
+   //          } else {
+   //             echo "<script>alert('Database insertion failed.');</script>";
+   //          }
+   //       } 
+   //       else {
+   //          // Show all validation errors as alerts
+   //          foreach ($doctor->getErrors() as $error) {
+   //              echo "<script>alert('$error');</script>";
+   //          }
+   //       }
+   //   }
+ 
+   //    $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
+   // }
 
    public function pharmacists()
    {
