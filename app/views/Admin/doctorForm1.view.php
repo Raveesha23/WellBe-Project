@@ -98,14 +98,9 @@
                         <button type="submit" class="next-button">Next</button>
                         
                     </form>
-                </div>
-                
-                
-                
-            </div>
-                
+                </div>    
+            </div>        
         </div>
     </div>
-
 </body>
 </html>

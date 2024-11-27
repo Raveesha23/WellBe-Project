@@ -49,7 +49,7 @@
                         </tr>
                         <?php if (!empty($doctors)): ?>
                             <?php foreach ($doctors as $doctor): ?>
-                                <tr>
+                                <tr onclick="window.location.href='<?= ROOT ?>/Admin/doctorProfile?nic=<?= $doctor->nic ?>'">
                                     <td><?= htmlspecialchars($doctor->nic) ?></td>
                                     <td><?= htmlspecialchars($doctor->name) ?></td>
                                     <td><?= htmlspecialchars($doctor->age) ?></td>

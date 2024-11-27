@@ -407,7 +407,8 @@
     cursor: pointer;
 }
 
-.submit-button {
+.submit-button,
+.edit-button {
     background-color: #172554;
     color: #fff;
     padding: 10px 20px;
@@ -428,4 +429,83 @@
     font-weight: normal;
 }
 
+.doctor-profile-container {
+    border: solid 1px #ADADAD;
+    border-radius: 5px;
+}
+
+.doctor-profile-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.profile-form-row {
+    display: flex;
+    margin-left: 80px;
+    margin-right: 80px;
+    align-items: center;
+    padding: 8px;
+
+}
+
+.profile-form-row label {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.profile-form-row input[type="text"],
+.profile-form-row input[type="email"],
+.profile-form-row input[type="date"] {
+    flex: 2;
+    padding: 10px;
+    padding-left: 20px;
+    border:none;
+    border-radius: 10px;
+    background-color: #EFF4FF;
+}
+
+.profile-form-title {
+    color: #001848;
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-buttons-bar {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-self: flex-end;
+    cursor: pointer;
+    margin-right: 80px;
+    margin-top:30px;
+}
+
+.delete-button {
+    color: #FF1111;
+    background-color: #172554;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+    font-size: 14px;
+}
+
+.save-button {
+    color: #ffff;
+    background-color: #0b7811;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+    font-size: 14px;
+}
 

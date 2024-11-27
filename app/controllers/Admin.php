@@ -59,17 +59,6 @@ class Admin extends Controller
       $this->view('Admin/doctors', 'doctors', $data); // Pass the data to the view
    }
 
-   // public function doctorForm1()
-   // {
-   //    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   //       $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
-   //       header('Location: ' . ROOT . '/Admin/doctorForm2');
-   //       exit;
-   //   }
- 
-   //   $this->view('Admin/doctorForm1', 'doctorForm1');
-   // }
-
    public function doctorForm1()
    {
       $data = [];
@@ -119,10 +108,6 @@ class Admin extends Controller
                   echo "<script>alert('Database insertion failed.');</script>";
                }
          } else {
-               // // Show all validation errors as alerts
-               // foreach ($doctor->getErrors() as $error) {
-               // echo "<script>alert('$error');</script>";
-
                // Add validation errors to data array
                $data['errors'] = $doctor->getErrors();
                $data['formData'] = $doctorData; // Pass submitted data back to the view
@@ -132,43 +117,26 @@ class Admin extends Controller
       $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
 
+   public function doctorProfile()
+   {
+      $nic = $_GET['nic'] ?? null; // Fetch from query string
 
-   // public function doctorForm2()
-   // {
-   //    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   //       $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
+      if ($nic) {
+         $doctor = new Doctor(); // Instantiate the Doctor model
+         $data['doctorProfile'] = $doctor->getDoctorById($nic); // Fetch doctor details by ID
+         
+         if (empty($data['doctorProfile'])) {
+               // Handle case where doctor is not found
+               $data['error'] = "Doctor with ID $nic not found.";
+         }
 
-   //       // // Debug: Print or log the merged doctor data
-   //       // echo 'Form2 Data';
-   //       // echo '<pre>';
-   //       // print_r($doctorData);
-   //       // echo '</pre>';
- 
-   //       $doctor = new Doctor();
- 
-   //       if ($doctor->validate($doctorData)) {
-   //          if ($doctor->addDoctor($doctorData)) {
-   //             echo "<script>
-   //                    alert('Doctor Profile Created Successfully!');
-   //                    window.location.href = '" . ROOT . "/Admin/doctors';
-   //             </script>";
-   //             exit; // Ensure the script stops execution
-              
-   //             unset($_SESSION['doctor_data']); // Clear session data after success     
-   //          } else {
-   //             echo "<script>alert('Database insertion failed.');</script>";
-   //          }
-   //       } 
-   //       else {
-   //          // Show all validation errors as alerts
-   //          foreach ($doctor->getErrors() as $error) {
-   //              echo "<script>alert('$error');</script>";
-   //          }
-   //       }
-   //   }
- 
-   //    $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
-   // }
+      } else {
+         // Handle case where no ID is provided
+         $data['error'] = "No doctor ID provided.";
+      }
+
+      $this->view('Admin/doctorProfile', 'doctorProfile', $data); // Pass data to the view
+   }
 
    public function pharmacists()
    {
