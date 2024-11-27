@@ -12,22 +12,29 @@ $currentUserId = $_SESSION['userid'];
 
 // Query to get user_profile and unseen status of the last message, excluding the logged-in user
 $query = "SELECT user_profile.*, 
-          (SELECT seen FROM message 
-           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = user_profile.id) 
-           ORDER BY date DESC LIMIT 1) AS seen,
-          (SELECT date FROM message 
-           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = user_profile.id) 
-           ORDER BY date DESC LIMIT 1) AS last_message_date,
-          (SELECT COUNT(*) FROM message 
-           WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-          from user_profile
-          WHERE user_profile.id != :currentUserId AND user_profile.role = 3
-          ORDER BY 
-             unseen_count DESC,  -- user_profile with unseen messages come first
-             last_message_date DESC";
-$user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
+               (SELECT seen 
+               FROM message 
+               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+                  OR (sender = :currentUserId AND receiver = user_profile.id) 
+               ORDER BY date DESC LIMIT 1) AS seen,
+               
+               (SELECT date 
+               FROM message 
+               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+                  OR (sender = :currentUserId AND receiver = user_profile.id) 
+               ORDER BY date DESC LIMIT 1) AS last_message_date,
+               
+               (SELECT COUNT(*) 
+               FROM message 
+               WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+         FROM user_profile
+         WHERE user_profile.id != :currentUserId  
+         AND user_profile.role = :role          
+         ORDER BY 
+         unseen_count DESC,                     
+         last_message_date DESC;                
+         ";
+$user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 3]);
 ?>
 
 <!DOCTYPE html>

@@ -26,7 +26,7 @@ $query = "SELECT user_profile.*,
           from user_profile
           WHERE user_profile.id != :currentUserId AND user_profile.role in (1,2,4,5)
           ORDER BY 
-             unseen_count DESC,  -- user_profile with unseen messages come first
+             unseen_count DESC,  
              last_message_date DESC";
 $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
 ?>
@@ -367,7 +367,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
       setInterval(updateChatTimestamps, 3000);
 
       function refreshUnseenCounts() {
-         fetch(`<?= ROOT ?>/ChatController/getUnseenCounts/${(1,2,4,5)}`)
+         fetch(`<?= ROOT ?>/ChatController/getUnseenCounts/${1}`)
             .then(response => response.json())
             .then(user_profile => {
 

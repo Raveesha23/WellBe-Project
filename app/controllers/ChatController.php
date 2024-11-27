@@ -12,6 +12,12 @@ class ChatController
       $this->chatModel = new Chat();
    }
 
+   public function index()
+   {
+      echo "Welcome to the ChatController!";
+   }
+
+
    public function deleteMessage($messageId, $isSender)
    {
       $result = $this->chatModel->deleteMessage($messageId, $isSender);

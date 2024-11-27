@@ -25,7 +25,7 @@ $query = "SELECT user_profile.*,
           from user_profile
           WHERE user_profile.id != :currentUserId
           ORDER BY 
-             unseen_count DESC,  -- user_profile with unseen messages come first
+             unseen_count DESC,  
              last_message_date DESC";
 $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
 ?>

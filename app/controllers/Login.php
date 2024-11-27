@@ -28,6 +28,7 @@ class Login extends Controller
                     $_SESSION['USER'] = $row; // Save user details in the session
                     $_SESSION['userid'] = $row->id;
                     echo ($_SESSION);
+                    $user->loggedin();
                     redirect($_SESSION['user_type']);
                 } else {
                     $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password

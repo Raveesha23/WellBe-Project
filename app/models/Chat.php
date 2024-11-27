@@ -77,11 +77,11 @@ class Chat extends Model
       (SELECT COUNT(*) FROM message 
        WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
       from user_profile
-      WHERE user_profile.id != :currentUserId AND user_profile.role in $arr
+      WHERE user_profile.id != :currentUserId AND user_profile.role in (:role)
       ORDER BY 
-         unseen_count DESC,  -- user_profile with unseen messages come first
+         unseen_count DESC,   
          last_message_date DESC";
-      return $this->query($query, ['currentUserId' => $currentUserId]);
+      return $this->query($query, ['currentUserId' => $currentUserId, 'role' => $arr]);
    }
 
    // Get the status of all user_profile
