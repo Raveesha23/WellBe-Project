@@ -12,22 +12,29 @@ $currentUserId = $_SESSION['userid'];
 
 // Query to get user_profile and unseen status of the last message, excluding the logged-in user
 $query = "SELECT user_profile.*, 
-          (SELECT seen FROM message 
-           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = user_profile.id) 
-           ORDER BY date DESC LIMIT 1) AS seen,
-          (SELECT date FROM message 
-           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-           OR (sender = :currentUserId AND receiver = user_profile.id) 
-           ORDER BY date DESC LIMIT 1) AS last_message_date,
-          (SELECT COUNT(*) FROM message 
-           WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-          from user_profile
-          WHERE user_profile.id != :currentUserId
-          ORDER BY 
-             unseen_count DESC,  
-             last_message_date DESC";
-$user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
+               (SELECT seen 
+               FROM message 
+               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+                  OR (sender = :currentUserId AND receiver = user_profile.id) 
+               ORDER BY date DESC LIMIT 1) AS seen,
+               
+               (SELECT date 
+               FROM message 
+               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+                  OR (sender = :currentUserId AND receiver = user_profile.id) 
+               ORDER BY date DESC LIMIT 1) AS last_message_date,
+               
+               (SELECT COUNT(*) 
+               FROM message 
+               WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+         FROM user_profile
+         WHERE user_profile.id != :currentUserId  
+         AND user_profile.role = :role          
+         ORDER BY 
+         unseen_count DESC,                     
+         last_message_date DESC;                
+         ";
+$user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 3]);
 ?>
 
 <!DOCTYPE html>
@@ -114,6 +121,9 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
          <li onclick="deleteMessage()" style="padding: 8px; cursor: pointer;">
             <i class="fas fa-trash-alt"></i> Delete
          </li>
+         <li onclick="editMessage()" style="padding: 8px; cursor: pointer;">
+            <i class="fa-solid fa-pen"></i> Edit
+         </li>
       </ul>
    </div>
 
@@ -133,11 +143,27 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
 
       function showPopupMenu(x, y) {
          const popupMenu = document.getElementById('popup-menu');
+         const editOption = popupMenu.querySelector('li[onclick="editMessage()"]');
+
+         if (selectedMessage) {
+            const senderId = selectedMessage.classList.contains('received') ?
+               selectedUserId :
+               <?php echo json_encode($currentUserId); ?>; // Assume current user is the sender for 'sent' messages
+
+            // Hide edit option if the sender is not the current user
+            if (senderId !== <?php echo json_encode($currentUserId); ?>) {
+               editOption.style.display = 'none';
+            } else {
+               editOption.style.display = 'block';
+            }
+         }
+
          popupMenu.style.left = `${x}px`;
          popupMenu.style.top = `${y}px`;
          popupMenu.style.display = 'block';
          document.addEventListener('click', hidePopupMenu);
       }
+
 
       function hidePopupMenu() {
          document.getElementById('popup-menu').style.display = 'none';
@@ -200,13 +226,15 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
                chatMessages.innerHTML = '';
                data.messages.forEach(message => {
                   const div = document.createElement('div');
-                  div.classList.add('message', message.sender === receiverId ? 'received' : 'sent');
+                  // window.alert(message.sender);
+                  div.classList.add('message', message.sender == receiverId ? 'received' : 'sent');
                   div.setAttribute('data-message-id', message.id);
 
                   div.innerHTML = `
-               <p>${message.message}</p>
-               <span class="time">${message.date}</span>
-            `;
+                           <p>${message.message}</p>
+                           <span class="time">${message.edited ? '<span class="edited-label">(edited)</span>' : ''} ${message.date}</span>
+                           
+                        `;
                   chatMessages.appendChild(div);
                });
                chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -230,14 +258,17 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
                      const chatMessages = document.getElementById("chat-messages");
                      chatMessages.innerHTML = '';
                      data.messages.forEach(message => {
+                        // window.alert(selectedUserId);
                         const div = document.createElement('div');
-                        div.classList.add('message', message.sender === selectedUserId ? 'received' : 'sent');
+                        div.classList.add('message', message.sender == selectedUserId ? 'received' : 'sent');
                         div.setAttribute('data-message-id', message.id);
 
                         div.innerHTML = `
                            <p>${message.message}</p>
-                           <span class="time">${message.date}</span>
+                           <span class="time">${message.edited ? '<span class="edited-label">(edited)</span>' : ''} ${message.date}</span>
+                           
                         `;
+
                         chatMessages.appendChild(div);
                      });
                      if (lastMessageId !== latestMessage.id) {
@@ -250,6 +281,42 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
       }
 
       setInterval(pollMessages, 3000);
+
+      function editMessage() {
+         if (!selectedMessage) {
+            alert("No message selected for editing.");
+            return;
+         }
+
+         const messageId = selectedMessage.getAttribute('data-message-id');
+         const currentText = selectedMessage.querySelector('p').textContent;
+         const newMessage = prompt("Edit your message:", currentText);
+
+         if (newMessage === null || newMessage.trim() === "") {
+            alert("Message cannot be empty.");
+            return;
+         }
+
+         fetch(`<?= ROOT ?>/ChatController/editMessage/${messageId}/${encodeURIComponent(newMessage)}`)
+            .then(response => {
+               if (!response.ok) {
+                  throw new Error('Failed to edit message');
+               }
+               return response.json();
+            })
+            .then(data => {
+               if (data.status === "success") {
+                  pollMessages(); // Refresh the messages list after editing
+                  hidePopupMenu(); // Close any context menus or popups
+               } else {
+                  alert('Error editing message');
+               }
+            })
+            .catch(error => {
+               console.error('An error occurred while editing the message:', error);
+               alert('An error occurred while editing the message.');
+            });
+      }
 
       function sendMessage() {
          const message = document.getElementById('message-input').value;
@@ -308,7 +375,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId]);
       setInterval(updateChatTimestamps, 3000);
 
       function refreshUnseenCounts() {
-         fetch('<?= ROOT ?>/ChatController/getUnseenCounts')
+         fetch(`<?= ROOT ?>/ChatController/getUnseenCounts/${3}`)
             .then(response => response.json())
             .then(user_profile => {
 

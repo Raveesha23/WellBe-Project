@@ -49,11 +49,32 @@ class ChatController
       return $this->chatModel->getReceiverUsername($receiver);
    }
 
-   public function getUnseenCounts($arr)
+   public function getUnseenCounts()
    {
-      $result = $this->chatModel->getUnseenCounts($arr);
-      echo json_encode($result);
+      // Check if 'roles' parameter exists in the request (query string)
+      $rolesParam = isset($_GET['roles']) ? $_GET['roles'] : '';
+
+      // Validate and process the roles
+      $roles = explode(',', $rolesParam); // Convert the comma-separated string to an array
+      $roles = array_map('trim', $roles); // Remove any whitespace
+      $roles = array_filter($roles, 'is_numeric'); // Ensure all roles are numeric
+
+      // Check if roles are valid
+      if (empty($roles)) {
+         echo json_encode(['error' => 'Invalid or missing roles parameter']);
+         return;
+      }
+
+      try {
+         // Fetch unseen counts from the model
+         $result = $this->chatModel->getUnseenCounts($roles);
+         echo json_encode($result);
+      } catch (Exception $e) {
+         // Handle any errors gracefully
+         echo json_encode(['error' => $e->getMessage()]);
+      }
    }
+
 
    public function getuser_profiletatuses()
    {

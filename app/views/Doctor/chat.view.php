@@ -34,7 +34,7 @@ $query = "SELECT user_profile.*,
          unseen_count DESC,                     
          last_message_date DESC;                
          ";
-$user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' => 3]);
+$user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 3]);
 ?>
 
 <!DOCTYPE html>
@@ -422,6 +422,7 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
       // Set interval to poll unseen message counts every 3 seconds
       // Poll unseen counts every 3 seconds
       setInterval(() => refreshUnseenCounts([3]), 3000);
+
 
       // Mark messages as seen when chat is opened
       function markMessagesAsSeen(receiverId) {

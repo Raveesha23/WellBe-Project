@@ -60,29 +60,49 @@ class Chat extends Model
       return $receiverData ? $receiverData[0]->username : 'Unknown User';
    }
 
-   // Get the count of unseen messages for all user_profile
    public function getUnseenCounts($arr)
    {
-
       $currentUserId = $_SESSION['userid'];
+
+      // Check if roles array is empty
+      if (empty($arr)) {
+         throw new Exception("Role array cannot be empty");
+      }
+
+      // Dynamically generate placeholders for the IN clause
+      $rolePlaceholders = implode(',', array_fill(0, count($arr), '?'));
+
+      // SQL query with placeholders
       $query = "SELECT user_profile.*, 
-      (SELECT seen FROM message 
-       WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-       OR (sender = :currentUserId AND receiver = user_profile.id) 
-       ORDER BY date DESC LIMIT 1) AS seen,
-      (SELECT date FROM message 
-       WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-       OR (sender = :currentUserId AND receiver = user_profile.id) 
-       ORDER BY date DESC LIMIT 1) AS last_message_date,
-      (SELECT COUNT(*) FROM message 
-       WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-      from user_profile
-      WHERE user_profile.id != :currentUserId AND user_profile.role in (:role)
-      ORDER BY 
-         unseen_count DESC,   
-         last_message_date DESC";
-      return $this->query($query, ['currentUserId' => $currentUserId, 'role' => $arr]);
+           (SELECT seen FROM message 
+            WHERE (sender = user_profile.id AND receiver = ?) 
+            OR (sender = ? AND receiver = user_profile.id) 
+            ORDER BY date DESC LIMIT 1) AS seen,
+           (SELECT date FROM message 
+            WHERE (sender = user_profile.id AND receiver = ?) 
+            OR (sender = ? AND receiver = user_profile.id) 
+            ORDER BY date DESC LIMIT 1) AS last_message_date,
+           (SELECT COUNT(*) FROM message 
+            WHERE sender = user_profile.id AND receiver = ? AND seen = 0) AS unseen_count
+           FROM user_profile
+           WHERE user_profile.id != ? AND user_profile.role IN ($rolePlaceholders)
+           ORDER BY 
+               unseen_count DESC,   
+               last_message_date DESC";
+
+      // Prepare the parameters for the placeholders
+      $params = array_merge(
+         array_fill(0, 4, $currentUserId), // Bind currentUserId for seen and last_message_date
+         [$currentUserId],                // Bind currentUserId for unseen_count condition
+         [$currentUserId],                // Bind currentUserId for id != condition
+         $arr                             // Bind each role value for the IN clause
+      );
+
+      // Execute the query
+      return $this->readn($query, $params);
    }
+
+
 
    // Get the status of all user_profile
    public function getuser_profiletatuses()
