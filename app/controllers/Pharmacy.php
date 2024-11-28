@@ -8,6 +8,7 @@ class Pharmacy extends Controller
          'dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
          'requests' => ["fas fa-list", "Requests"],
          'chat' => ["fa-solid fa-comment-dots", "Chat"],
+         'report' => ["fa-solid fa-chart-simple", "Report"],
          'setting' => ["fa-solid fa-gear", "Setting"],
          'logout' => ["fas fa-sign-out-alt", "Logout"]
       ],
@@ -28,12 +29,24 @@ class Pharmacy extends Controller
    {
       $this->view('Pharmacy/chat', 'chat');
    }
+   public function report()
+   {
+      $this->view('Pharmacy/report', 'report');
+   }
 
    public function medicationDetails()
    {
       $this->view('Pharmacy/medicationDetails', 'medicationDetails');
    }
 
+   public function login()
+   {
+      $this->view('Lab/login', 'login');
+   }
+   public function logout()
+   {
+      $this->view('Lab/logout', 'logout');
+   }
 
    public function renderComponent($component, $active)
    {

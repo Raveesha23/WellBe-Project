@@ -49,27 +49,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td style="text-align: left;">Urine Test</td>
-                           <td style="text-align: left;">
-                              <select>
-                                 <option value="pending">Pending</option>
-                                 <option value="progress">Progress</option>
-                                 <option value="tested">Tested</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <tr>
                            <td style="text-align: left;">Blood Test</td>
-                           <td style="text-align: left;">
-                              <select>
-                                 <option value="pending">Pending</option>
-                                 <option value="progress">Progress</option>
-                                 <option value="tested">Tested</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td style="text-align: left;">Eye Check</td>
                            <td style="text-align: left;">
                               <select>
                                  <option value="pending">Pending</option>

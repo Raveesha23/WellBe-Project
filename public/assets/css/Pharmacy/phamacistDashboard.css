@@ -60,12 +60,18 @@
     font-size: 25px;
     font-weight: bold;
     flex-wrap: wrap;
-
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     height: 109px;
     gap: 10px;
     /* Space between the circle and the text */
     flex-wrap: nowrap;
     /* Prevents text from wrapping */
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+
 }
 
 .card p {
@@ -117,6 +123,7 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    min-width: 350px;
 }
 
 .messages h3 {

@@ -68,7 +68,7 @@
                             <input type="text" id="emergency-contact" name="emergency-contact" class="emergency-input">
                         </div>
 
-                        <button type="submit" class="next-button"><a onclick="window.location.href='pharmacistForm2'">Next</a></button>
+                        <button type="submit" class="next-button"><a href="<?= ROOT ?>/Admin/pharmacistForm2">Next</a></button>
                         
                     </form>
                 </div>

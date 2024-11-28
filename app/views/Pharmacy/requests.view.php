@@ -15,6 +15,7 @@
       <?php
       $this->renderComponent('navbar', $active);
       ?>
+
       <!-- Main Content -->
       <div class="main-content">
          <!-- Top Header -->
