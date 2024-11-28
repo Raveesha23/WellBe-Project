@@ -62,7 +62,6 @@ class Doctor extends Model
 
         // Execute the query
         return $this->query($query);
-
     }
 
     private function calculateAge($dob)
@@ -76,7 +75,6 @@ class Doctor extends Model
     {
         $this->errors = [];
 
-<<<<<<< HEAD
         if (empty($data['nic'])) {
             $this->errors['nic'] = "Username is required";
         }
@@ -90,31 +88,6 @@ class Doctor extends Model
             return true;
         } else {
             return false;
-=======
-        // List of required fields
-        $requiredFields = [
-            'nic', 'first_name', 'last_name', 'dob', 'gender',
-            'address', 'email', 'contact', 'emergency_contact',
-            'medical_license_no', 'specialization', 'experience',
-            'qualifications', 'medical_school'
-        ];
-
-        // Check for missing fields
-        foreach ($requiredFields as $field) {
-            if (!isset($doctorData[$field]) || trim($doctorData[$field]) === '') {
-                $this->errors[] = ucfirst(str_replace('_', ' ', $field)) . ' is required.';
-            }
-        }
-
-        // Validate NIC format (12 digits)
-        if (!empty($doctorData['nic']) && !preg_match('/^\d{12}$/', $doctorData['nic'])) {
-            $this->errors[] = 'Invalid NIC format. It must be 12 digits.';
-        }
-
-        // Validate email format
-        if (!empty($doctorData['email']) && !filter_var($doctorData['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = 'Invalid email address.';
->>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
         }
 
         // Validate contact number (10 digits)
@@ -144,7 +117,6 @@ class Doctor extends Model
         return empty($this->errors);
     }
 
-<<<<<<< HEAD
     public function loggedin()
     {
         $DB = new Database();
@@ -157,14 +129,3 @@ class Doctor extends Model
         $DB->write($updateQuery, ['receiver' => $_SESSION['userid']]);
     }
 }
-=======
-
-
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-}
-
->>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
