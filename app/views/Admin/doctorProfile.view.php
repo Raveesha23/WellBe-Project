@@ -26,7 +26,7 @@
             <div class="content-container">
             <div class="doctor-profile-container">
                 <?php if (!empty($doctorProfile)): ?>
-                    <form class="doctor-profile-form">
+                    <form class="doctor-profile-form" method = "POST" action="<?php echo ROOT; ?>/Admin/doctorProfile?nic=<?= $doctorProfile->nic ?>" onsubmit="return confirmDeletion();">
                         <span class="profile-form-title">Personal Information</span>
                         <div class="profile-form-row">
                             <label for="nic">NIC:</label>
@@ -94,7 +94,7 @@
                         <div class="profile-buttons-bar">
                             <button type="button" class="edit-button" onclick="toggleEditMode()">Edit</button>
                             <button type="submit" class="save-button" style="display: none;">Save</button>
-                            <button type="buttton" class="delete-button" onclick="deleteDoctorRecord(event)">Delete</button>
+                            <button type="submit" class="delete-button" name="action" value="delete">Delete</button>
                         </div>
                     </form>
                 <?php else: ?>
@@ -126,6 +126,12 @@
                             saveButton.style.display = 'none';
                         }
                     }
+
+                    
+                    function confirmDeletion() {
+                        return confirm("Are you sure you want to delete this doctor's profile? This action cannot be undone.");
+                    }
+                    
                 </script>
                 
             </div>        

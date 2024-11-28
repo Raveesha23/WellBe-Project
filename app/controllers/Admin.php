@@ -116,23 +116,68 @@ class Admin extends Controller
 
       $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
-
+   
    public function doctorProfile()
    {
-      $nic = $_GET['nic'] ?? null; // Fetch from query string
+      $nic = $_GET['nic'] ?? null; // Fetch NIC from query string
 
-      if ($nic) {
-         $doctor = new Doctor(); // Instantiate the Doctor model
-         $data['doctorProfile'] = $doctor->getDoctorById($nic); // Fetch doctor details by ID
-         
-         if (empty($data['doctorProfile'])) {
-               // Handle case where doctor is not found
-               $data['error'] = "Doctor with ID $nic not found.";
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $action = $_POST['action'] ?? null;
+
+         if ($action === 'delete') {
+            // Handle delete action
+            if ($nic) {
+               $doctor = new Doctor();
+
+               if ($doctor->deleteDoctor($nic)) {
+                  echo "<script>
+                        alert('Doctor profile deleted successfully!');
+                        window.location.href = '" . ROOT . "/Admin/doctors';
+                  </script>";
+               } else {
+                  echo "<script>
+                        alert('Failed to delete the doctor profile.');
+                  </script>";
+               }
+            }
+               
+         } else {
+               // Handle update logic
+               $doctorData = $_POST;
+
+               // Instantiate the Doctor model
+               $doctor = new Doctor();
+
+               // Validate the input data
+               if ($doctor->validateDoctor($doctorData)) {
+                  if ($doctor->updateDoctor($doctorData, $nic)) {
+                     echo "<script>
+                           alert('Doctor Profile Updated Successfully!');
+                           window.location.href = '" . ROOT . "/Admin/doctors';
+                     </script>";
+                  } else {
+                     echo "<script>
+                           alert('Failed to update doctor profile.');
+                     </script>";
+                  }
+               } else {
+                  // Retrieve validation errors
+                  $data['errors'] = $doctor->getErrors();
+               }
+
+               // Reload doctor profile after submission
+               $data['doctorProfile'] = $doctor->getDoctorById($nic);
          }
+      } elseif ($nic) {
+         // Fetch doctor profile for the given NIC
+         $doctor = new Doctor();
+         $data['doctorProfile'] = $doctor->getDoctorById($nic);
 
+         if (empty($data['doctorProfile'])) {
+               $data['error'] = "Doctor with NIC $nic not found.";
+         }
       } else {
-         // Handle case where no ID is provided
-         $data['error'] = "No doctor ID provided.";
+         $data['error'] = "No doctor NIC provided.";
       }
 
       $this->view('Admin/doctorProfile', 'doctorProfile', $data); // Pass data to the view
