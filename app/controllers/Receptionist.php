@@ -6,11 +6,11 @@ class Receptionist extends Controller
    private $data = [
       'elements' => [
          'dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
-         'appointmentsOngoing' => ["fas fa-calendar-alt", "Appointments"],
+         'appointmentsSessions' => ["fas fa-calendar-alt", "Appointments"],
          'chat' => ["fas fa-comment-dots", "Chat"],
          'logout' => ["fas fa-sign-out-alt", "Logout"]
       ],
-      'userType' => 'admin'
+      'userType' => 'receptionist'
    ];
 
    public function index()
@@ -18,9 +18,9 @@ class Receptionist extends Controller
       $this->view('Receptionist/dashboard', 'dashboard');
    }
 
-   public function appointmentsOngoing()
+   public function appointmentsSessions()
    {
-      $this->view('Receptionist/appointmentsOngoing', 'appointmentsOngoing');
+      $this->view('Receptionist/appointmentsSessions', 'appointmentsSessions');
    }
 
    public function appointmentsUpcoming()
@@ -31,6 +31,11 @@ class Receptionist extends Controller
    public function appointmentsPast()
    {
       $this->view('Receptionist/appointmentsPast', 'appointmentsPast');
+   }
+
+   public function appointmentQueue()
+   {
+      $this->view('Receptionist/appointmentQueue', 'appointmentQueue');
    }
 
    public function patients()
