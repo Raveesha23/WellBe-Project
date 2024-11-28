@@ -8,7 +8,7 @@ class Doctor extends Model
     protected $allowedColumns = [
 
         'id',
-        //'password',
+        'password',
         'nic',
         'first_name',
         'last_name',
@@ -31,14 +31,16 @@ class Doctor extends Model
     {
         // Calculate the age based on the date of birth
         $data['age'] = $this->calculateAge($data['dob']);
+        $doc_pw = 'doc123';
 
         // Build the SQL query using the provided data
         $query = "
             INSERT INTO `doctor` 
-            (`id`, `nic`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications`, `medical_school`) 
+            (`id`, `nic`, `password`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications`, `medical_school`) 
             VALUES (
                 '{$data['nic']}', 
-                '{$data['nic']}', 
+                '{$data['nic']}',
+                '{$doc_pw}', 
                 '{$data['first_name']}', 
                 '{$data['last_name']}', 
                 '{$data['dob']}', 
