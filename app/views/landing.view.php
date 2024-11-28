@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<<<<<<< HEAD
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +11,24 @@
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/landing.css?v=1.1" />
   <title>Well Be</title>
 </head>
+=======
+        <ul class="nav__links">
+         <li class="link"><a href="#home">Home</a></li>
+          <li class="link"><a href="#about">About Us</a></li>
+          <li class="link"><a href="#service">Services</a></li>
+          <li class="link"><a href="#pages">Pages</a></li>
+          <li class="link"><a href="#blog">Blog</a></li>
+          <li class="login-dropdown link dropdown">
+            <a class="appointment-btn" id="loginButton">Login</a>
+            <div class="dropdown-content" id="dropdownMenu">
+                <p>Login as</p>
+                <form method="post">
+                    <a href="<?=ROOT?>/login" data-type="doctor" class="loginFilter">Doctor</a>
+                    <a href="<?=ROOT?>/login" data-type="patient" class="loginFilter">Patient</a>
+                </form>
+            </div>
+          </li>
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
 
 <body>
   <header>
@@ -222,6 +241,7 @@
         <h4>Dr. Emily Smith</h4>
         <p>Cardiologist</p>
       </div>
+<<<<<<< HEAD
       <div class="doctors__card">
         <div class="doctors__card__image">
           <img src="<?= ROOT ?>/assets/images/doctor-2.jpg" alt="doctor" />
@@ -351,6 +371,24 @@
     function hideMenu() {
       navLinks.style.right = "-300px";
     }
+=======
+    </footer>
+    <script>
+
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu(){
+                navLinks.style.right = "-300px";  
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const loginButton = document.getElementById('loginButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
 
     const loginButton = document.getElementById('loginButton');
     const dropdownMenu = document.getElementById('dropdownMenu');
@@ -395,6 +433,48 @@
     });
   </script>
 
+<<<<<<< HEAD
 </body>
 
 </html>
+=======
+          // Optional: Click outside to close the dropdown
+          document.addEventListener('click', (event) => {
+            if (!loginButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+              dropdownMenu.style.display = 'none';
+            }
+          });
+        });
+
+        const loginOptions = document.querySelectorAll(".loginFilter");
+
+              loginOptions.forEach(option => {
+                  option.addEventListener("click", function () {
+
+                      event.preventDefault();
+
+                      // Get the user type from data attribute
+                      const userType = option.getAttribute("data-type");
+
+                      // Send the user type to PHP via AJAX
+                      fetch('Ajax.php', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/x-www-form-urlencoded',
+                          },
+                          body: 'user_type=' + encodeURIComponent(userType),
+                      })
+                      .then(response => response.text())
+                      .then(data => {
+                          console.log("User type saved in session:", data);
+                          // Redirect or take other action if needed
+                          window.location.href = option.href;
+                      });
+                  });
+              });
+
+</script>
+
+  </body>
+</html>
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b

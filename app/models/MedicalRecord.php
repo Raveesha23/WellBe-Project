@@ -1,15 +1,24 @@
 <?php
 
-class MedicalRecord extends Model{
+class MedicalRecord extends Model {
 
-    public function insertRecord($data){
+    public function insertRecord($remarks) {
+        $doctor_id = $_SESSION['USER']->id;
+        $patient_id = 0;
+        $state = "new";
 
-        $doctor_id = 202;
-        $patient_id = 111;
-        $date = '2024-11-19';
+        $query = "INSERT INTO medication_requests (doctor_id, patient_id, date, time, remark, state)
+                  VALUES (?, ?, CURDATE(), CURTIME(), ?, ?)";
 
-        $query = "INSERT INTO medical_record (doctor_id,patient_id,record,date) VALUES (?,?,?,?)";
+        $this->query($query, [$doctor_id, $patient_id, $remarks, $state]);
 
-        $this->query($query,[$doctor_id,$patient_id,$data,$date]);
     }
+
+    public function getLastInsertedId() {
+        $query = "SELECT LAST_INSERT_ID() AS id";
+        $result = $this->query($query); // Assuming `query()` returns the result set
+        echo print_r($result);
+        echo $result[0]->id;
+    }
+
 }

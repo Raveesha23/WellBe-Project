@@ -59,12 +59,56 @@ class Admin extends Controller
 
    public function doctorForm1()
    {
-      $this->view('Admin/doctorForm1', 'doctorForm1');
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         // Debug: Print or log POST data
+         echo 'Form1 Data';
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+
+         $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
+         header('Location: ' . ROOT . '/Admin/doctorForm2');
+         exit;
+     }
+ 
+     $this->view('Admin/doctorForm1', 'doctorForm1');
    }
 
    public function doctorForm2()
    {
-      $this->view('Admin/doctorForm2', 'doctorForm2');
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         $doctorData = array_merge($_SESSION['doctor_data'] ?? [], $_POST);
+
+         // // Debug: Print or log the merged doctor data
+         // echo 'Form2 Data';
+         // echo '<pre>';
+         // print_r($doctorData);
+         // echo '</pre>';
+ 
+         $doctor = new Doctor();
+ 
+         if ($doctor->validate($doctorData)) {
+            if ($doctor->addDoctor($doctorData)) {
+               echo "<script>
+                      alert('Doctor Profile Created Successfully!');
+                      window.location.href = '" . ROOT . "/Admin/doctors';
+               </script>";
+               exit; // Ensure the script stops execution
+              
+               unset($_SESSION['doctor_data']); // Clear session data after success     
+            } else {
+               echo "<script>alert('Database insertion failed.');</script>";
+            }
+         } 
+         else {
+            // Show all validation errors as alerts
+            foreach ($doctor->getErrors() as $error) {
+                echo "<script>alert('$error');</script>";
+            }
+         }
+     }
+ 
+      $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
 
    public function pharmacists()

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 // session_start();
 
@@ -37,19 +38,27 @@ $query = "SELECT user_profile.*,
 $user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 3]);
 ?>
 
+=======
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
    <title>Dashboard</title>
    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/lab/message.css">
+=======
+   <title>Message</title>
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/chat.css">
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
    <div class="dashboard-container">
+<<<<<<< HEAD
       <!-- Sidebar -->
       <?php
       $this->renderComponent('navbar', $active);
@@ -61,12 +70,29 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 
          $pageTitle = "Chat"; // Set the text you want to display
          include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Lab/header.php';
          ?>
+=======
+   <?php
+        $this->renderComponent('navbar', $active);
+        ?>
+       
+
+      <!-- Main Content -->
+      <div class="main-content">
+      <?php
+            $pageTitle = "Chat-Portal"; // Set the text you want to display
+            //include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Patient/header.php';
+            require '../app/views/Components/Doctor/header.php';
+            ?>
+
+         <!-- Dashboard Content -->
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
          <div class="dashboard-content">
             <div class="container">
                <div class="chat-list">
                   <div class="search-bar">
                      <input type="text" placeholder="Search">
                   </div>
+<<<<<<< HEAD
                   <ul id="chat-list">
                      <?php foreach ($user_profile as $user): ?>
                         <li>
@@ -108,6 +134,61 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 
                      <div class="upload"><i class="fa-solid fa-paperclip"></i></div>
                      <input type="text" id="message-input" placeholder="Type a message">
                      <button onclick="sendMessage()">Send</button>
+=======
+                  <ul>
+                     <li>
+                        <div class="chat-item">
+                           <div class="avatar"></div>
+                           <div class="chat-info">
+                              <h4>Kumari Siriwardana</h4>
+                              <p>Sent attachment</p>
+                           </div>
+                           <span class="time">9:00am</span>
+                        </div>
+                     </li>
+                     <li>
+                        <div class="chat-item">
+                           <div class="avatar"></div>
+                           <div class="chat-info">
+                              <h4>Rumesh Kannangara</h4>
+                              <p>Sent attachment</p>
+                           </div>
+                           <span class="time">9:00am</span>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+
+               <div class="chat-window">
+                  <div class="chat-header">
+                     <div class="avatar"></div>
+                     <div class="header-info">
+                        <h4>Kumari Siriwardana</h4>
+                        <p>Online</p>
+                     </div>
+                  </div>
+                  <div class="chat-messages">
+                     <div class="message received">
+                        <p>ullamco veniam, quis nostrud exer labor...</p>
+                        <span class="time">11:20pm</span>
+                     </div>
+                     <div class="message sent">
+                        <p>Lorem ipsum dolor sit amet, consectetu...</p>
+                        <span class="time">11:25am</span>
+                     </div>
+                     <div class="message received">
+                        <p>ullamco veniam, quis nostrud exer labor...</p>
+                        <span class="time">11:26pm</span>
+                     </div>
+                     <div class="message sent">
+                        <p>ullamco veniam, quis nostrud exer labor...</p>
+                        <span class="time">11:25am</span>
+                     </div>
+                  </div>
+                  <div class="chat-input">
+                     <input type="text" placeholder="Type a message">
+                     <button>Send</button>
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
                   </div>
                </div>
             </div>
@@ -115,6 +196,7 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 
       </div>
    </div>
 
+<<<<<<< HEAD
    <!-- Popup Menu for Message Options -->
    <div id="popup-menu" style="display: none; position: absolute; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-radius: 8px; padding: 10px;">
       <ul style="list-style: none; padding: 0; margin: 0;">
@@ -443,6 +525,9 @@ $user_profile = $DB->read($query, ['currentUserId' => $currentUserId, 'role' => 
       // Call the update function every 3 seconds
       setInterval(updateReceivedState, 3000);
    </script>
+=======
+   <script src="../Message/message.js"></script>
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
 </body>
 
 </html>
