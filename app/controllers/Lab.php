@@ -15,6 +15,14 @@ class Lab extends Controller
       'userType' => 'lab'
    ];
 
+   public function __construct()
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "lab"){
+                redirect('login');
+                exit;
+            }
+        }
+
    public function index()
    {
       $this->view('Lab/dashboard', 'dashboard');

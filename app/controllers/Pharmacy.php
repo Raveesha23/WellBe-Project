@@ -15,6 +15,14 @@ class Pharmacy extends Controller
       'userType' => 'pharmacy'
    ];
 
+   public function __construct()
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "pharmacy"){
+                redirect('login');
+                exit;
+            }
+        }
+
    public function index()
    {
       $this->view('Pharmacy/dashboard', 'dashboard');
