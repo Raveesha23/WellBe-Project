@@ -93,7 +93,7 @@
 
                         <div class="profile-buttons-bar">
                             <button type="button" class="edit-button" onclick="toggleEditMode()">Edit</button>
-                            <button type="submit" class="save-button" style="display: none;">Save</button>
+                            <button type="submit" class="save-button" name="action" value="update" style="display: none;">Save</button>
                             <button type="submit" class="delete-button" name="action" value="delete" onClick="return confirmDeletion();">Delete</button>
                         </div>
                     </form>
@@ -129,7 +129,7 @@
 
                     
                     function confirmDeletion() {
-                        return confirm("Are you sure you want to delete this doctor's profile? This action cannot be undone.");
+                        return confirm("Are you sure you want to delete this doctor's profile?");
                     }
 
                 </script>

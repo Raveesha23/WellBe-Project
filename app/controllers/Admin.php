@@ -141,7 +141,7 @@ class Admin extends Controller
                }
             }
                
-         } else {
+         } else if($action === 'update') {
                // Handle update logic
                $doctorData = $_POST;
 
