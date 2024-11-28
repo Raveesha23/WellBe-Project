@@ -61,11 +61,9 @@ body {
 }
 
 header {
-  background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(18, 172, 142, 0.9),
-      rgba(18, 172, 142, 0.7)
-    ),
+      rgba(18, 172, 142, 0.7)),
     url("http://localhost/mvc/public/assets/images/header.jpg");
   background-position: center center;
   background-size: cover;
@@ -77,6 +75,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .nav__logo {
@@ -87,13 +86,13 @@ header {
   padding-top: 2px;
 }
 
-.nav__logo img{
+.nav__logo img {
   max-height: 100px;
   margin-top: 10px;
 }
 
-.footer__logo img{
-  
+.footer__logo img {
+
   width: 55px;
 }
 
@@ -115,30 +114,37 @@ header {
   color: var(--white);
 }
 
+
+.dropdown {
+  position: relative;
+  /* Ensures dropdown-content is positioned relative to this */
+}
+
 .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%; /* Adjusts the position below the Login button */
-    left: 0;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    min-width: 120px;
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    display: block;
-    padding: 8px 5px;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #e2dfdf;
-  }
-  
+  display: none;
+  position: absolute;
+  top: 100%;
+  /* Adjusts the position below the Login button */
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  min-width: 120px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 5px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {
+  background-color: #e2dfdf;
+}
+
 
 
 .header__container {
@@ -179,7 +185,7 @@ header {
 .header__form h3 {
   font-size: 2.5rem;
   font-weight: 700;
-  color:#0d846c;
+  color: #0d846c;
   text-align: center;
 }
 
@@ -192,12 +198,14 @@ header {
 }
 
 .blinking-text {
-  animation: blinker 1s linear infinite; /* Adjust the duration and timing function as needed */
+  animation: blinker 1s linear infinite;
+  /* Adjust the duration and timing function as needed */
 }
 
 @keyframes blinker {
   50% {
-    opacity: 0; /* Makes the text invisible at the midpoint */
+    opacity: 0;
+    /* Makes the text invisible at the midpoint */
   }
 }
 
@@ -209,7 +217,7 @@ header {
   gap: 2rem;
 }
 
-.service__header__content p {
+.service_header_content p {
   max-width: 600px;
   color: var(--text-light);
 }
@@ -353,7 +361,7 @@ header {
   gap: 2rem;
 }
 
-.doctors__header__content p {
+.doctors_header_content p {
   max-width: 600px;
   color: var(--text-light);
 }
@@ -375,23 +383,32 @@ header {
 .doctors__grid {
   display: flex;
   overflow-x: auto;
-  gap: 16px; /* Adjust as needed for spacing between cards */
-  padding-bottom: 10px; /* To provide space for the scrollbar */
-  scroll-snap-type: x mandatory; /* Ensures snapping behavior for smooth scrolling */
+  gap: 16px;
+  /* Adjust as needed for spacing between cards */
+  padding-bottom: 10px;
+  /* To provide space for the scrollbar */
+  scroll-snap-type: x mandatory;
+  /* Ensures snapping behavior for smooth scrolling */
 }
 
 .doctors__card {
-  min-width: 280px; /* Adjusted to make the card smaller */
-  width: 180px; /* Ensures consistent sizing */
-  flex: 0 0 auto; /* Prevents cards from shrinking */
-  scroll-snap-align: start; /* Aligns each card at the start of the container when scrolling */
-  padding: 10px; /* Optional: Adjust to control the inner padding */
-  border-radius: 8px; /* Optional: Rounded corners for visual appeal */
+  min-width: 280px;
+  /* Adjusted to make the card smaller */
+  width: 180px;
+  /* Ensures consistent sizing */
+  flex: 0 0 auto;
+  /* Prevents cards from shrinking */
+  scroll-snap-align: start;
+  /* Aligns each card at the start of the container when scrolling */
+  padding: 10px;
+  /* Optional: Adjust to control the inner padding */
+  border-radius: 8px;
+  /* Optional: Rounded corners for visual appeal */
 }
 
 
 
-.doctors__card__image {
+.doctors_card_image {
   position: relative;
   overflow: hidden;
 }
@@ -423,7 +440,7 @@ header {
   color: var(--primary-color);
 }
 
-.doctors__card:hover .doctors__socials {
+.doctors_card:hover .doctors_socials {
   bottom: 2rem;
 }
 
@@ -487,7 +504,7 @@ header {
   background-color: var(--primary-color);
 }
 
-.footer__bar__content {
+.footer_bar_content {
   max-width: var(--max-width);
   margin: auto;
   padding: 0.5rem 1rem;
@@ -497,7 +514,7 @@ header {
   gap: 2rem;
 }
 
-.footer__bar__content p {
+.footer_bar_content p {
   font-size: 0.8rem;
   color: var(--white);
 }
@@ -585,7 +602,7 @@ header {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  .footer__bar__content {
+  .footer_bar_content {
     flex-direction: column;
     gap: 1rem;
   }

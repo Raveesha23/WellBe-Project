@@ -66,7 +66,7 @@
                             <input type="text" id="contact" name="contact">
                         </div>
 
-                        <button type="submit" class="next-button"><a onclick="window.location.href='labTechForm1'">Next</a></button>
+                        <button type="submit" class="next-button"><a href="<?= ROOT ?>/Admin/labTechForm2">Next</a></button>
                         
                     </form>
                 </div>

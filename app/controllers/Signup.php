@@ -36,7 +36,7 @@ class Signup extends Controller
                 $user->insert($fullData);
                 echo "User ID: " . $fullData['nic'];
                 redirect("login");
-            }else{
+            } else {
                 echo "<pre>";
                 print_r($user->errors);
                 echo "</pre>";

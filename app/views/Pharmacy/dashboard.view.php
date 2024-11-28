@@ -7,7 +7,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/Pharmacy/phamacistDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -38,19 +38,19 @@
                     </div>
                     <div class="cards-container">
                         <!-- Statistics Cards -->
-                        <div class="card new-request">
+                        <div class="card new-request" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fa-solid icon fa-hourglass-start"></i>
                             </span>
                             <p>120 <br>New_Requests</p>
                         </div>
-                        <div class="card ongoing">
+                        <div class="card ongoing" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fas icon fa-pills"></i>
                             </span>
                             <p>25 <br>In_progress</p>
                         </div>
-                        <div class="card completed">
+                        <div class="card completed" onclick="window.location.href='requests'">
                             <span class="circle-background">
                                 <i class="fas icon fa-tasks"></i>
                             </span>
@@ -135,30 +135,7 @@
                         </table>
                     </div>
                     <div class="dashboard calendar-container">
-                        <div class="calendar-header">
-                            <h3>Calendar</h3>
-                            <div class="calendar-nav">
-                                <button id="prevMonth">&lt;</button>
-                                <span id="monthYear"></span>
-                                <button id="nextMonth">&gt;</button>
-                            </div>
-                        </div>
-                        <table class="calendar-table">
-                            <thead>
-                                <tr>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>T</th>
-                                    <th>W</th>
-                                    <th>T</th>
-                                    <th>F</th>
-                                    <th>S</th>
-                                </tr>
-                            </thead>
-                            <tbody id="calendar-body">
-                                <!-- Calendar Dates will be generated dynamically -->
-                            </tbody>
-                        </table>
+                        <div id="curve_chart" style="width: 400px; height: 400px; padding:0%;margin:0%"></div>
                     </div>
 
                 </div>
@@ -166,6 +143,38 @@
         </div>
     </div>
     <script src="<?= ROOT ?>/assets/js/Pharmacy/phamacistDashboard.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Day', 'Given'],
+                ['1', 43],
+                ['2', 30],
+                ['3', 16],
+                ['4', 45],
+                ['5', 29],
+                ['6', 11],
+                ['7', 39],
+
+            ]);
+
+            var options = {
+                title: 'Medication Performance',
+                curveType: 'function',
+                legend: {
+                    position: 'bottom'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
 </body>
 
 </html>

@@ -202,6 +202,17 @@ ul {
    background-color: #0056b3;
 }
 
+.upload {
+   display: inline-block;
+   margin: 10px;
+}
+
+.edited-label {
+   font-size: 0.8em;
+   color: gray;
+   margin-left: 10px;
+}
+
 a {
    text-decoration: none;
    color: inherit;

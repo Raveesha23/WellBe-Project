@@ -10,31 +10,25 @@ require_once(__DIR__ . "/../../core/Database.php");
 $DB = new Database();
 $currentUserId = $_SESSION['userid'];
 
+
 // Query to get user_profile and unseen status of the last message, excluding the logged-in user
 $query = "SELECT user_profile.*, 
-               (SELECT seen 
-               FROM message 
-               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-                  OR (sender = :currentUserId AND receiver = user_profile.id) 
-               ORDER BY date DESC LIMIT 1) AS seen,
-               
-               (SELECT date 
-               FROM message 
-               WHERE (sender = user_profile.id AND receiver = :currentUserId) 
-                  OR (sender = :currentUserId AND receiver = user_profile.id) 
-               ORDER BY date DESC LIMIT 1) AS last_message_date,
-               
-               (SELECT COUNT(*) 
-               FROM message 
-               WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
-         FROM user_profile
-         WHERE user_profile.id != :currentUserId  
-         AND user_profile.role = :role          
-         ORDER BY 
-         unseen_count DESC,                     
-         last_message_date DESC;                
-         ";
-$user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' => 3]);
+          (SELECT seen FROM message 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
+           ORDER BY date DESC LIMIT 1) AS seen,
+          (SELECT date FROM message 
+           WHERE (sender = user_profile.id AND receiver = :currentUserId) 
+           OR (sender = :currentUserId AND receiver = user_profile.id) 
+           ORDER BY date DESC LIMIT 1) AS last_message_date,
+          (SELECT COUNT(*) FROM message 
+           WHERE sender = user_profile.id AND receiver = :currentUserId AND seen = 0) AS unseen_count
+          from user_profile
+          WHERE user_profile.id != :currentUserId AND user_profile.role in (1,2,4,5)
+          ORDER BY 
+             unseen_count DESC,  
+             last_message_date DESC";
+$user_profile = $DB->readn($query, ['currentUserId' => $currentUserId]);
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +38,7 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard</title>
-   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/lab/message.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/admin/message.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -127,7 +121,7 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
       </ul>
    </div>
 
-   <script src="<?= ROOT ?>/assets/js/lab/message.js"></script>
+   <script src="<?= ROOT ?>/assets/js/admin/message.js"></script>
    <script>
       let selectedUserId = null;
       let selectedMessage = null;
@@ -226,7 +220,6 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
                chatMessages.innerHTML = '';
                data.messages.forEach(message => {
                   const div = document.createElement('div');
-                  // window.alert(message.sender);
                   div.classList.add('message', message.sender == receiverId ? 'received' : 'sent');
                   div.setAttribute('data-message-id', message.id);
 
@@ -258,7 +251,6 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
                      const chatMessages = document.getElementById("chat-messages");
                      chatMessages.innerHTML = '';
                      data.messages.forEach(message => {
-                        // window.alert(selectedUserId);
                         const div = document.createElement('div');
                         div.classList.add('message', message.sender == selectedUserId ? 'received' : 'sent');
                         div.setAttribute('data-message-id', message.id);
@@ -421,7 +413,8 @@ $user_profile = $DB->readn($query, ['currentUserId' => $currentUserId, 'role' =>
 
       // Set interval to poll unseen message counts every 3 seconds
       // Poll unseen counts every 3 seconds
-      setInterval(() => refreshUnseenCounts([3]), 3000);
+      setInterval(() => refreshUnseenCounts([1, 2, 4, 5]), 3000);
+
 
       // Mark messages as seen when chat is opened
       function markMessagesAsSeen(receiverId) {
