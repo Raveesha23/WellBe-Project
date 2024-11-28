@@ -76,6 +76,7 @@ class Doctor extends Model
     {
         $this->errors = [];
 
+<<<<<<< HEAD
         if ($step === 1) {
             // Required fields for doctorForm1
             $requiredFields = [
@@ -90,6 +91,30 @@ class Doctor extends Model
                 'experience', 'qualifications', 'medical_school'
             ];
         }
+=======
+<<<<<<< HEAD
+        if (empty($data['nic'])) {
+            $this->errors['nic'] = "Username is required";
+        }
+
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required";
+        }
+
+
+        if (empty($this->errors)) {
+            return true;
+        } else {
+            return false;
+=======
+        // List of required fields
+        $requiredFields = [
+            'nic', 'first_name', 'last_name', 'dob', 'gender',
+            'address', 'email', 'contact', 'emergency_contact',
+            'medical_license_no', 'specialization', 'experience',
+            'qualifications', 'medical_school'
+        ];
+>>>>>>> 1cdfdf9a88a48d6cf0408c059af62ce158546355
 
         // Step-specific validations
         if ($step === 1) {
@@ -123,10 +148,39 @@ class Doctor extends Model
             }
         }
 
+<<<<<<< HEAD
         if ($step === 2) {
             // Validate years of experience as a positive integer
             if (!empty($doctorData['experience']) && (!is_numeric($doctorData['experience']) || $doctorData['experience'] < 0)) {
                 $this->errors[] = 'Years of experience must be a positive number.';
+=======
+        // Validate NIC format (12 digits)
+        if (!empty($doctorData['nic']) && !preg_match('/^\d{12}$/', $doctorData['nic'])) {
+            $this->errors[] = 'Invalid NIC format. It must be 12 digits.';
+        }
+
+        // Validate email format
+        if (!empty($doctorData['email']) && !filter_var($doctorData['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors[] = 'Invalid email address.';
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
+        }
+
+        // Validate contact number (10 digits)
+        if (!empty($doctorData['contact']) && !preg_match('/^\d{10}$/', $doctorData['contact'])) {
+            $this->errors[] = 'Invalid contact number. It must be 10 digits.';
+        }
+
+        // Validate emergency contact number (10 digits)
+        if (!empty($doctorData['emergency_contact']) && !preg_match('/^\d{10}$/', $doctorData['emergency_contact'])) {
+            $this->errors[] = 'Invalid emergency contact number. It must be 10 digits.';
+        }
+
+        // Validate date of birth (must be a past date)
+        if (!empty($doctorData['dob'])) {
+            $dob = strtotime($doctorData['dob']);
+            if (!$dob || $dob >= time()) {
+                $this->errors[] = 'Invalid date of birth. Please select a valid past date.';
+>>>>>>> 1cdfdf9a88a48d6cf0408c059af62ce158546355
             }
         }
 
@@ -134,6 +188,20 @@ class Doctor extends Model
         return empty($this->errors);
     }
 
+<<<<<<< HEAD
+    public function loggedin()
+    {
+        $DB = new Database();
+        // Update user state to 1 (logged in)
+        $updateStateQuery = "UPDATE user_profile SET state = 1 WHERE id = :userid";
+        $DB->write($updateStateQuery, ['userid' => $_SESSION['userid']]);
+
+        // Update messages as received
+        $updateQuery = "UPDATE message SET received = 1 WHERE receiver = :receiver AND received = 0";
+        $DB->write($updateQuery, ['receiver' => $_SESSION['userid']]);
+    }
+}
+=======
 
     public function getErrors()
     {
@@ -168,3 +236,4 @@ class Doctor extends Model
 
 }
 
+>>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b

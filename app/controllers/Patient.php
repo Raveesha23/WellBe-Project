@@ -41,7 +41,7 @@ class Patient extends Controller
    }
    public function chat_with_the_doctor()
    {
-      $this->view('Patient/chat_with_the_doctor', 'chat_with_the_doctor');
+      $this->view('Patient/chat', 'chat_with_the_doctor');
    }
    public function settings()
    {
