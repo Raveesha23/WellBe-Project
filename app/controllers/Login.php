@@ -21,9 +21,11 @@ class Login extends Controller {
                     redirect($_SESSION['user_type']);
                 } else {
                     $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
+                    redirect('login');
                 }
             } else {
                 $user->errors['nic'] = 'NIC not found';
+                redirect('login');
             }
 
             // Pass the errors to the view
