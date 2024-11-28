@@ -23,7 +23,7 @@
         <li class="link"><a href="#pages">Pages</a></li>
         <li class="link"><a href="#blog">Blog</a></li>
         <li class="link dropdown">
-          <a class="appointment-btn" id="loginButton">Login</a>
+          <a class="appointment-btn" href="<?= ROOT ?>/login">Login</a>
           <div class="dropdown-content" id="dropdownMenu">
             <p>Login as</p>
             <form method="post">

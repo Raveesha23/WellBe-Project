@@ -4,6 +4,33 @@
 
 class Timeslot extends Model
 {
+    public function createTimeslot(){
+
+        for ($i = 0; $i < 15; $i++) {
+
+            $exist = [];
+
+            $currentDate = date('Y-m-d', strtotime("+$i days"));
+    
+            $query = "SELECT COUNT(*) AS count FROM timeslot WHERE date = ?";
+            $exist = $this->query($query, [$currentDate]);
+            //print_r($exist);
+
+            if (!isset($exist[0])) {
+                print_r($exist);
+                $sql_insert = "INSERT INTO timeslot (date) VALUES (?)";
+                //$this->query($sql_insert, [$currentDate]);
+            }else{
+        
+                $count = $exist[0]->count;
+                if($count == 0){
+                    echo $count;
+                    $sql_insert = "INSERT INTO timeslot (date) VALUES (?)";
+                    $this->query($sql_insert, [$currentDate]);
+                }
+            }
+        }
+    }
 
     public function getSchedule(){
 
