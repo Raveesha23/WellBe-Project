@@ -52,7 +52,7 @@
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>
                                     <td>Cardiologist</td>
-                                    <td><a href="medical_rec.php?nic=<?= urlencode($nic) ?>" class="view-button">View Record</a></td>
+                                    <td><a href="<?= ROOT ?>/doctor/medical_record" class="view-button">View Record</a></td>
                                 </tr>
                                 <tr>
                                     <td>Medi_Rec_001</td>
@@ -60,7 +60,7 @@
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>
                                     <td>Eye Surgeon</td>
-                                    <td><a href="medical_rec.php?nic=<?= urlencode($nic) ?>" class="view-button">View Record</a></td>
+                                    <td><a href="<?= ROOT ?>/doctor/medical_record" class="view-button">View Record</a></td>
                                 </tr>
                                 <tr>
                                     <td>Medi_Rec_001</td>
@@ -68,7 +68,7 @@
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>
                                     <td>Dermetologist</td>
-                                    <td><a href="medical_rec.php?nic=<?= urlencode($nic) ?>" class="view-button">View Record</a></td>
+                                    <td><a href="<?= ROOT ?>/doctor/medical_record" class="view-button">View Record</a></td>
                                 </tr>
                                 <tr>
                                     <td>Medi_Rec_001</td>
@@ -76,7 +76,7 @@
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>
                                     <td>General</td>
-                                    <td><a href="medical_rec.php?nic=<?= urlencode($nic) ?>" class="view-button">View Record</a></td>
+                                    <td><a href="<?= ROOT ?>/doctor/medical_record" class="view-button">View Record</a></td>
                                 </tr>
                                 <tr>
                                     <td>Medi_Rec_001</td>
@@ -84,7 +84,7 @@
                                     <td>7:00 - 10:00</td>
                                     <td>Dr. K. G. Gunawardana</td>
                                     <td>General</td>
-                                    <td><a href="medical_rec.php?nic=<?= urlencode($nic) ?>" class="view-button">View Record</a></td>
+                                    <td><a href="<?= ROOT ?>/doctor/medical_record" class="view-button">View Record</a></td>
                                 </tr>
                                 <tr>
                                     <td>Medi_Rec_001</td>
