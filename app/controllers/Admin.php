@@ -17,6 +17,14 @@ class Admin extends Controller
       'userType' => 'admin'
    ];
 
+   public function __construct()
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "admin"){
+                redirect('login');
+                exit;
+            }
+        }
+
    public function index()
    {
       $this->view('Admin/dashboard', 'dashboard');

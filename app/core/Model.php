@@ -42,6 +42,30 @@ class Model extends Database
         return $this->query($query, $data);
     }
 
+    // public function wheren($data, $data_not = [])
+    // {
+    //     $keys = array_keys($data);
+    //     $keys_not = array_keys($data_not);
+    //     $query = "SELECT * FROM $this->table WHERE ";
+
+    //     $filters = [];
+    //     foreach ($data as $key => $value) {
+    //         $filters[] = "$key = :$key";
+    //     }
+    //     $query .= implode(' AND ', $filters);
+
+    //     $con = $this->connect();
+    //     $stmt = $con->prepare($query);
+    //     foreach ($data as $key => $value) {
+    //         $stmt->bindValue(":$key", $value);
+    //     }
+    //     $stmt->execute();
+
+    //     // Debug: Check if any data is returned
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC); // Make sure this is returning an array
+    // }
+
+
     public function first($data, $data_not = [])
     {
         $keys = array_keys($data);

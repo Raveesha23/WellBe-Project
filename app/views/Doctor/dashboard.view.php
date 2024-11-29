@@ -35,10 +35,6 @@
             require '../app/views/Components/Doctor/header.php';
             ?>
 
-            <div class="font-['Poppins'] text-2xl" style="margin-left: 15px;margin-top: 15px;font-weight: bold;">
-                <p>Doctor Portal</p>
-                <div class="w-52 border-blue-500" style="border-width: 1px;margin-top: 5px;"></div>
-            </div>
 
             <div class="items" style="justify-content: space-between;">
                 <div style="margin-top: 25px;">
@@ -49,13 +45,13 @@
                             </div>
                             <div>
                                 <p class="font-['Poppins'] " style="font-weight: bold; font-size: 28px;margin-bottom: 10px;">Welcome</p>
-                                <p class="font-['Poppins'] " style="font-weight: bold; font-size: 40px;margin-top: -15px;max-width: 350px;line-height: 1.0;">Dr.SANDARU Danesh</p>
+                                <p class="font-['Poppins'] " style="font-weight: bold; font-size: 40px;margin-top: -15px;max-width: 350px;line-height: 1.0;">Dr.<?php echo htmlspecialchars($_SESSION['USER']->first_name); ?> <?php echo htmlspecialchars($_SESSION['USER']->last_name); ?></p>
                             </div>
                         </div>
     
                         <div class="flex">
                             <div class="w-2 h-40 bg-blue-400" style="margin-right: 10px;"></div>
-                            <div class=" h-38 text-black font-['Poppins']" style="width: 200px;;font-size: 27px; font-weight: 500;"> Dr. Sandaru, you have  8 appointments today</div>
+                            <div class=" h-38 text-black font-['Poppins']" style="width: 200px;;font-size: 27px; font-weight: 500;"> Dr. <?php echo htmlspecialchars($_SESSION['USER']->first_name); ?>, you have  8 appointments today</div>
                         </div>
 
                         <div class="font-['Poppins']" style="display: block;margin-top: 50px;gap: 20px;">

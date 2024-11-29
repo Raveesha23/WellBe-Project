@@ -8,40 +8,55 @@ class Login extends Controller
         $data = [];
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if ($_SESSION['user_type'] == "patient") {
-                $user = new Patient;
-            } elseif ($_SESSION['user_type'] == "doctor") {
-                $user = new Doctor;
-            } elseif ($_SESSION['user_type'] == "pharmacy") {
-                $user = new Pharmacy;
-            } elseif ($_SESSION['user_type'] == "lab") {
-                $user = new Lab;
-            } elseif ($_SESSION['user_type'] == "admin") {
-                $user = new Admin;
-            }
+            if (isset($_POST['nic'])){
 
-            $arr['nic'] = $_POST['nic'];
-            $row = $user->first($arr);
-
-            if ($row) {
-                if ($row->password === $_POST['password']) {
-                    $_SESSION['USER'] = $row; // Save user details in the session
-<<<<<<< HEAD
-                    $_SESSION['userid'] = $row->id;
-                    echo ($_SESSION);
-                    $user->loggedin();
-=======
->>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
-                    redirect($_SESSION['user_type']);
-                } else {
-                    $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
+                $id = $_POST['nic'];
+            
+                // Check if 'd' exists in the string
+                if (strpos($id, 'd') !== false) {
+                    $_SESSION['user_type'] = "doctor";
+                    echo "'d' exists in the ID.";
+                    $user = new Doctor;
                 }
-            } else {
-                $user->errors['nic'] = 'NIC not found';
+                elseif (strpos($id, 'p') !== false) {
+                    $user = new Patient;
+                    $_SESSION['user_type'] = "patient";
+                }
+                elseif (strpos($id, 'ph') !== false) {
+                    $user = new Pharmacy;
+                    $_SESSION['user_type'] = "pharmacy";
+                }
+                elseif (strpos($id, 'l') !== false) {
+                    $user = new Lab;
+                    $_SESSION['user_type'] = "lab";
+                }
+                elseif (strpos($id, 'a') !== false) {
+                    $user = new Admin;
+                    $_SESSION['user_type'] = "admin";
+                }
+
+            
+                //password_verify($_POST['password'], $row->password
+                $arr['nic'] = $_POST['nic'];
+                $row = $user->first($arr);
+
+                if ($row) {
+                    if (password_verify($_POST['password'], $row->password)) {
+                        $_SESSION['USER'] = $row; // Save user details in the session
+                        //session_start();
+                        redirect($_SESSION['user_type']);
+                    } else {
+                        $user->errors['password'] = 'Wrong password'; // Add specific error for wrong password
+                        redirect('login');
+                    }
+                } else {
+                    $user->errors['nic'] = 'NIC not found';
+                    redirect('login');
+                }
+
+                $data['errors'] = $user->errors;
             }
 
-            // Pass the errors to the view
-            $data['errors'] = $user->errors;
         }
 
         $this->view('login', $data);

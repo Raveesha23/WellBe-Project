@@ -62,7 +62,6 @@ class Doctor extends Model
 
         // Execute the query
         return $this->query($query);
-
     }
 
     private function calculateAge($dob)
@@ -76,7 +75,7 @@ class Doctor extends Model
     {
         $this->errors = [];
 
-<<<<<<< HEAD
+
         if ($step === 1) {
             // Required fields for doctorForm1
             $requiredFields = [
@@ -91,8 +90,6 @@ class Doctor extends Model
                 'experience', 'qualifications', 'medical_school'
             ];
         }
-=======
-<<<<<<< HEAD
         if (empty($data['nic'])) {
             $this->errors['nic'] = "Username is required";
         }
@@ -106,15 +103,6 @@ class Doctor extends Model
             return true;
         } else {
             return false;
-=======
-        // List of required fields
-        $requiredFields = [
-            'nic', 'first_name', 'last_name', 'dob', 'gender',
-            'address', 'email', 'contact', 'emergency_contact',
-            'medical_license_no', 'specialization', 'experience',
-            'qualifications', 'medical_school'
-        ];
->>>>>>> 1cdfdf9a88a48d6cf0408c059af62ce158546355
 
         // Step-specific validations
         if ($step === 1) {
@@ -148,21 +136,11 @@ class Doctor extends Model
             }
         }
 
-<<<<<<< HEAD
         if ($step === 2) {
             // Validate years of experience as a positive integer
             if (!empty($doctorData['experience']) && (!is_numeric($doctorData['experience']) || $doctorData['experience'] < 0)) {
                 $this->errors[] = 'Years of experience must be a positive number.';
-=======
-        // Validate NIC format (12 digits)
-        if (!empty($doctorData['nic']) && !preg_match('/^\d{12}$/', $doctorData['nic'])) {
-            $this->errors[] = 'Invalid NIC format. It must be 12 digits.';
-        }
 
-        // Validate email format
-        if (!empty($doctorData['email']) && !filter_var($doctorData['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = 'Invalid email address.';
->>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
         }
 
         // Validate contact number (10 digits)
@@ -180,7 +158,6 @@ class Doctor extends Model
             $dob = strtotime($doctorData['dob']);
             if (!$dob || $dob >= time()) {
                 $this->errors[] = 'Invalid date of birth. Please select a valid past date.';
->>>>>>> 1cdfdf9a88a48d6cf0408c059af62ce158546355
             }
         }
 
@@ -188,7 +165,6 @@ class Doctor extends Model
         return empty($this->errors);
     }
 
-<<<<<<< HEAD
     public function loggedin()
     {
         $DB = new Database();
@@ -201,39 +177,4 @@ class Doctor extends Model
         $DB->write($updateQuery, ['receiver' => $_SESSION['userid']]);
     }
 }
-=======
-
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    public function getAllDoctors()
-    {
-        $query = "
-            SELECT 
-                nic, 
-                CONCAT(first_name, ' ', last_name) AS name, 
-                age,
-                specialization, 
-                contact
-            FROM doctor
-        ";
-        return $this->query($query); // Use the query method to execute and fetch data
-    }
-
-    public function getDoctorById($nic)
-    {
-        $query = "SELECT * FROM doctor WHERE nic = :nic";
-        $data = ['nic' => $nic]; // Bind the NIC parameter
-
-        $result = $this->query($query, $data); // Execute query with binding
-        return $result ? $result[0] : null; // Return the first result (single doctor) or null if not found
-    }
-
-
-
-
-}
-
->>>>>>> b6af62eac9dd3f336fdb2e84d1ebe651ffdafe6b
+    

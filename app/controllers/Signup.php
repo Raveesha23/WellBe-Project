@@ -8,13 +8,21 @@ class Signup extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Save the data from the first form to the session
+
+            $_SESSION['newNIC'] = $_POST['nic'] . "p";
             $_SESSION['form1_data'] = $_POST;
 
-            // Redirect to the second form
-            redirect("signup/form2");
+            $user = new Patient;
+
+            if ($user->validate_first_form($_SESSION['form1_data'])) {
+                redirect("signup/form2");
+            }
+            
+            $data['errors'] = $user->errors;
+
         }
 
-        $this->view('patientForm1', $data);
+        $this->view('patientForm1', "",$data);
     }
 
     public function form2()
@@ -22,28 +30,26 @@ class Signup extends Controller
         $data = [];
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            // Merge form1 data with form2 data
+            
             $fullData = array_merge($_SESSION['form1_data'] ?? [], $_POST);
+            //echo $_SESSION['newNIC'];
+            $fullData['nic'] = $_SESSION['newNIC'];
+            echo $fullData['nic'];
+            $_SESSION['form2_data'] = $_POST;
 
-            // Clear session data after merging
+            //hash password
+            $hashedPassword = password_hash($fullData['password'], PASSWORD_DEFAULT);
+            $fullData['password'] = $hashedPassword;
+
+
             unset($_SESSION['form1_data']);
 
-            if ($_SESSION['user_type'] == "patient") {
-                $user = new Patient;
-            }
+            $user = new Patient;
 
-            if ($user->validate($fullData)) {
+            if ($user->validate_second_form($_SESSION['form2_data'])) {
                 $user->insert($fullData);
-                echo "User ID: " . $fullData['nic'];
                 redirect("login");
-            } else {
-                echo "<pre>";
-                print_r($user->errors);
-                echo "</pre>";
-                die();
             }
-
-            // If validation fails, pass errors to the view
             $data['errors'] = $user->errors;
         }
 
