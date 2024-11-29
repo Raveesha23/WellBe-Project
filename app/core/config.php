@@ -8,7 +8,8 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 
-	define('ROOT', 'http://localhost/MVC/public');
+
+	define('ROOT', 'http://localhost/mvc/public');
 } else {
 	/** database config **/
 	define('DBNAME', 'wellbe_db');

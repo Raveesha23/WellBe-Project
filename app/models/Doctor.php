@@ -8,7 +8,7 @@ class Doctor extends Model
     protected $allowedColumns = [
 
         'id',
-        //'password',
+        'password',
         'nic',
         'first_name',
         'last_name',
@@ -31,14 +31,16 @@ class Doctor extends Model
     {
         // Calculate the age based on the date of birth
         $data['age'] = $this->calculateAge($data['dob']);
+        $doc_pw = 'doc123';
 
         // Build the SQL query using the provided data
         $query = "
             INSERT INTO `doctor` 
-            (`id`, `nic`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications`, `medical_school`) 
+            (`id`, `nic`, `password`, `first_name`, `last_name`, `dob`, `age`, `gender`, `address`, `email`, `contact`, `emergency_contact`, `emergency_contact_relationship`, `medical_license_no`, `specialization`, `experience`, `qualifications`, `medical_school`) 
             VALUES (
                 '{$data['nic']}', 
-                '{$data['nic']}', 
+                '{$data['nic']}',
+                '{$doc_pw}', 
                 '{$data['first_name']}', 
                 '{$data['last_name']}', 
                 '{$data['dob']}', 
@@ -74,7 +76,6 @@ class Doctor extends Model
     public function validate($doctorData, $step = 1)
     {
         $this->errors = [];
-
 
         if ($step === 1) {
             // Required fields for doctorForm1
@@ -140,8 +141,19 @@ class Doctor extends Model
             // Validate years of experience as a positive integer
             if (!empty($doctorData['experience']) && (!is_numeric($doctorData['experience']) || $doctorData['experience'] < 0)) {
                 $this->errors[] = 'Years of experience must be a positive number.';
-
         }
+
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required";
+        }
+
+
+        if (empty($this->errors)) {
+            return true;
+        } else {
+            return false;
+        }
+
 
         // Validate contact number (10 digits)
         if (!empty($doctorData['contact']) && !preg_match('/^\d{10}$/', $doctorData['contact'])) {
@@ -159,6 +171,11 @@ class Doctor extends Model
             if (!$dob || $dob >= time()) {
                 $this->errors[] = 'Invalid date of birth. Please select a valid past date.';
             }
+        }
+
+        // Validate years of experience as a positive integer
+        if (!empty($doctorData['experience']) && (!is_numeric($doctorData['experience']) || $doctorData['experience'] < 0)) {
+            $this->errors[] = 'Years of experience must be a positive number.';
         }
 
         // Return true if no errors, false otherwise

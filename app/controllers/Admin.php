@@ -90,6 +90,19 @@ class Admin extends Controller
       }
 
       $this->view('Admin/doctorForm1', 'doctorForm1', $data ?? []);
+         // Debug: Print or log POST data
+         echo 'Form1 Data';
+         echo '<pre>';
+         print_r($_POST);
+         echo '</pre>';
+
+         $_SESSION['doctor_data'] = $_POST; // Temporarily store form data in session
+         header('Location: ' . ROOT . '/Admin/doctorForm2');
+         exit;
+      }
+
+      $this->view('Admin/doctorForm1', 'doctorForm1');
+
    }
 
    public function doctorForm2()
@@ -124,26 +137,102 @@ class Admin extends Controller
 
       $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
-
+   
    public function doctorProfile()
    {
-      $nic = $_GET['nic'] ?? null; // Fetch from query string
+      $nic = $_GET['nic'] ?? null; // Fetch NIC from query string
 
-      if ($nic) {
-         $doctor = new Doctor(); // Instantiate the Doctor model
-         $data['doctorProfile'] = $doctor->getDoctorById($nic); // Fetch doctor details by ID
-         
-         if (empty($data['doctorProfile'])) {
-               // Handle case where doctor is not found
-               $data['error'] = "Doctor with ID $nic not found.";
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $action = $_POST['action'] ?? null;
+
+         if ($action === 'delete') {
+            // Handle delete action
+            if ($nic) {
+               $doctor = new Doctor();
+
+               if ($doctor->deleteDoctor($nic)) {
+                  echo "<script>
+                        alert('Doctor profile deleted successfully!');
+                        window.location.href = '" . ROOT . "/Admin/doctors';
+                  </script>";
+               } else {
+                  echo "<script>
+                        alert('Failed to delete the doctor profile.');
+                  </script>";
+               }
+         // // Debug: Print or log the merged doctor data
+         // echo 'Form2 Data';
+         // echo '<pre>';
+         // print_r($doctorData);
+         // echo '</pre>';
+
+         $doctor = new Doctor();
+
+         if ($doctor->validate($doctorData)) {
+            if ($doctor->addDoctor($doctorData)) {
+               echo "<script>
+                      alert('Doctor Profile Created Successfully!');
+                      window.location.href = '" . ROOT . "/Admin/doctors';
+               </script>";
+               exit; // Ensure the script stops execution
+
+               unset($_SESSION['doctor_data']); // Clear session data after success     
+            } else {
+               echo "<script>alert('Database insertion failed.');</script>";
+            }
+         } else {
+            // Show all validation errors as alerts
+            foreach ($doctor->getErrors() as $error) {
+               echo "<script>alert('$error');</script>";
+            }
+               
+         } else if($action === 'update') {
+               // Handle update logic
+               $doctorData = $_POST;
+
+               // Instantiate the Doctor model
+               $doctor = new Doctor();
+
+               // Debugging: Check submitted data
+               // echo(print_r($doctorData, true));
+
+               // Validate the input data
+               if ($doctor->validateDoctor($doctorData)) {
+                  if ($doctor->updateDoctor($doctorData, $nic)) {
+                     echo "<script>
+                           alert('Doctor Profile Updated Successfully!');
+                           window.location.href = '" . ROOT . "/Admin/doctors';
+                     </script>";
+                  } else {
+                     echo "<script>
+                           alert('Failed to update doctor profile.');
+                     </script>";
+                  }
+               } else {
+                  // Retrieve validation errors
+                  $data['errors'] = $doctor->getErrors();
+               }
+
+               // Reload doctor profile after submission
+               $data['doctorProfile'] = $doctor->getDoctorById($nic);
          }
+      } elseif ($nic) {
+         // Fetch doctor profile for the given NIC
+         $doctor = new Doctor();
+         $data['doctorProfile'] = $doctor->getDoctorById($nic);
 
+         if (empty($data['doctorProfile'])) {
+               $data['error'] = "Doctor with NIC $nic not found.";
+         }
       } else {
-         // Handle case where no ID is provided
-         $data['error'] = "No doctor ID provided.";
+         $data['error'] = "No doctor NIC provided.";
       }
 
       $this->view('Admin/doctorProfile', 'doctorProfile', $data); // Pass data to the view
+
+      }
+
+      $this->view('Admin/doctorForm2', 'doctorForm2', $data ?? []);
    }
 
    public function pharmacists()
