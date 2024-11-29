@@ -21,11 +21,12 @@
         $this -> renderComponent('navbar',$active);
         ?>
     
-        <div class="relative" style="background-color: rgb(255, 255, 255);width: 100%; margin-top: 6%;margin-bottom: 2%;overflow-y: auto;overflow-x: hidden;">
-            <div class="font-['Poppins'] text-2xl" style="margin-left: 15px;margin-top: 15px;font-weight: bold;">
-                <p>Doctor Portal</p>
-                <div class="w-52 border-blue-500" style="border-width: 1px;margin-top: 5px;"></div>
-            </div>
+        <div class="main-content" style="background-color: rgb(255, 255, 255);width: 100%; margin-top: 6%;margin-bottom: 2%;overflow-y: auto;overflow-x: hidden;">
+            <?php
+            $pageTitle = "Appointments"; // Set the text you want to display
+            //include $_SERVER['DOCUMENT_ROOT'] . '/MVC/app/views/Components/Patient/header.php';
+            require '../app/views/Components/Doctor/header.php';
+            ?>
 
             <div class="items" style="justify-content: space-between;">
                 <div style="margin-top: 25px;">
@@ -42,58 +43,25 @@
                 </div>
 
                 <div class="container2">
-                    <div class="graph">
-                        <div>
-                            <img src="./assets/images/cal.png" alt="" style="width: 350px;">
-                        </div>
-                        <div>
-                            <img src="./assets/images/line-graph.webp" alt="" style="width: 300px;">
-                        </div>
-                    </div>
+                    
                     <div class="statQueue">
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                        </div>
-                        <div class="boxQueue" style="background-color: #5D93FF;">
-                            <div class="box-itemQueue">
-                                <div><img src="http://localhost/test2/public/assets/images/patient.png"></div>
-                                <div class="test"><p>MR. Himesh Dharmawansha</p></div>
-                            </div>
-                            <p>21</p>
-                        </div>
+                        <?php foreach ($data as $appointment): ?>
+                            <a href="<?= ($appointment->state === 'PRESENT') ? ROOT . '/doctor/patient_details/' . $appointment->appointment_id : '#'; ?>" style="text-decoration: none;">
+                                <div class="boxQueue" style="<?php echo ($appointment->state === 'PRESENT') ? 'background-color: #5D93FF;' : ''; ?>">
+                                    <div class="box-itemQueue">
+                                        <div>
+                                            <img src="http://localhost/test2/public/assets/images/patient.png">
+                                        </div>
+                                        <div class="test">
+                                            <p>
+                                                MR. <?php echo htmlspecialchars($appointment->first_name . ' ' . $appointment->last_name); ?>
+                                            </p>
+                                            <p>App.ID : <?php echo $appointment->appointment_id; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

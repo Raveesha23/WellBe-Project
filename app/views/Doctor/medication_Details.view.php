@@ -1,5 +1,9 @@
 <?php
 
+   //echo $_SESSION['appointment_id'];
+
+   $patient_id = $data['id'];
+
    if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $diagnosis = $_POST['diagnosis'];
       $medications = $_POST['medication_name'] ?? [];
@@ -38,13 +42,30 @@
 
       $medicalRecord = new MedicalRecord();
 
-      $medicalRecord->insertRecord($remarks);
+      $medicalRecord->insertRecord($remarks,$diagnosis, $patient_id);
       
-      $request_id = $medicalRecord->getLastInsertedId();
+      $request_id = $medicalRecord->getLastInsertedId($patient_id);
 
       foreach($medicationDetails as $medic){
 
-         //$medicalRecord->insertMed($medic);
+         $medicalRecord->insertMed($medic,$request_id);
+     }
+
+     $appointments = new Appointments;
+     $appointments->endAppointment($data['app_id']);
+   }
+
+   if(!empty($lab_tests)){
+
+      $labTest = new LabTest();
+
+      $labTest->insertRecord($patient_id);
+      
+      $request_id = $labTest->getLastInsertedId($patient_id);
+
+      foreach($labTestDetails as $lab){
+
+         $labTest->insertTest($lab,$request_id);
      }
    }
 
@@ -80,9 +101,9 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                   <label for="dr-name">Doctor's Name:</label>
-                  <p>Dr. John</p>
+                  <p>Dr. <?php echo htmlspecialchars($_SESSION['USER']->first_name); ?> <?php echo htmlspecialchars($_SESSION['USER']->last_name); ?></p>
                   <label for="date">Date:</label>
-                  <p>24/5/2024</p>
+                  <p><?php echo htmlspecialchars(date('Y-m-d')); ?></p>
                   <form method="post" action="">
                      <label for="diagnosis">Diagnosis:</label>
                      <input type="text" name="diagnosis" placeholder="Gastritis" style="font-size: 17px;margin-bottom:10px;">

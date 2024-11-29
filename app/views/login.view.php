@@ -30,12 +30,7 @@
         
         <button>LOGIN</button>
       </form>
-      <?php
-        if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === "patient")
-        {
-          echo '<p class="loginsignup-login">Create an account <span><a href="' . ROOT . '/signup">Click here</a></span></p>';
-        }
-      ?>
+      <p class="loginsignup-login">Create an account <span><a href="<?= ROOT?>/signup">Click here</a></span></p>
       <div class='loginsignup-agree'>
         <input type='checkbox' name='' id='' />
         <p>By continuing, I agree to the terms of use & privacy policy.</p>
