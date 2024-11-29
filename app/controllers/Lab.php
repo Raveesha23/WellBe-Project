@@ -8,11 +8,20 @@ class Lab extends Controller
          'dashboard' => ["fas fa-tachometer-alt", "Dashboard"],
          'requests' => ["fas fa-list", "Requests"],
          'login' => ["fa-solid fa-comment-dots", "Chat"],
+         'report' => ["fa-solid fa-chart-simple", "Report"],
          'setting' => ["fa-solid fa-gear", "Setting"],
          'logout' => ["fas fa-sign-out-alt", "Logout"]
       ],
       'userType' => 'lab'
    ];
+
+   public function __construct()
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "lab"){
+                redirect('login');
+                exit;
+            }
+        }
 
    public function index()
    {
@@ -39,6 +48,10 @@ class Lab extends Controller
    public function logout()
    {
       $this->view('Lab/logout', 'logout');
+   }
+   public function report()
+   {
+      $this->view('Pharmacy/report', 'report');
    }
 
    public function renderComponent($component, $active)

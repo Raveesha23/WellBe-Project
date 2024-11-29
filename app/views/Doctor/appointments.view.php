@@ -28,63 +28,51 @@
             
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <div class="header">
-                    <p>Appointments
-                        <button class="btn" onclick="window.location.href='search_for_doctor'">Schedule an Appointment</button>
-                        <span>
-                            <button class="btn1">Reschedule/ Cancellation Policy</button>
-                        </span>
-                    </p>
+                <div class="header" style="padding: 10px; background-color: #f3f3f3;margin-botton: 10px">
+                <form action="" method="GET" style="display: flex; align-items: center;">
+                    <label for="date-select" style="margin-right: 10px; font-weight: bold;">Select Date:</label>
+                    <input type="date" id="date-select" name="selected_date" 
+                        style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #2278d4; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Search
+                    </button>
+                </form>
                 </div>
                 <hr>  
                 <div class="container">
                     <div class="card">
-                        <p>Hi K.S.Perera,</p>
-                        <p>you have an appointment<br>with</p>
-                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
-                        <h1>25</h1>
-                        <h2>Monday<br>September 2024</h2>
-                        <div class="buttons">
-                            <button class="accept">Details</button>
-                            <button class="reschedule">Reschedule</button>
-                            <button class="cancel" onclick="showModal()">Cancel</button>
-                        </div>
+                        <p >Name :<span class="doc_name"> Mr Kasun Perera</span></p>
+                        <p >Appointment id :<span class="doc_name"> 01</span></p>
+                        <p >Gender:<span class="doc_name"> Male</span></p>
+                        <p >Date :<span class="doc_name"> 2024-11-28</span></p>
+                        <div class="new_patient" style="margin-top: 10px;">New Patient</div>
+                        
                     </div>
                     <div class="card">
-                        <p>Hi K.S.Perera,</p>
-                        <p>you have an appointment<br>with</p>
-                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
-                        <h1>25</h1>
-                        <h2>Monday<br>September 2024</h2>
-                        <div class="buttons">
-                            <button class="accept">Details</button>
-                            <button class="reschedule">Reschedule</button>
-                            <button class="cancel" onclick="showModal()">Cancel</button>
-                        </div>
+                        <p >Name :<span class="doc_name"> Mr Tiran Perera</span></p>
+                        <p >Appointment id :<span class="doc_name"> 02</span></p>
+                        <p >Gender:<span class="doc_name"> Male</span></p>
+                        <p >Date :<span class="doc_name"> 2024-11-28</span></p>
+                        <div class="new_patient" style="margin-top: 10px;">Returning Patient</div>
+                        <button class="returning_patient"><a style="color: #f3f3f3;" href="<?= ROOT ?>/doctor/display_record">Patient Records</a></button>
+                        
                     </div>
                     <div class="card">
-                        <p>Hi K.S.Perera,</p>
-                        <p>you have an appointment<br>with</p>
-                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
-                        <h1>25</h1>
-                        <h2>Monday<br>September 2024</h2>
-                        <div class="buttons">
-                            <button class="accept">Details</button>
-                            <button class="reschedule">Reschedule</button>
-                            <button class="cancel" onclick="showModal()">Cancel</button>
-                        </div>
+                        <p >Name :<span class="doc_name"> Mr Samitha Jayasooriya</span></p>
+                        <p >Appointment id :<span class="doc_name"> 03</span></p>
+                        <p >Gender:<span class="doc_name"> Male</span></p>
+                        <p >Date :<span class="doc_name"> 2024-11-28</span></p>
+                        <div class="new_patient" style="margin-top: 10px;">New Patient</div>
+                        
                     </div>
                     <div class="card">
-                        <p>Hi K.S.Perera,</p>
-                        <p>you have an appointment<br>with</p>
-                        <p class="doc_name">Dr. Narayanan (Cardiologist)<br><p>on</p></p>
-                        <h1>25</h1>
-                        <h2>Monday<br>September 2024</h2>
-                        <div class="buttons">
-                            <button class="accept">Details</button>
-                            <button class="reschedule">Reschedule</button>
-                            <button class="cancel" onclick="showModal()">Cancel</button>
-                        </div>
+                        <p >Name :<span class="doc_name"> Mrs Nimali Silva</span></p>
+                        <p >Appointment id :<span class="doc_name"> 04</span></p>
+                        <p >Gender:<span class="doc_name"> Female</span></p>
+                        <p >Date :<span class="doc_name"> 2024-11-28</span></p>
+                        <div class="new_patient" style="margin-top: 10px;">Returning Patient</div>
+                        <button class="returning_patient"><a style="color: #f3f3f3;" href="<?= ROOT ?>/doctor/display_record">Patient Records</button>
+                        
                     </div>
                     
 
@@ -117,6 +105,10 @@
         // Function to close the modal
         function closeModal() {
             document.getElementById("cancelModal").style.display = "none";
+        }
+
+        function redirectToPage() {
+            window.location.href = "https://localhost/test/public/doctor/patient_details_upcoming/";
         }
 
         // Function to handle cancellation

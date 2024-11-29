@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrative_staff`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `administrative_staff` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
@@ -467,9 +467,9 @@ INSERT INTO `user_profile` (`id`, `username`, `password`, `role`) VALUES
 --
 
 --
--- Indexes for table `administrative_staff`
+-- Indexes for table `users`
 --
-ALTER TABLE `administrative_staff`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `admin_profile_fk` (`user_id`);
 
@@ -639,9 +639,9 @@ ALTER TABLE `timeslot_doctor`
 --
 
 --
--- Constraints for table `administrative_staff`
+-- Constraints for table `users`
 --
-ALTER TABLE `administrative_staff`
+ALTER TABLE `users`
   ADD CONSTRAINT `admin_profile_fk` FOREIGN KEY (`user_id`) REFERENCES `user_profile` (`id`);
 
 --

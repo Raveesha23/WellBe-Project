@@ -17,6 +17,14 @@ class Patient extends Controller
       'userType' => 'patient'
    ];
 
+   public function __construct()
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "patient"){
+                redirect('login');
+                exit;
+            }
+        }
+
    public function index()
    {
       $this->view('Patient/patient_dashboard', 'patient_dashboard');
@@ -41,7 +49,7 @@ class Patient extends Controller
    }
    public function chat_with_the_doctor()
    {
-      $this->view('Patient/chat_with_the_doctor', 'chat_with_the_doctor');
+      $this->view('Patient/chat', 'chat_with_the_doctor');
    }
    public function settings()
    {

@@ -24,7 +24,7 @@ class Patient extends Model
         'emergency_contact_relationship',
     ];
 
-    public function validate($data)
+    public function validate_first_form($data)
     {
         $this->errors = [];
 
@@ -76,6 +76,14 @@ class Patient extends Model
             $this->errors['contact'] = "Contact Number must be 10 digits";
         }
 
+
+        return empty($this->errors);
+    }
+
+    public function validate_second_form($data){
+
+        $this->errors = [];
+
         // Validate medical history
         if (empty($data['medical_history'])) {
             $this->errors['medical_history'] = "Medical History is required";
@@ -106,5 +114,18 @@ class Patient extends Model
         }
 
         return empty($this->errors);
+    }
+
+
+    public function loggedin()
+    {
+        $DB = new Database();
+        // Update user state to 1 (logged in)
+        $updateStateQuery = "UPDATE user_profile SET state = 1 WHERE id = :userid";
+        $DB->write($updateStateQuery, ['userid' => $_SESSION['userid']]);
+
+        // Update messages as received
+        $updateQuery = "UPDATE message SET received = 1 WHERE receiver = :receiver AND received = 0";
+        $DB->write($updateQuery, ['receiver' => $_SESSION['userid']]);
     }
 }

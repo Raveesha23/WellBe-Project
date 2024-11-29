@@ -64,7 +64,6 @@ class Doctor extends Model
 
         // Execute the query
         return $this->query($query);
-
     }
 
     private function calculateAge($dob)
@@ -155,6 +154,20 @@ class Doctor extends Model
         // Validate email format manually
         if (!empty($doctorData['email']) && !preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $doctorData['email'])) {
             $this->errors[] = 'Invalid email address.';
+
+        if (empty($data['nic'])) {
+            $this->errors['nic'] = "Username is required";
+        }
+
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required";
+        }
+
+
+        if (empty($this->errors)) {
+            return true;
+        } else {
+            return false;
         }
 
 
@@ -187,9 +200,7 @@ class Doctor extends Model
 
 
     public function getErrors()
-    {
-        return $this->errors;
-    }
+
 
     public function getAllDoctors()
     {
@@ -280,3 +291,5 @@ class Doctor extends Model
 
 
 
+
+}
