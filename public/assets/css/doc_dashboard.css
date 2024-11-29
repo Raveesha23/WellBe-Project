@@ -13,6 +13,13 @@
     display: block;
 }
 
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin: 20px;
+    text-align: center;
+}
+
 .stat{
     margin-top: 50px;
     display: grid;

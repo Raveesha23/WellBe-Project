@@ -112,7 +112,7 @@
                         <tr>
                             <td>FBC</td>
                             <td>Medium</td>
-                            <td><button class="view"><a href="<?= ROOT ?>/docotr/Lab_download">View</a></button></td>
+                            <td><button class="view"><a href="<?= ROOT ?>/doctor/Lab_download">View</a></button></td>
                         </tr>
                         <tr>
                             <td>FBC</td>

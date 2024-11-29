@@ -54,7 +54,7 @@
                         <p >Gender:<span class="doc_name"> Male</span></p>
                         <p >Date :<span class="doc_name"> 2024-11-28</span></p>
                         <div class="new_patient" style="margin-top: 10px;">Returning Patient</div>
-                        <button class="returning_patient"><a href="<?= ROOT ?>/doctor/display_record">Patient Records</a></button>
+                        <button class="returning_patient"><a style="color: #f3f3f3;" href="<?= ROOT ?>/doctor/display_record">Patient Records</a></button>
                         
                     </div>
                     <div class="card">
@@ -71,7 +71,7 @@
                         <p >Gender:<span class="doc_name"> Female</span></p>
                         <p >Date :<span class="doc_name"> 2024-11-28</span></p>
                         <div class="new_patient" style="margin-top: 10px;">Returning Patient</div>
-                        <button class="returning_patient" onclick="redirectToPage()" href="">Patient Records</button>
+                        <button class="returning_patient"><a style="color: #f3f3f3;" href="<?= ROOT ?>/doctor/display_record">Patient Records</button>
                         
                     </div>
                     

@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,12 +46,13 @@
                 <div class="container2">
                     
                     <div class="statQueue">
+                    <?php if (!empty($data)): ?>
                         <?php foreach ($data as $appointment): ?>
                             <a href="<?= ($appointment->state === 'PRESENT') ? ROOT . '/doctor/patient_details/' . $appointment->appointment_id : '#'; ?>" style="text-decoration: none;">
                                 <div class="boxQueue" style="<?php echo ($appointment->state === 'PRESENT') ? 'background-color: #5D93FF;' : ''; ?>">
                                     <div class="box-itemQueue">
                                         <div>
-                                            <img src="http://localhost/test2/public/assets/images/patient.png">
+                                            <img src="http://localhost/test3/public/assets/images/patient.png">
                                         </div>
                                         <div class="test">
                                             <p>
@@ -62,6 +64,9 @@
                                 </div>
                             </a>
                         <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="error-message">No appointments available.</p>
+                    <?php endif; ?>
                     </div>
                 </div>
             </div>

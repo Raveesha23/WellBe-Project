@@ -79,7 +79,7 @@
          <div class="user-details">
             <div class="user-avatar"></div>
             <div class="user-info">
-               <p style="font-weight: bold;">A.K.D</p>
+               <p style="font-weight: bold;"><?php echo $_SESSION['USER']->first_name  ?></p>
                <p style="padding-top:4px;color:#989898">Doctor</p>
             </div>
          </div>
