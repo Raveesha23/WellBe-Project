@@ -148,6 +148,9 @@ class Admin extends Controller
                // Instantiate the Doctor model
                $doctor = new Doctor();
 
+               // Debugging: Check submitted data
+               // echo(print_r($doctorData, true));
+
                // Validate the input data
                if ($doctor->validateDoctor($doctorData)) {
                   if ($doctor->updateDoctor($doctorData, $nic)) {

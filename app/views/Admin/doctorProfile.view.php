@@ -28,6 +28,17 @@
                 <?php if (!empty($doctorProfile)): ?>
                     <form class="doctor-profile-form" method = "POST" action="<?php echo ROOT; ?>/Admin/doctorProfile?nic=<?= $doctorProfile->nic ?>">
                         <span class="profile-form-title">Personal Information</span>
+
+                        <div class = "error-messages">
+                            <?php if (!empty($errors)): ?>
+                                <ul>
+                                    <?php foreach ($errors as $error): ?>
+                                        <li><?= htmlspecialchars($error) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="profile-form-row">
                             <label for="nic">NIC:</label>
                             <input type="text" id="nic" name="nic" value="<?= htmlspecialchars($doctorProfile->nic) ?>" readonly>
