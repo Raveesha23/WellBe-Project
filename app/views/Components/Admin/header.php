@@ -79,7 +79,7 @@
          <div class="user-details">
             <div class="user-avatar"></div>
             <div class="user-info">
-               <p style="font-weight: bold;">K.S.Perera</p>
+               <p style="font-weight: bold;">Raveesha Samarasekera</p>
                <p style="padding-top:4px;color:#989898">Administrative Staff</p>
             </div>
          </div>
