@@ -3,9 +3,14 @@
 // Check if session schedule is set
 if (isset($_SESSION['schedule'])) {
     $schedule = $_SESSION['schedule'];
+    //print_r($schedule);
+    if(empty($schedule)){
+        $schedule = [];
+    }
     
 } else {
     $schedule = []; // Default to an empty array if not set
+    //echo "helooooo";
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
