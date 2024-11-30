@@ -9,17 +9,13 @@ class Database
 	}
 	public function query($query, $data = [])
 	{
-		try {
-			$con = $this->connect();
-			$stm = $con->prepare($query);
-
-			$check = $stm->execute($data);
-
-			// Check if this is a SELECT query
-			if (stripos(trim($query), 'SELECT') === 0) {
-				// Fetch results for SELECT queries
-				$result = $stm->fetchAll(PDO::FETCH_OBJ);
-				return is_array($result) && count($result) ? $result : [];
+		$con = $this->connect();
+		$stm = $con->prepare($query);
+		$check = $stm->execute($data);
+		if ($check) {
+			$result = $stm->fetchAll(PDO::FETCH_OBJ);
+			if (is_array($result) && count($result)) {
+				return $result;
 			}
 		}
 		return false;
@@ -37,6 +33,7 @@ class Database
 		}
 		return false;
 	}
+
 
 	public function readn($query, $data = [])
 	{
