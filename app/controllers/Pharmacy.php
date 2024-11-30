@@ -16,12 +16,12 @@ class Pharmacy extends Controller
    ];
 
    public function __construct()
-   {
-      if (!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "pharmacy") {
-         redirect('login');
-         exit;
-      }
-   }
+        {
+            if(!isset($_SESSION['USER']) || $_SESSION['user_type'] !== "pharmacy"){
+                redirect('login');
+                exit;
+            }
+        }
 
    public function index()
    {

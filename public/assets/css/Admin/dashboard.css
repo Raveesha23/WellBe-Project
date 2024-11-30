@@ -17,8 +17,7 @@
 
 /* Sidebar */
 .sidebar {
-    width: 80px;
-    /* Show icons only */
+    width: 80px; /* Show icons only */
     background-color: #172554;
     color: white;
     transition: width 0.3s ease;
@@ -26,8 +25,7 @@
 }
 
 .sidebar:hover {
-    width: 250px;
-    /* Expands on hover */
+    width: 250px; /* Expands on hover */
 }
 
 .sidebar-logo {
@@ -54,8 +52,7 @@
     list-style-type: none;
     padding: 20px 0;
     margin-left: 10px;
-    margin-top: 20px;
-    ;
+    margin-top: 20px;;
 }
 
 .sidebar-menu li {
@@ -92,21 +89,18 @@
 }
 
 .menu-text {
-    display: none;
-    /* Hidden by default */
+    display: none; /* Hidden by default */
     font-size: 14px;
 }
 
 .sidebar:hover .menu-text {
-    display: inline;
-    /* Show on hover */
+    display: inline; /* Show on hover */
 }
 
 /* Main Content */
 .main-content {
     flex-grow: 1;
-    background-color: #f0f8ff;
-    /* Light blue background */
+    background-color: #f0f8ff; /* Light blue background */
     display: flex;
     flex-direction: column;
 }
@@ -117,8 +111,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f0f8ff;
-    /* Light blue background */
+    background-color: #f0f8ff; /* Light blue background */
     border-bottom: 2px solid #d1d9f1;
 }
 
@@ -142,24 +135,23 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #d1d9f1;
-    /* Placeholder for avatar */
+    background-color: #d1d9f1; /* Placeholder for avatar */
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.name {
+.name{
     margin: 0;
     font-size: 14px;
     color: #000000;
 }
 
-.role {
+.role{
     color: #525151;
     font-size: 12px;
 }
 
-.notification img {
+.notification img{
     margin-right: 20px;
     max-width: 25px;
 }
@@ -168,8 +160,7 @@
 .dashboard-content {
     flex-grow: 1;
     padding: 20px;
-    background-color: white;
-    /* Main content area white background */
+    background-color: white; /* Main content area white background */
     border-radius: 15px;
     margin-bottom: 25px;
 }
@@ -356,8 +347,7 @@
     background-color: #f0f8ff;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
-    ;
+    margin-top: 20px;;
     margin-bottom: 20px;
 }
 
