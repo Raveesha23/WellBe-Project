@@ -6,13 +6,12 @@
 class Pharmacy extends Model
 {
 
-   protected $table = 'pharmacist';
+   protected $table = 'Pharmacist';
 
    protected $allowedColumns = [
 
       'nic',
       'password',
-      'id',
    ];
 
    public function validate($data)
@@ -34,7 +33,6 @@ class Pharmacy extends Model
          return false;
       }
    }
-
    public function loggedin()
    {
       $DB = new Database();

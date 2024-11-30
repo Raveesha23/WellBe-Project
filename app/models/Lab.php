@@ -6,7 +6,7 @@
 class Lab extends Model
 {
 
-   protected $table = 'lab_technicia';
+   protected $table = 'lab_technician';
 
    protected $allowedColumns = [
 

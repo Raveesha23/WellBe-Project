@@ -176,7 +176,7 @@
                   });
                })
                .catch(console.error);
-         }, 5000);
+         }, 1000);
 
          // Redirect to details page on row click
          document.addEventListener('click', e => {
